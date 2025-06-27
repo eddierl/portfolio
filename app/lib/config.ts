@@ -8,9 +8,9 @@ export const metaData = {
 };
 
 export const socialLinks = {
-  twitter: "https://x.com/eddielius",
+  // twitter: "https://x.com/eddielius",
   github: "https://github.com/eddierl",
-  instagram: "https://www.instagram.com/eddierl/",
+  // instagram: "https://www.instagram.com/eddierl/",
   linkedin: "https://www.linkedin.com/in/eddie-erlich-0929181b/",
   email: "mailto:edlich6@gmail.com",
 };
