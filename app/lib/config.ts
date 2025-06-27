@@ -12,5 +12,5 @@ export const socialLinks = {
   github: "https://github.com/eddierl",
   // instagram: "https://www.instagram.com/eddierl/",
   linkedin: "https://www.linkedin.com/in/eddie-erlich-0929181b/",
-  email: "mailto:edlich6@gmail.com",
+  email: "mailto:eddie@erlich.dev",
 };
