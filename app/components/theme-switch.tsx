@@ -3,7 +3,28 @@ import * as React from "react";
 import { useTheme } from "next-themes";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import type { ThemeProviderProps } from "next-themes";
-import { FaCircleHalfStroke } from "react-icons/fa6";
+
+const FaCircleHalfStroke = ({ className }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
+    width="1em"
+    height="1em"
+    className={className}
+    fill="currentColor"
+    viewBox="0 0 32 32"
+  >
+    <clipPath id="theme-toggle__simple__cutout">
+      <path
+        className={"dark:-translate-x-1/2 dark:translate-y-1 transition-all"}
+        d="M0-5h55v37h-55zm32 12a1 1 0 0025 0 1 1 0 00-25 0"
+      />
+    </clipPath>
+    <g clipPath="url(#theme-toggle__simple__cutout)">
+      <circle cx="16" cy="16" r="15" />
+    </g>
+  </svg>
+);
 
 const storageKey = "theme-preference";
 
@@ -71,12 +92,7 @@ export const ThemeSwitch: React.FC = () => {
   };
 
   if (!mounted) {
-    return (
-      <FaCircleHalfStroke
-        className="h-[14px] w-[14px] text-[#1c1c1c]"
-        aria-hidden="true"
-      />
-    );
+    return <FaCircleHalfStroke className="size-3.5" aria-hidden="true" />;
   }
 
   return (
@@ -87,9 +103,7 @@ export const ThemeSwitch: React.FC = () => {
       className="flex items-center justify-center transition-opacity duration-300 hover:opacity-90 cursor-pointer"
     >
       <FaCircleHalfStroke
-        className={`h-[14px] w-[14px] ${
-          currentTheme === "dark" ? "text-[#D4D4D4]" : "text-[#1c1c1c]"
-        }`}
+        className={"size-3.5 dark:text-[#D4D4D4] text-[#1c1c1c]"}
       />
     </button>
   );

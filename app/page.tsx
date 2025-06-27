@@ -4,7 +4,7 @@ import { socialLinks } from "./lib/config";
 export default function Page() {
   return (
     <section>
-      <a href={socialLinks.twitter} target="_blank">
+      {/* <a href={socialLinks.twitter} target="_blank">
         <Image
           src="/profile.png"
           alt="Profile photo"
@@ -14,25 +14,35 @@ export default function Page() {
           height={160}
           priority
         />
-      </a>
-      <h1 className="mb-8 text-2xl font-medium">Portfolio template!</h1>
+      </a> */}
+      <h1 className="mb-8 text-2xl font-medium"> Hi, I'm Eddie! 👋</h1>
+
       <div className="prose prose-neutral dark:prose-invert">
         <p>
-          A clean, fast, and lightweight portfolio template built with Next.js,
-          Vercel, and Tailwind CSS.
+          I'm a frontend-focused software engineer with over 9 years of
+          experience building scalable web and mobile applications. I specialize
+          in clean, maintainable code, functional programming principles, and
+          creating seamless user experiences. I enjoy turning complex problems
+          into elegant solutions using modern technologies like React,
+          TypeScript, and Node.js.
         </p>
         <p>
-          Nextfolio has everything you need for a portfolio: MDX blog, SEO, RSS,
-          Atom & JSON feeds, analytics, Tweet & YouTube embeds, KaTeX and {""}
-          <a
+          Originally from Israel, I’m relocating to Perth, Australia on a
+          Skilled Independent 189 visa. I’m excited to bring my skills to new
+          challenges and contribute to innovative teams that care about quality,
+          performance, and great design.
+          {/* Nextfolio has everything you need for a portfolio: MDX blog, SEO, RSS,
+          Atom & JSON feeds, analytics, Tweet & YouTube embeds, KaTeX and {""} */}
+          {/* <a
             target="_blank"
             href="https://github.com/1msirius/Nextfolio?tab=readme-ov-file#features"
           >
             more
-          </a>
+          </a> */}
           .
         </p>
-        <p>
+        <p>Let’s build something great together.</p>
+        {/* <p>
           Nextfolio is{" "}
           <a href={socialLinks.github} target="_blank">
             open-source
@@ -56,7 +66,7 @@ export default function Page() {
             Sirius
           </a>
           .
-        </p>
+        </p> */}
       </div>
     </section>
   );

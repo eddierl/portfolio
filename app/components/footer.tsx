@@ -42,7 +42,7 @@ export default function Footer() {
       <time>© {YEAR}</time>{" "}
       <a
         className="no-underline"
-        href={socialLinks.twitter}
+        href="/"
         target="_blank"
         rel="noopener noreferrer"
       >
