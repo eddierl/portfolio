@@ -75,6 +75,10 @@ export async function GET(
 
   const response = responseMap[format];
 
+  if (!response) {
+    throw new Error("no response");
+  }
+
   return new NextResponse(response.content, {
     headers: {
       "Content-Type": response.contentType,

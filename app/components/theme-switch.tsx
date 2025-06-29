@@ -4,15 +4,17 @@ import { useTheme } from "next-themes";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import type { ThemeProviderProps } from "next-themes";
 
-const FaCircleHalfStroke = ({ className }) => (
+const FaCircleHalfStroke = (
+  props: React.JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>
+) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     aria-hidden="true"
     width="1em"
     height="1em"
-    className={className}
     fill="currentColor"
     viewBox="0 0 32 32"
+    {...props}
   >
     <clipPath id="theme-toggle__simple__cutout">
       <path
