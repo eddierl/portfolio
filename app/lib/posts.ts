@@ -23,6 +23,7 @@ function parseFrontmatter(fileContent: string) {
     let [key, ...valueArr] = line.split(": ");
     let value = valueArr.join(": ").trim();
     value = value.replace(/^['"](.*)['"]$/, "$1");
+    //@ts-expect-error
     metadata[key?.trim() as keyof Metadata as string] =
       String(value).toLowerCase() === "false" ? false : value;
   });

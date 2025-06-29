@@ -20,7 +20,14 @@ const icons = {
 
 const YEAR = new Date().getFullYear();
 
-function SocialLink({ href, icon: Icon, ...props }) {
+function SocialLink({
+  href,
+  icon: Icon,
+  ...props
+}: {
+  href: string;
+  icon: IconType;
+}) {
   return (
     <a href={href} target="_blank" rel="noopener noreferrer" {...props}>
       <Icon />
@@ -31,7 +38,9 @@ function SocialLink({ href, icon: Icon, ...props }) {
 function SocialLinks() {
   return (
     <div className="flex text-lg gap-3.5 float-right transition-opacity duration-300 *:hover:opacity-80">
-      {Object.entries(socialLinks).map(([type, link]) => (
+      {(
+        Object.entries(socialLinks) as Array<[keyof typeof socialLinks, string]>
+      ).map(([type, link]) => (
         <SocialLink
           key={type}
           href={link}

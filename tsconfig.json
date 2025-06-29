@@ -20,7 +20,7 @@
     "verbatimModuleSyntax": true,
 
     /* Strictness */
-    "strict": false /**change to true **/,
+    "strict": true,
     "noUncheckedIndexedAccess": true,
     "noImplicitOverride": true,
 

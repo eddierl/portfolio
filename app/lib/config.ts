@@ -13,4 +13,4 @@ export const socialLinks = {
   // instagram: "https://www.instagram.com/eddierl/",
   linkedin: "https://www.linkedin.com/in/eddie-erlich-0929181b/",
   email: "mailto:eddie@erlich.dev",
-};
+} as const;

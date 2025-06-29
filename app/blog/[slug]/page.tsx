@@ -14,6 +14,8 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({
   params,
+}: {
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata | undefined> {
   const { slug } = await params;
   let post = getBlogPosts().find((post) => post.slug === slug);
@@ -55,7 +57,11 @@ export async function generateMetadata({
   };
 }
 
-export default async function Blog({ params }) {
+export default async function Blog({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
   const { slug } = await params;
   let post = getBlogPosts().find((post) => post.slug === slug);
 
