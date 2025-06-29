@@ -1,9 +1,11 @@
+import { negate } from "es-toolkit";
 import fs from "fs";
 import path from "path";
 
 type Metadata = {
   title: string;
   publishedAt: string;
+  isDraft: boolean;
   summary: string;
   tags: string;
   image?: string;
@@ -20,8 +22,9 @@ function parseFrontmatter(fileContent: string) {
   frontMatterLines.forEach((line) => {
     let [key, ...valueArr] = line.split(": ");
     let value = valueArr.join(": ").trim();
-    value = value.replace(/^['"](.*)['"]$/, "$1"); 
-    metadata[key.trim() as keyof Metadata] = value;
+    value = value.replace(/^['"](.*)['"]$/, "$1");
+    metadata[key.trim() as keyof Metadata as string] =
+      String(value).toLowerCase() === "false" ? false : value;
   });
 
   return { metadata: metadata as Metadata, content };
@@ -50,8 +53,12 @@ function getMDXData(dir: string) {
   });
 }
 
+const isDraft = ({ metadata }: { metadata: Metadata }) => metadata.isDraft;
+
 export function getBlogPosts() {
-  return getMDXData(path.join(process.cwd(), "content"));
+  return getMDXData(path.join(process.cwd(), "content")).filter(
+    negate(isDraft)
+  );
 }
 
 export function formatDate(date: string, includeRelative = false) {

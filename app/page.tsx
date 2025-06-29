@@ -27,10 +27,6 @@ export default function Page() {
           TypeScript, and Node.js.
         </p>
         <p>
-          Originally from Israel, I’m relocating to Perth, Australia on a
-          Skilled Independent 189 visa. I’m excited to bring my skills to new
-          challenges and contribute to innovative teams that care about quality,
-          performance, and great design.
           {/* Nextfolio has everything you need for a portfolio: MDX blog, SEO, RSS,
           Atom & JSON feeds, analytics, Tweet & YouTube embeds, KaTeX and {""} */}
           {/* <a
@@ -39,7 +35,6 @@ export default function Page() {
           >
             more
           </a> */}
-          .
         </p>
         <p>Let’s build something great together.</p>
         {/* <p>
