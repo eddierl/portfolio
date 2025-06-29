@@ -100,7 +100,7 @@ export const ThemeSwitch: React.FC = () => {
       id="theme-toggle"
       aria-label={`${currentTheme} mode`}
       onClick={toggleTheme}
-      className="flex items-center justify-center transition-opacity duration-300 hover:opacity-90 cursor-pointer"
+      className="flex items-center justify-center transition-opacity duration-300 hover:opacity-80 cursor-pointer"
     >
       <FaCircleHalfStroke
         className={"size-3.5 dark:text-[#D4D4D4] text-[#1c1c1c]"}
