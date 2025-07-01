@@ -1,6 +1,6 @@
 import React, { type FunctionComponent, type PropsWithChildren } from "react";
 import Link from "next/link";
-import Image from "next/image";
+import { type ImageProps } from "next/image";
 import { MDXRemote, type MDXRemoteProps } from "next-mdx-remote/rsc";
 import { highlight } from "sugar-high";
 import { TweetComponent } from "./tweet";
@@ -10,7 +10,7 @@ import { ImageGrid } from "./image-grid";
 import rehypeKatex from "rehype-katex";
 import remarkMath from "remark-math";
 import "katex/dist/katex.min.css";
-import type { Url } from "next/dist/shared/lib/router/router";
+import { getImageProps } from "next/image";
 
 function CustomLink(props: PropsWithChildren<{ href: string }>) {
   let href = props.href;
@@ -26,9 +26,15 @@ function CustomLink(props: PropsWithChildren<{ href: string }>) {
   }
   return <a target="_blank" rel="noopener noreferrer" {...props} />;
 }
-//@ts-expect-error
-function RoundedImage(props) {
-  return <Image alt={props.alt} className="rounded-lg" {...props} />;
+
+function RoundedImage(imageProps: ImageProps) {
+  const { props } = getImageProps(imageProps);
+  return (
+    <figure>
+      <img className="rounded-lg" {...props} />
+      <figcaption className="italic">{props.alt}</figcaption>
+    </figure>
+  );
 }
 
 function Code({ children, ...props }: PropsWithChildren<{}>) {
