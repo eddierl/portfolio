@@ -10,7 +10,7 @@
   "dependencies": {
     "@vercel/analytics": "^1.5.0",
     "@vercel/speed-insights": "^1.2.0",
-    "es-toolkit": "^1.39.5",
+    "es-toolkit": "^1.39.6",
     "feed": "^5.1.0",
     "katex": "^0.16.22",
     "next": "^15.3.4",
@@ -29,7 +29,7 @@
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.11",
     "@tailwindcss/typography": "^0.5.16",
-    "@types/node": "^24.0.4",
+    "@types/node": "^24.0.10",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
     "autoprefixer": "^10.4.21",
