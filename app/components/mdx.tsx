@@ -10,7 +10,8 @@ import { ImageGrid } from "./image-grid";
 import rehypeKatex from "rehype-katex";
 import remarkMath from "remark-math";
 import "katex/dist/katex.min.css";
-import { getImageProps } from "next/image";
+import Image from "next/image";
+import { blur } from "app/lib/image/blur";
 
 function CustomLink(props: PropsWithChildren<{ href: string }>) {
   let href = props.href;
@@ -27,13 +28,17 @@ function CustomLink(props: PropsWithChildren<{ href: string }>) {
   return <a target="_blank" rel="noopener noreferrer" {...props} />;
 }
 
-function RoundedImage(imageProps: ImageProps) {
-  const { props } = getImageProps(imageProps);
+async function RoundedImage(imageProps: ImageProps) {
+  const imageSrc = imageProps.src.toString();
+  const blurDataURL = await blur(imageSrc);
+
   return (
-    <figure>
-      <img className="rounded-lg" {...props} />
-      <figcaption className="italic">{props.alt}</figcaption>
-    </figure>
+    <Image
+      className="rounded-lg"
+      placeholder="blur"
+      blurDataURL={blurDataURL}
+      {...imageProps}
+    />
   );
 }
 
