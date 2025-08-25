@@ -6,7 +6,10 @@ const navItems = {
   "/blog": { name: "Blog" },
   // "/projects": { name: "Projects" },
   // "/photos": { name: "Photos" },
-  "/Eddie_Erlich_Resume.pdf": { name: "Resume", target: "_blank" },
+  "/Edward_Erlich_-_Senior_Software_Engineer_CV.pdf": {
+    name: "Resume",
+    target: "_blank",
+  },
 };
 
 export function Navbar() {

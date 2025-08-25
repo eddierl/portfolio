@@ -15,7 +15,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const routes = [
     "",
     "blog",
-    "Eddie_Erlich_Resume.pdf",
+    "Edward_Erlich_-_Senior_Software_Engineer_CV.pdf",
     //  "projects", "photos"
   ].map((route) => ({
     url: `${BaseUrl}${route}`,
