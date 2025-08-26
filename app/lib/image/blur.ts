@@ -13,6 +13,5 @@ export const blur = async (image: string) => {
     "base64"
   )}`;
 
-  console.log(base64Image);
   return base64Image;
 };
