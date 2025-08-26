@@ -15,7 +15,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const routes = [
     "",
     "blog",
-    "Edward_Erlich_-_Senior_Software_Engineer_CV.pdf",
+    // "Edward_Erlich_-_Senior_Software_Engineer_CV.pdf", # PDF files shouldn't be on the sitemap
     //  "projects", "photos"
   ].map((route) => ({
     url: `${BaseUrl}${route}`,
