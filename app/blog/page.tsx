@@ -2,7 +2,9 @@ import Link from "next/link";
 import { formatDate, getBlogPosts } from "app/lib/posts";
 import dayjs from "dayjs";
 import { Badge } from "app/components/badge";
-
+import { useLocalStorage } from "usehooks-ts";
+import { useEffect } from "react";
+import { UpdateLastSeen } from "app/components/update-last-seen";
 export const metadata = {
   title: "Blog",
   description: "erlich.dev Blog",
@@ -14,6 +16,7 @@ export default function BlogPosts() {
   return (
     <section>
       <h1 className="mb-8 text-2xl font-medium">My Blog</h1>
+      <UpdateLastSeen />
       <div>
         {allBlogs
           .sort((a, b) => {
