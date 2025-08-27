@@ -10,6 +10,7 @@
   "dependencies": {
     "@vercel/analytics": "^1.5.0",
     "@vercel/speed-insights": "^1.2.0",
+    "dayjs": "^1.11.14",
     "es-toolkit": "^1.39.10",
     "feed": "^5.1.0",
     "katex": "^0.16.22",
