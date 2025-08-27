@@ -7,6 +7,9 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import Footer from "./components/footer";
 import { ThemeProvider } from "./components/theme-switch";
 import { metaData } from "./lib/config";
+import { Notifications } from "app/components/notifications";
+import { getBlogPosts } from "app/lib/posts";
+import dayjs from "dayjs";
 
 const mainFontFamily = Nunito({ subsets: ["latin"] });
 
@@ -51,6 +54,12 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const allBlogs = getBlogPosts();
+  const aWeekAgo = dayjs().subtract(1, "week");
+  const isThereNewBlog = allBlogs.some((blog) =>
+    dayjs(blog.metadata.publishedAt).isAfter(aWeekAgo)
+  );
+
   return (
     <html
       suppressHydrationWarning
@@ -82,6 +91,7 @@ export default function RootLayout({
           <main className="flex-auto min-w-0 mt-2 md:mt-6 flex flex-col px-6 sm:px-4 md:px-0 max-w-[624px] w-full">
             <Navbar />
             {children}
+            <Notifications isThereNewBlog={isThereNewBlog} />
             <Footer />
             <Analytics />
             <SpeedInsights />
