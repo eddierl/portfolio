@@ -33,12 +33,17 @@ async function RoundedImage(imageProps: ImageProps) {
   const blurDataURL = await blur(imageSrc);
 
   return (
-    <Image
-      className="rounded-lg"
-      placeholder="blur"
-      blurDataURL={blurDataURL}
-      {...imageProps}
-    />
+    <figure className="flex flex-col my-4">
+      <Image
+        className="rounded-lg"
+        placeholder="blur"
+        blurDataURL={blurDataURL}
+        {...imageProps}
+      />
+      <figcaption className="mt-2 text-sm text-gray-500 italic">
+        {imageProps.alt}
+      </figcaption>
+    </figure>
   );
 }
 
