@@ -20,6 +20,10 @@
   --sh-jsxliterals: #6266d1;
   --sh-property: #e25a1c;
   --sh-entity: #e25a1c;
+  /* UI surface tokens */
+  --popover: #ffffff;
+  --popover-foreground: #0a0a0a;
+  --border: #e5e7eb;
 }
 
 /* Dark theme colors */
@@ -34,6 +38,10 @@
   --sh-jsxliterals: #6266d1;
   --sh-property: #e25a1c;
   --sh-entity: #e25a1c;
+  /* UI surface tokens */
+  --popover: #0a0a0a;
+  --popover-foreground: #fafafa;
+  --border: #262626;
 }
 
 html {
