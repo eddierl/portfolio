@@ -2,6 +2,8 @@ import { NextResponse, NextRequest } from "next/server";
 
 // This function can be marked `async` if using `await` inside
 export function middleware(request: NextRequest) {
+  const baseUrl = request.nextUrl.origin;
+
   const url = new URL(request.url);
   const isPdf = url.pathname.endsWith(".pdf");
   if (isPdf) {
@@ -14,7 +16,7 @@ export function middleware(request: NextRequest) {
     console.log(log);
 
     // Send asynchronously (don’t block request)
-    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/log`, {
+    fetch(`${baseUrl}/api/log`, {
       method: "POST",
       body: JSON.stringify(log),
       headers: { "Content-Type": "application/json" },
