@@ -1,4 +1,5 @@
 import { NextResponse, NextRequest } from "next/server";
+import { geolocation } from "@vercel/functions";
 
 // This function can be marked `async` if using `await` inside
 export function middleware(request: NextRequest) {
@@ -7,13 +8,13 @@ export function middleware(request: NextRequest) {
   const url = new URL(request.url);
   const isPdf = url.pathname.endsWith(".pdf");
   if (isPdf) {
+    const geo = geolocation(request);
     const log = {
       path: request.nextUrl.pathname,
       time: new Date().toISOString(),
       ua: request.headers.get("user-agent"),
+      geo,
     };
-
-    console.log(log);
 
     // Send asynchronously (don’t block request)
     fetch(`${baseUrl}/api/log`, {
@@ -22,7 +23,6 @@ export function middleware(request: NextRequest) {
       headers: { "Content-Type": "application/json" },
       keepalive: true,
     }).catch((e) => console.error(e));
-    console.info(request.url);
   }
   return NextResponse.next();
 }

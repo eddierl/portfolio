@@ -7,6 +7,7 @@ export async function POST(req: Request) {
   const { error } = await supabase.from("logs").insert({
     path: body.path,
     ua: body.ua,
+    geo: body.geo,
     time: body.time, // already ISO, Supabase will cast
   });
 
