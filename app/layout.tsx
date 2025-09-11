@@ -85,6 +85,7 @@ export default function RootLayout({
           href="/feed.json"
           title="JSON Feed"
         />
+        <script async src="https://scripts.simpleanalyticscdn.com/latest.js" />
       </head>
       <body className="antialiased flex flex-col items-center justify-center mx-auto mt-2 lg:mt-8 mb-12">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
