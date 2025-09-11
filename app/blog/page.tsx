@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { formatDate, getBlogPosts } from "app/lib/posts";
+import { formatDate, getBlogPosts, calculateReadingTime } from "app/lib/posts";
 import dayjs from "dayjs";
 import { Badge } from "app/components/badge";
 import { useLocalStorage } from "usehooks-ts";
@@ -38,11 +38,18 @@ export default function BlogPosts() {
                 className="flex flex-col space-y-1 mb-5 transition-opacity duration-200 hover:opacity-80"
                 href={`/blog/${post.slug}`}
               >
-                <div className="w-full flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-1 sm:space-y-0 sm:space-x-2">
-                  <h2 className="text-black dark:text-white ">
-                    <span className="mr-2">{post.metadata.title}</span>
-                    {isNew && <Badge label="New" />}
-                  </h2>
+                <div className="w-full flex flex-col sm:flex-row justify-between items-start space-y-1 sm:space-y-0 sm:space-x-2">
+                  <div className="flex flex-col space-y-1">
+                    <h2 className="text-black dark:text-white">
+                      {post.metadata.title}
+                    </h2>
+                    <div className="flex items-center gap-2">
+                      {isNew && <Badge label="New" />}
+                      <span className="text-xs bg-neutral-100 dark:bg-neutral-800 px-2 py-1 rounded">
+                        {calculateReadingTime(post.content)} min
+                      </span>
+                    </div>
+                  </div>
 
                   <p className="text-neutral-600 dark:text-neutral-400 tabular-nums text-sm">
                     {formatDate(post.metadata.publishedAt, false)}

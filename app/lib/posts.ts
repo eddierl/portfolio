@@ -67,6 +67,30 @@ export function getBlogPosts() {
   );
 }
 
+export function calculateReadingTime(content: string): number {
+  // Remove markdown syntax and HTML tags
+  const cleanContent = content
+    .replace(/```[\s\S]*?```/g, '') // Remove code blocks
+    .replace(/`[^`]*`/g, '') // Remove inline code
+    .replace(/!\[.*?\]\(.*?\)/g, '') // Remove images
+    .replace(/\[.*?\]\(.*?\)/g, '') // Remove links
+    .replace(/#{1,6}\s/g, '') // Remove headers
+    .replace(/\*\*.*?\*\*/g, '') // Remove bold
+    .replace(/\*.*?\*/g, '') // Remove italic
+    .replace(/^\s*[-*+]\s/gm, '') // Remove list markers
+    .replace(/^\s*\d+\.\s/gm, '') // Remove numbered list markers
+    .replace(/<[^>]*>/g, '') // Remove HTML tags
+    .replace(/\s+/g, ' ') // Normalize whitespace
+    .trim();
+
+  // Average reading speed: 200-250 words per minute
+  // Using 225 as a middle ground
+  const wordsPerMinute = 225;
+  const wordCount = cleanContent.split(' ').filter(word => word.length > 0).length;
+
+  return Math.ceil(wordCount / wordsPerMinute);
+}
+
 export function formatDate(date: string, includeRelative = false) {
   let currentDate = new Date();
   if (!date.includes("T")) {
