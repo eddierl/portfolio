@@ -100,9 +100,10 @@ export const ThemeSwitch: React.FC = () => {
   return (
     <button
       id="theme-toggle"
-      aria-label={`${currentTheme} mode`}
+      aria-label="Toggle theme"
+      aria-pressed={currentTheme === "dark"}
       onClick={toggleTheme}
-      className="flex items-center justify-center transition-opacity duration-300 hover:opacity-80 cursor-pointer"
+      className="flex items-center justify-center transition-opacity duration-300 hover:opacity-80 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-current rounded"
     >
       <FaCircleHalfStroke
         className={"size-3.5 dark:text-[#D4D4D4] text-[#1c1c1c]"}
