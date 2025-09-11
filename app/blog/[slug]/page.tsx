@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { CustomMDX } from "app/components/mdx";
+import { FiClock } from "react-icons/fi";
 import { formatDate, getBlogPosts, calculateReadingTime } from "app/lib/posts";
 import { metaData } from "app/lib/config";
 
@@ -98,7 +99,10 @@ export default async function Blog({
         <div className="flex items-center space-x-2 text-sm text-neutral-600 dark:text-neutral-400">
           <span>{formatDate(post.metadata.publishedAt)}</span>
           <span>•</span>
-          <span>{calculateReadingTime(post.content)} min read</span>
+          <span className="inline-flex items-center gap-1">
+            <FiClock aria-hidden="true" />
+            {calculateReadingTime(post.content)} min read
+          </span>
         </div>
       </div>
       <article className="prose prose-quoteless prose-neutral dark:prose-invert">

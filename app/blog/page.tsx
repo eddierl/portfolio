@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { formatDate, getBlogPosts, calculateReadingTime } from "app/lib/posts";
+import { FiClock } from "react-icons/fi";
 import dayjs from "dayjs";
 import { Badge } from "app/components/badge";
 import { useLocalStorage } from "usehooks-ts";
@@ -45,7 +46,8 @@ export default function BlogPosts() {
                     </h2>
                     <div className="flex items-center gap-2">
                       {isNew && <Badge label="New" />}
-                      <span className="text-xs bg-neutral-100 dark:bg-neutral-800 px-2 py-1 rounded">
+                      <span className="text-xs bg-neutral-100 dark:bg-neutral-800 px-2 py-1 rounded inline-flex items-center gap-1">
+                        <FiClock aria-hidden="true" />
                         {calculateReadingTime(post.content)} min
                       </span>
                     </div>
