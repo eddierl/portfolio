@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ThemeSwitch } from "./theme-switch";
 import { metaData } from "../lib/config";
+import { isAuthenticated } from "../admin/actions";
 
 const navItems = {
   "/blog": { name: "Blog" },
@@ -12,7 +13,8 @@ const navItems = {
   },
 };
 
-export function Navbar() {
+export async function Navbar() {
+  const authed = await isAuthenticated();
   return (
     <nav className="lg:mb-16 mb-12 py-5">
       <div className="flex flex-col md:flex-row md:items-center justify-between">
@@ -22,6 +24,15 @@ export function Navbar() {
           </Link>
         </div>
         <div className="flex flex-row gap-4 mt-6 md:mt-0 md:ml-auto items-center">
+          {authed ? (
+            <Link
+              href="/admin"
+              className="transition-all hover:text-neutral-800 hover:underline dark:hover:text-neutral-200 flex align-middle relative"
+            >
+              Admin
+            </Link>
+          ) : null}
+
           {Object.entries(navItems).map(([path, { name, ...rest }]) => (
             <Link
               key={path}
