@@ -10,7 +10,7 @@ export async function login(formData: FormData) {
     const password = String(formData.get("password") ?? "");
 
     if (password === ADMIN_PASSWORD) {
-        cookies().set(COOKIE_NAME, "1", {
+        (await cookies()).set(COOKIE_NAME, "1", {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
             sameSite: "lax",
@@ -24,7 +24,7 @@ export async function login(formData: FormData) {
 }
 
 export async function logout() {
-    cookies().set(COOKIE_NAME, "", {
+    (await cookies()).set(COOKIE_NAME, "", {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
         sameSite: "lax",

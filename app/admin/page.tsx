@@ -5,11 +5,12 @@ import TimeCell from "../components/time-cell";
 
 export const dynamic = "force-dynamic";
 
-export default async function AdminPage({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) {
+export default async function AdminPage({ searchParams }: { searchParams?: Promise<Record<string, string>> }) {
     const authed = await isAuthenticated();
 
     console.log(authed);
-    const error = searchParams?.error ? "Invalid password" : "";
+    const params = (await searchParams) ?? {};
+    const error = params?.error ? "Invalid password" : "";
 
     if (!authed) {
         return (
