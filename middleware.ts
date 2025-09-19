@@ -4,9 +4,25 @@ import { geolocation } from "@vercel/functions";
 // This function can be marked `async` if using `await` inside
 export function middleware(request: NextRequest) {
   const baseUrl = request.nextUrl.origin;
+  const COOKIE_NAME = "anon_id";
 
   const url = new URL(request.url);
   const isPdf = url.pathname.endsWith(".pdf");
+  const response = NextResponse.next();
+
+  // Ensure anonymous cookie exists
+  let anonId = request.cookies.get(COOKIE_NAME)?.value;
+  if (!anonId) {
+    anonId = crypto.randomUUID();
+    response.cookies.set(COOKIE_NAME, anonId, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      path: "/",
+      maxAge: 60 * 60 * 24 * 365, // 1 year
+    });
+  }
+
   if (isPdf) {
     const geo = geolocation(request);
     const log = {
@@ -14,6 +30,7 @@ export function middleware(request: NextRequest) {
       time: new Date().toISOString(),
       ua: request.headers.get("user-agent"),
       geo,
+      clientId: anonId,
     };
 
     // Send asynchronously (don’t block request)
@@ -24,7 +41,7 @@ export function middleware(request: NextRequest) {
       keepalive: true,
     }).catch((e) => console.error(e));
   }
-  return NextResponse.next();
+  return response;
 }
 
 export const config = {

@@ -44,7 +44,7 @@ export default async function AdminPage({ searchParams }: { searchParams?: Promi
     const table = process.env.ADMIN_ENTRIES_TABLE ?? "logs";
     const { data, error: supabaseError } = await supabase
         .from(table)
-        .select("time,ua,geo")
+        .select("time,ua,geo,client_id")
         // Only include rows where geo.country exists and is not empty
         .neq("geo->>country", null)
         .neq("geo->>country", "")
@@ -67,7 +67,7 @@ export default async function AdminPage({ searchParams }: { searchParams?: Promi
                         <thead>
                             <tr className="text-left border-b">
                                 {(() => {
-                                    const columns = ["time", "ua", "device", "geo"] as const;
+                                    const columns = ["time", "ua", "device", "geo", "client_id"] as const;
                                     if (data && data.length > 0) {
                                         return columns.map((key) => (
                                             <th key={key} className="py-2 pr-4 font-medium">{key}</th>
@@ -138,7 +138,7 @@ export default async function AdminPage({ searchParams }: { searchParams?: Promi
 
                                 return (
                                     <tr key={idx} className="border-b/50">
-                                        {(["time", "ua", "device", "geo"] as const).map((key) => {
+                                        {(["time", "ua", "device", "geo", "client_id"] as const).map((key) => {
                                             const value = (row as Record<string, unknown>)[key as string];
                                             let display: string;
                                             if (key === "device") {

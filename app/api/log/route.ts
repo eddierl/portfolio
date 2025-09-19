@@ -9,6 +9,7 @@ export async function POST(req: Request) {
     ua: body.ua,
     geo: body.geo,
     time: body.time, // already ISO, Supabase will cast
+    client_id: body.clientId,
   });
 
   if (error) {
