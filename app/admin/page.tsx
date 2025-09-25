@@ -12,7 +12,6 @@ export default async function AdminPage({
 }) {
   const authed = await isAuthenticated();
 
-  console.log(authed);
   const params = (await searchParams) ?? {};
   const error = params?.error ? "Invalid password" : "";
 
