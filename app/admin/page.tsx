@@ -43,12 +43,14 @@ export default async function AdminPage({
   }
 
   const table = process.env.ADMIN_ENTRIES_TABLE ?? "logs";
+
   const { data, error: supabaseError } = await supabase
     .from(table)
     .select("time,ua,geo,client_id")
-    // Only include rows where geo.country exists and is not empty
     .neq("geo->>country", null)
     .neq("geo->>country", "")
+    .neq("client_id", "c2b6d823-85c4-4687-a255-a9908861c014")
+    .neq("client_id", null)
     .order("time", { ascending: false })
     .limit(100);
 
