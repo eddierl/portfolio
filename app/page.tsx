@@ -1,5 +1,7 @@
 import Image from "next/image";
 import { socialLinks } from "./lib/config";
+import Link from "next/link";
+import SkillGroups from "./components/skill-groups";
 
 export default function Page() {
   return (
@@ -63,6 +65,8 @@ export default function Page() {
           .
         </p> */}
       </div>
+
+      <SkillGroups />
     </section>
   );
 }
