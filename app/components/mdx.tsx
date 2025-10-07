@@ -53,6 +53,7 @@ function Code({
 }: PropsWithChildren<Record<string, never>>) {
   //@ts-expect-error
   const codeHTML = highlight(children);
+  // biome-ignore lint/security/noDangerouslySetInnerHtml: this component is for printing code on the screen
   return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />;
 }
 
