@@ -108,7 +108,7 @@ export default async function AdminPage({
 
                   const truncate = (text: string, max = 50): string => {
                     if (text.length <= max) return text;
-                    return text.slice(0, max - 1) + "…";
+                    return `${text.slice(0, max - 1)}…`;
                   };
 
                   const summarizeUA = (uaRaw: string): string => {
@@ -143,7 +143,7 @@ export default async function AdminPage({
                       if (/iPhone|iPad|iPod/.test(ua)) {
                         const ios = ua.match(/OS ([\d_]+) like Mac OS X/);
                         return `iOS${
-                          ios ? " " + (ios?.[1] ?? "").replace(/_/g, ".") : ""
+                          ios ? ` ${(ios?.[1] ?? "").replace(/_/g, ".")}` : ""
                         }`.trim();
                       }
                       const android = ua.match(/Android ([\d.]+)/);
@@ -182,9 +182,9 @@ export default async function AdminPage({
                         ];
                         let display: string;
                         if (key === "device") {
-                          const uaValue = (row as Record<string, unknown>)[
-                            "ua"
-                          ] as string | undefined;
+                          const uaValue = (row as Record<string, unknown>).ua as
+                            | string
+                            | undefined;
                           display = getDevice(String(uaValue ?? ""));
                         } else if (
                           key === "geo" &&
@@ -192,10 +192,9 @@ export default async function AdminPage({
                           typeof value === "object"
                         ) {
                           const geo = value as Record<string, unknown>;
-                          const countryCode = (geo["country"] ||
-                            geo["countryCode"]) as string | undefined;
-                          const city =
-                            (geo["city"] as string | undefined) || "";
+                          const countryCode = (geo.country ||
+                            geo.countryCode) as string | undefined;
+                          const city = (geo.city as string | undefined) || "";
                           const flag = toFlagEmoji(countryCode);
                           display =
                             flag && city

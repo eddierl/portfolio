@@ -15,7 +15,7 @@ const FaCircleHalfStroke = (
     viewBox="0 0 32 32"
     {...props}
   >
-    <clipPath id="theme-toggle__simple__cutout">
+    <clipPath>
       <path
         className={"dark:-translate-x-1/2 dark:translate-y-1 transition-all"}
         d="M0-5h55v37h-55zm32 12a1 1 0 0025 0 1 1 0 00-25 0"
@@ -84,7 +84,7 @@ export const ThemeSwitch: React.FC = () => {
     mediaQuery.addEventListener("change", handleChange);
 
     return () => mediaQuery.removeEventListener("change", handleChange);
-  }, [setTheme]);
+  }, [getColorPreference, reflectPreference]);
 
   const toggleTheme = () => {
     const newTheme = currentTheme === "light" ? "dark" : "light";
@@ -98,7 +98,7 @@ export const ThemeSwitch: React.FC = () => {
 
   return (
     <button
-      id="theme-toggle"
+      type="button"
       aria-label="Toggle theme"
       aria-pressed={currentTheme === "dark"}
       onClick={toggleTheme}

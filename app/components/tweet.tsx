@@ -3,7 +3,7 @@ import { getTweet } from "react-tweet/api";
 import "./tweet.css";
 
 const TweetContent = async ({ id, components, onError }: TweetProps) => {
-  let error;
+  let error: Error | undefined;
   const tweet = id
     ? await getTweet(id).catch((err) => {
         if (onError) {

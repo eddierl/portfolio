@@ -1,7 +1,7 @@
 import type { ImageProps } from "next/image";
 import Link from "next/link";
 import { MDXRemote, type MDXRemoteProps } from "next-mdx-remote/rsc";
-import React, { type FunctionComponent, type PropsWithChildren } from "react";
+import React, { type PropsWithChildren } from "react";
 import rehypeKatex from "rehype-katex";
 import remarkMath from "remark-math";
 import { highlight } from "sugar-high";
@@ -47,7 +47,10 @@ async function RoundedImage(imageProps: ImageProps) {
   );
 }
 
-function Code({ children, ...props }: PropsWithChildren<{}>) {
+function Code({
+  children,
+  ...props
+}: PropsWithChildren<Record<string, never>>) {
   //@ts-expect-error
   const codeHTML = highlight(children);
   return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />;
@@ -57,14 +60,13 @@ function Code({ children, ...props }: PropsWithChildren<{}>) {
 function Table({ data }) {
   //@ts-expect-error
   const headers = data.headers.map((header, index) => (
-    <th key={index}>{header}</th>
+    <th key={`header-${index}`}>{header}</th>
   ));
   //@ts-expect-error
   const rows = data.rows.map((row, index) => (
-    <tr key={index}>
-      {/*@ts-expect-error*/}
+    <tr key={`row-${index}`}>
       {row.map((cell, cellIndex) => (
-        <td key={cellIndex}>{cell}</td>
+        <td key={`cell-${cellIndex}`}>{cell}</td>
       ))}
     </tr>
   ));
@@ -108,7 +110,7 @@ function slugify(str: string) {
 }
 
 function createHeading(level: number) {
-  const Heading = ({ children }: PropsWithChildren<{}>) => {
+  const Heading = ({ children }: PropsWithChildren<Record<string, never>>) => {
     //@ts-expect-error
     const slug = slugify(children);
     return React.createElement(

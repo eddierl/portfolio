@@ -2,13 +2,7 @@
 
 import { useEffect } from "react";
 
-export default function ErrorScreen({
-  error,
-  reset,
-}: {
-  error: Error;
-  reset: () => void;
-}) {
+export default function ErrorScreen({ error }: { error: Error }) {
   useEffect(() => {
     console.error(error);
   }, [error]);

@@ -1,7 +1,4 @@
-import Image from "next/image";
-import Link from "next/link";
 import SkillGroups from "./components/skill-groups";
-import { socialLinks } from "./lib/config";
 
 export default function Page() {
   return (

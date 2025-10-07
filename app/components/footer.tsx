@@ -1,15 +1,8 @@
 "use client";
 
 import { metaData, socialLinks } from "app/lib/config";
-import React from "react";
 import type { IconType } from "react-icons";
-import {
-  FaGithub,
-  FaInstagram,
-  FaLinkedinIn,
-  FaRss,
-  FaXTwitter,
-} from "react-icons/fa6";
+import { FaGithub, FaLinkedinIn } from "react-icons/fa6";
 import { TbMailFilled } from "react-icons/tb";
 
 const icons = {
