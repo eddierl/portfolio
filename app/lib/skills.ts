@@ -88,12 +88,12 @@ export const skillGroups: SkillGroup[] = [
       {
         name: "GitHub",
         icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg",
-        className: "invert",
+        className: "dark:invert",
       },
       {
         name: "CircleCI",
         icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/circleci/circleci-plain.svg",
-        className: "invert",
+        className: "dark:invert",
       },
     ],
   },
