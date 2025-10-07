@@ -48,7 +48,7 @@ export default function TimeCell({ iso }: TimeCellProps) {
   const relative = useMemo(() => formatRelative(date, new Date()), [date]);
 
   return (
-    <time dateTime={iso} title={localFormatted} aria-label={localFormatted}>
+    <time dateTime={iso} title={localFormatted}>
       {relative}
     </time>
   );

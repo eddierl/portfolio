@@ -12,7 +12,7 @@ export const Notifications = (props: { isThereNewBlog: boolean }) => {
   const [hasShownNotification, setHasShownNotification] = useState(false);
 
   const showNotification = dayjs(lastSeenDate).isBefore(
-    dayjs().subtract(7, "day"),
+    dayjs().subtract(14, "day"),
   );
 
   useEffect(() => {
@@ -33,7 +33,7 @@ export const Notifications = (props: { isThereNewBlog: boolean }) => {
           <Link
             href="/blog"
             onClick={() => toast.dismiss(id)}
-            className="group inline-flex items-center px-3 py-1.5 text-xs font-medium text-white bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 dark:from-green-600 dark:to-green-700 dark:hover:from-green-700 dark:hover:to-green-800 rounded-full transition-all duration-300 transform hover:scale-105 hover:shadow-lg animate-in fade-in duration-500 delay-300"
+            className="group inline-flex items-center px-3 py-1.5 text-xs font-medium text-white bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 dark:from-green-600 dark:to-green-700 dark:hover:from-green-700 dark:hover:to-green-800 rounded-full transition-all  transform hover:scale-105 hover:shadow-lg animate-in fade-in duration-500 delay-300"
           >
             <span className="mr-1">Read Now</span>
             <svg
@@ -42,6 +42,7 @@ export const Notifications = (props: { isThereNewBlog: boolean }) => {
               stroke="currentColor"
               viewBox="0 0 24 24"
             >
+              <title>Right Arrow</title>
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"

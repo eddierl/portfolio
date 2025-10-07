@@ -29,10 +29,6 @@
         "noArrayIndexKey": "off",
         "noExplicitAny": "off"
       },
-      "a11y": {
-        "noSvgWithoutTitle": "off",
-        "useAriaPropsSupportedByRole": "off"
-      },
       "style": {
         "noNonNullAssertion": "off"
       },

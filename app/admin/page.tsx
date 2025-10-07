@@ -216,16 +216,11 @@ export default async function AdminPage({
                             {key === "time" ? (
                               <TimeCell iso={String(value ?? "")} />
                             ) : key === "ua" ? (
-                              <span
-                                title={String(value ?? "")}
-                                aria-label={String(value ?? "")}
-                              >
+                              <span title={String(value ?? "")}>
                                 {truncate(summarizeUA(String(value ?? "")))}
                               </span>
                             ) : (
-                              <span title={display} aria-label={display}>
-                                {truncate(display)}
-                              </span>
+                              <span title={display}>{truncate(display)}</span>
                             )}
                           </td>
                         );
