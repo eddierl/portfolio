@@ -51,22 +51,18 @@ function Code({
   children,
   ...props
 }: PropsWithChildren<Record<string, never>>) {
-  //@ts-expect-error
-  const codeHTML = highlight(children);
+  const codeHTML = highlight(children as string);
   // biome-ignore lint/security/noDangerouslySetInnerHtml: this component is for printing code on the screen
   return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />;
 }
 
-//@ts-expect-error
-function Table({ data }) {
-  //@ts-expect-error
-  const headers = data.headers.map((header, index) => (
+function Table({ data }: { data: { headers: string[]; rows: string[][] } }) {
+  const headers = data.headers.map((header: string, index: number) => (
     <th key={`header-${index}`}>{header}</th>
   ));
-  //@ts-expect-error
-  const rows = data.rows.map((row, index) => (
+  const rows = data.rows.map((row: string[], index: number) => (
     <tr key={`row-${index}`}>
-      {row.map((cell, cellIndex) => (
+      {row.map((cell: string, cellIndex: number) => (
         <td key={`cell-${cellIndex}`}>{cell}</td>
       ))}
     </tr>
@@ -89,8 +85,7 @@ function Strikethrough(
   return <del {...props} />;
 }
 
-//@ts-expect-error
-function Callout(props) {
+function Callout(props: { emoji: React.ReactNode; children: React.ReactNode }) {
   return (
     <div className="px-4 py-3 bg-[#F7F7F7] dark:bg-[#181818] rounded p-1 text-sm flex items-center text-neutral-900 dark:text-neutral-100 mb-8">
       <div className="flex items-center w-4 mr-4">{props.emoji}</div>
@@ -112,8 +107,7 @@ function slugify(str: string) {
 
 function createHeading(level: number) {
   const Heading = ({ children }: PropsWithChildren<Record<string, never>>) => {
-    //@ts-expect-error
-    const slug = slugify(children);
+    const slug = slugify(children as string);
     return React.createElement(
       `h${level}`,
       { id: slug },
