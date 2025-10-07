@@ -91,134 +91,150 @@ export default async function AdminPage({
               </tr>
             </thead>
             <tbody>
-              {data?.map((row, idx) => {
-                const toFlagEmoji = (countryCode?: string) => {
-                  if (!countryCode) return "";
-                  const code = countryCode.trim().toUpperCase();
-                  if (!/^[A-Z]{2}$/.test(code)) return "";
-                  const base = 127397; // 0x1F1E6 - 'A' (65)
-                  return String.fromCodePoint(
-                    code.charCodeAt(0) + base,
-                    code.charCodeAt(1) + base
-                  );
-                };
-
-                const truncate = (text: string, max = 50): string => {
-                  if (text.length <= max) return text;
-                  return text.slice(0, max - 1) + "…";
-                };
-
-                const summarizeUA = (uaRaw: string): string => {
-                  const ua = uaRaw || "";
-                  const browser = (() => {
-                    const edge = ua.match(/Edg\/?([\d.]+)/);
-                    if (edge) return `Edge ${edge[1] ?? ""}`.trim();
-                    const chrome = ua.match(/Chrome\/?([\d.]+)/);
-                    // Exclude Edge which also contains Chrome
-                    if (chrome && !edge)
-                      return `Chrome ${chrome[1] ?? ""}`.trim();
-                    const firefox = ua.match(/Firefox\/?([\d.]+)/);
-                    if (firefox) return `Firefox ${firefox[1] ?? ""}`.trim();
-                    const versionSafari = ua.match(
-                      /Version\/?([\d.]+).*Safari/
+              {(() => {
+                const seen = new Set<string>();
+                let currentColorIndex = 0;
+                return data?.map((row, idx) => {
+                  const toFlagEmoji = (countryCode?: string) => {
+                    if (!countryCode) return "";
+                    const code = countryCode.trim().toUpperCase();
+                    if (!/^[A-Z]{2}$/.test(code)) return "";
+                    const base = 127397; // 0x1F1E6 - 'A' (65)
+                    return String.fromCodePoint(
+                      code.charCodeAt(0) + base,
+                      code.charCodeAt(1) + base
                     );
-                    const safari =
-                      ua.includes("Safari") && !ua.includes("Chrome")
-                        ? `Safari ${versionSafari?.[1] ?? ""}`.trim()
-                        : "";
-                    if (safari) return safari;
-                    return "";
-                  })();
+                  };
 
-                  const os = (() => {
-                    if (/Windows NT 10\.0/.test(ua)) return "Windows 10";
-                    if (/Windows NT 11\.0/.test(ua)) return "Windows 11";
-                    if (/Windows NT/.test(ua)) return "Windows";
-                    const mac = ua.match(/Mac OS X ([\d_]+)/);
-                    if (mac)
-                      return `macOS ${(mac?.[1] ?? "").replace(/_/g, ".")}`;
-                    if (/iPhone|iPad|iPod/.test(ua)) {
-                      const ios = ua.match(/OS ([\d_]+) like Mac OS X/);
-                      return `iOS${
-                        ios ? " " + (ios?.[1] ?? "").replace(/_/g, ".") : ""
-                      }`.trim();
-                    }
-                    const android = ua.match(/Android ([\d.]+)/);
-                    if (android) return `Android ${android[1]}`;
-                    if (/Linux/.test(ua)) return "Linux";
-                    return "";
-                  })();
+                  const truncate = (text: string, max = 50): string => {
+                    if (text.length <= max) return text;
+                    return text.slice(0, max - 1) + "…";
+                  };
 
-                  const parts = [browser, os].filter(Boolean).join(" on ");
-                  return parts || ua;
-                };
-
-                const getDevice = (uaRaw: string): string => {
-                  const ua = uaRaw || "";
-                  return /Mobile|iPhone|Android|iPad|iPod/.test(ua)
-                    ? "Mobile"
-                    : "Desktop";
-                };
-
-                return (
-                  <tr key={idx} className="border-b/50">
-                    {(
-                      ["time", "ua", "device", "geo", "client_id"] as const
-                    ).map((key) => {
-                      const value = (row as Record<string, unknown>)[
-                        key as string
-                      ];
-                      let display: string;
-                      if (key === "device") {
-                        const uaValue = (row as Record<string, unknown>)[
-                          "ua"
-                        ] as string | undefined;
-                        display = getDevice(String(uaValue ?? ""));
-                      } else if (
-                        key === "geo" &&
-                        value &&
-                        typeof value === "object"
-                      ) {
-                        const geo = value as Record<string, unknown>;
-                        const countryCode = (geo["country"] ||
-                          geo["countryCode"]) as string | undefined;
-                        const city = (geo["city"] as string | undefined) || "";
-                        const flag = toFlagEmoji(countryCode);
-                        display =
-                          flag && city ? `${flag} ${city}` : flag || city || "";
-                        if (!display) display = JSON.stringify(value);
-                      } else {
-                        display =
-                          typeof value === "object"
-                            ? JSON.stringify(value)
-                            : String(value ?? "");
-                      }
-                      const cellClass =
-                        key === "geo"
-                          ? "py-2 pr-4 align-middle"
-                          : "py-2 pr-4 align-top";
-                      return (
-                        <td key={key} className={cellClass}>
-                          {key === "time" ? (
-                            <TimeCell iso={String(value ?? "")} />
-                          ) : key === "ua" ? (
-                            <span
-                              title={String(value ?? "")}
-                              aria-label={String(value ?? "")}
-                            >
-                              {truncate(summarizeUA(String(value ?? "")))}
-                            </span>
-                          ) : (
-                            <span title={display} aria-label={display}>
-                              {truncate(display)}
-                            </span>
-                          )}
-                        </td>
+                  const summarizeUA = (uaRaw: string): string => {
+                    const ua = uaRaw || "";
+                    const browser = (() => {
+                      const edge = ua.match(/Edg\/?([\d.]+)/);
+                      if (edge) return `Edge ${edge[1] ?? ""}`.trim();
+                      const chrome = ua.match(/Chrome\/?([\d.]+)/);
+                      // Exclude Edge which also contains Chrome
+                      if (chrome && !edge)
+                        return `Chrome ${chrome[1] ?? ""}`.trim();
+                      const firefox = ua.match(/Firefox\/?([\d.]+)/);
+                      if (firefox) return `Firefox ${firefox[1] ?? ""}`.trim();
+                      const versionSafari = ua.match(
+                        /Version\/?([\d.]+).*Safari/
                       );
-                    })}
-                  </tr>
-                );
-              })}
+                      const safari =
+                        ua.includes("Safari") && !ua.includes("Chrome")
+                          ? `Safari ${versionSafari?.[1] ?? ""}`.trim()
+                          : "";
+                      if (safari) return safari;
+                      return "";
+                    })();
+
+                    const os = (() => {
+                      if (/Windows NT 10\.0/.test(ua)) return "Windows 10";
+                      if (/Windows NT 11\.0/.test(ua)) return "Windows 11";
+                      if (/Windows NT/.test(ua)) return "Windows";
+                      const mac = ua.match(/Mac OS X ([\d_]+)/);
+                      if (mac)
+                        return `macOS ${(mac?.[1] ?? "").replace(/_/g, ".")}`;
+                      if (/iPhone|iPad|iPod/.test(ua)) {
+                        const ios = ua.match(/OS ([\d_]+) like Mac OS X/);
+                        return `iOS${
+                          ios ? " " + (ios?.[1] ?? "").replace(/_/g, ".") : ""
+                        }`.trim();
+                      }
+                      const android = ua.match(/Android ([\d.]+)/);
+                      if (android) return `Android ${android[1]}`;
+                      if (/Linux/.test(ua)) return "Linux";
+                      return "";
+                    })();
+
+                    const parts = [browser, os].filter(Boolean).join(" on ");
+                    return parts || ua;
+                  };
+
+                  const getDevice = (uaRaw: string): string => {
+                    const ua = uaRaw || "";
+                    return /Mobile|iPhone|Android|iPad|iPod/.test(ua)
+                      ? "Mobile"
+                      : "Desktop";
+                  };
+
+                  const clientId = row.client_id as string;
+                  const isNew = !seen.has(clientId);
+                  if (isNew) {
+                    seen.add(clientId);
+                    currentColorIndex = (currentColorIndex + 1) % 2;
+                  }
+                  const bgClass =
+                    currentColorIndex === 0 ? "" : "text-gray-900 bg-slate-50 ";
+
+                  return (
+                    <tr key={idx} className={`border-b/50  ${bgClass}`}>
+                      {(
+                        ["time", "ua", "device", "geo", "client_id"] as const
+                      ).map((key) => {
+                        const value = (row as Record<string, unknown>)[
+                          key as string
+                        ];
+                        let display: string;
+                        if (key === "device") {
+                          const uaValue = (row as Record<string, unknown>)[
+                            "ua"
+                          ] as string | undefined;
+                          display = getDevice(String(uaValue ?? ""));
+                        } else if (
+                          key === "geo" &&
+                          value &&
+                          typeof value === "object"
+                        ) {
+                          const geo = value as Record<string, unknown>;
+                          const countryCode = (geo["country"] ||
+                            geo["countryCode"]) as string | undefined;
+                          const city =
+                            (geo["city"] as string | undefined) || "";
+                          const flag = toFlagEmoji(countryCode);
+                          display =
+                            flag && city
+                              ? `${flag} ${city}`
+                              : flag || city || "";
+                          if (!display) display = JSON.stringify(value);
+                        } else {
+                          display =
+                            typeof value === "object"
+                              ? JSON.stringify(value)
+                              : String(value ?? "");
+                        }
+                        const cellClass =
+                          key === "geo"
+                            ? "py-2 pr-4 align-middle"
+                            : "py-2 pr-4 align-top";
+                        return (
+                          <td key={key} className={cellClass}>
+                            {key === "time" ? (
+                              <TimeCell iso={String(value ?? "")} />
+                            ) : key === "ua" ? (
+                              <span
+                                title={String(value ?? "")}
+                                aria-label={String(value ?? "")}
+                              >
+                                {truncate(summarizeUA(String(value ?? "")))}
+                              </span>
+                            ) : (
+                              <span title={display} aria-label={display}>
+                                {truncate(display)}
+                              </span>
+                            )}
+                          </td>
+                        );
+                      })}
+                    </tr>
+                  );
+                });
+              })()}
             </tbody>
           </table>
         </div>
