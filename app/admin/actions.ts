@@ -44,10 +44,5 @@ export async function logout() {
 export async function isAuthenticated(): Promise<boolean> {
   const cookieStore = await cookies();
   const cookie = cookieStore.get(COOKIE_NAME);
-  if (cookie?.value === "1") {
-    // Refresh the cookie max age
-    cookieStore.set(COOKIE_NAME, "1", getCookieOptions());
-    return true;
-  }
-  return false;
+  return cookie?.value === "1";
 }
