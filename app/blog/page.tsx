@@ -1,11 +1,9 @@
-import Link from "next/link";
-import { formatDate, getBlogPosts, calculateReadingTime } from "app/lib/posts";
-import { FiClock } from "react-icons/fi";
-import dayjs from "dayjs";
 import { Badge } from "app/components/badge";
-import { useLocalStorage } from "usehooks-ts";
-import { useEffect } from "react";
 import { UpdateLastSeen } from "app/components/update-last-seen";
+import { calculateReadingTime, formatDate, getBlogPosts } from "app/lib/posts";
+import dayjs from "dayjs";
+import Link from "next/link";
+import { FiClock } from "react-icons/fi";
 export const metadata = {
   title: "Blog",
   description: "erlich.dev Blog",

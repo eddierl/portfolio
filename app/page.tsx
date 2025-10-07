@@ -1,7 +1,7 @@
 import Image from "next/image";
-import { socialLinks } from "./lib/config";
 import Link from "next/link";
 import SkillGroups from "./components/skill-groups";
+import { socialLinks } from "./lib/config";
 
 export default function Page() {
   return (
@@ -15,6 +15,8 @@ export default function Page() {
           width={160}
           height={160}
           priority
+
+
         />
       </a> */}
       <h1 className="mb-8 text-2xl font-medium"> Hi, I'm Eddie! 👋</h1>

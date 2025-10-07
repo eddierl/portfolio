@@ -1,5 +1,5 @@
-import path from "path";
 import fs from "fs";
+import path from "path";
 import sharp from "sharp";
 
 export const blur = async (image: string) => {
@@ -10,7 +10,7 @@ export const blur = async (image: string) => {
   const filteredBuffer = await sharp(imageBuffer).resize(16).blur().toBuffer();
 
   const base64Image = `data:image/jpeg;base64,${filteredBuffer.toString(
-    "base64"
+    "base64",
   )}`;
 
   return base64Image;

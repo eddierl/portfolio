@@ -1,20 +1,20 @@
-import React, { type FunctionComponent, type PropsWithChildren } from "react";
+import type { ImageProps } from "next/image";
 import Link from "next/link";
-import { type ImageProps } from "next/image";
 import { MDXRemote, type MDXRemoteProps } from "next-mdx-remote/rsc";
-import { highlight } from "sugar-high";
-import { TweetComponent } from "./tweet";
-import { CaptionComponent } from "./caption";
-import { YouTubeComponent } from "./youtube";
-import { ImageGrid } from "./image-grid";
+import React, { type FunctionComponent, type PropsWithChildren } from "react";
 import rehypeKatex from "rehype-katex";
 import remarkMath from "remark-math";
+import { highlight } from "sugar-high";
+import { CaptionComponent } from "./caption";
+import { ImageGrid } from "./image-grid";
+import { TweetComponent } from "./tweet";
+import { YouTubeComponent } from "./youtube";
 import "katex/dist/katex.min.css";
-import Image from "next/image";
 import { blur } from "app/lib/image/blur";
+import Image from "next/image";
 
 function CustomLink(props: PropsWithChildren<{ href: string }>) {
-  let href = props.href;
+  const href = props.href;
   if (href.startsWith("/")) {
     return (
       <Link {...props} href={href}>
@@ -49,18 +49,18 @@ async function RoundedImage(imageProps: ImageProps) {
 
 function Code({ children, ...props }: PropsWithChildren<{}>) {
   //@ts-expect-error
-  let codeHTML = highlight(children);
+  const codeHTML = highlight(children);
   return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />;
 }
 
 //@ts-expect-error
 function Table({ data }) {
   //@ts-expect-error
-  let headers = data.headers.map((header, index) => (
+  const headers = data.headers.map((header, index) => (
     <th key={index}>{header}</th>
   ));
   //@ts-expect-error
-  let rows = data.rows.map((row, index) => (
+  const rows = data.rows.map((row, index) => (
     <tr key={index}>
       {/*@ts-expect-error*/}
       {row.map((cell, cellIndex) => (
@@ -81,7 +81,7 @@ function Table({ data }) {
 function Strikethrough(
   props: React.JSX.IntrinsicAttributes &
     React.ClassAttributes<HTMLModElement> &
-    React.DelHTMLAttributes<HTMLModElement>
+    React.DelHTMLAttributes<HTMLModElement>,
 ) {
   return <del {...props} />;
 }
@@ -103,14 +103,14 @@ function slugify(str: string) {
     .trim()
     .replace(/\s+/g, "-")
     .replace(/&/g, "-and-")
-    .replace(/[^\w\-]+/g, "")
-    .replace(/\-\-+/g, "-");
+    .replace(/[^\w-]+/g, "")
+    .replace(/--+/g, "-");
 }
 
 function createHeading(level: number) {
   const Heading = ({ children }: PropsWithChildren<{}>) => {
     //@ts-expect-error
-    let slug = slugify(children);
+    const slug = slugify(children);
     return React.createElement(
       `h${level}`,
       { id: slug },
@@ -121,14 +121,14 @@ function createHeading(level: number) {
           className: "anchor",
         }),
       ],
-      children
+      children,
     );
   };
   Heading.displayName = `Heading${level}`;
   return Heading;
 }
 
-let components = {
+const components = {
   h1: createHeading(1),
   h2: createHeading(2),
   h3: createHeading(3),
@@ -148,7 +148,7 @@ let components = {
 };
 
 export function CustomMDX(
-  props: React.JSX.IntrinsicAttributes & MDXRemoteProps
+  props: React.JSX.IntrinsicAttributes & MDXRemoteProps,
 ) {
   return (
     <MDXRemote

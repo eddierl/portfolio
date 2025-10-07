@@ -1,5 +1,5 @@
-import { NextResponse, NextRequest } from "next/server";
 import { geolocation } from "@vercel/functions";
+import { type NextRequest, NextResponse } from "next/server";
 
 // This function can be marked `async` if using `await` inside
 export function middleware(request: NextRequest) {
@@ -11,7 +11,10 @@ export function middleware(request: NextRequest) {
 
   // Redirect old resume PDF to new one
   if (url.pathname === "/Eddie_Erlich_Resume.pdf") {
-    return NextResponse.redirect(new URL("/Edward_Erlich_-_Senior_Software_Engineer_CV.pdf", request.url), { status: 308 });
+    return NextResponse.redirect(
+      new URL("/Edward_Erlich_-_Senior_Software_Engineer_CV.pdf", request.url),
+      { status: 308 },
+    );
   }
 
   const response = NextResponse.next();

@@ -12,7 +12,7 @@ export const Notifications = (props: { isThereNewBlog: boolean }) => {
   const [hasShownNotification, setHasShownNotification] = useState(false);
 
   const showNotification = dayjs(lastSeenDate).isBefore(
-    dayjs().subtract(7, "day")
+    dayjs().subtract(7, "day"),
   );
 
   useEffect(() => {
@@ -54,7 +54,7 @@ export const Notifications = (props: { isThereNewBlog: boolean }) => {
         {
           duration: 8000,
           className: "animate-in slide-in-from-top-2 duration-300",
-        }
+        },
       );
     }
   }, [props.isThereNewBlog, showNotification, hasShownNotification]);

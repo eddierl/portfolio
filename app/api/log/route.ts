@@ -16,7 +16,7 @@ export async function POST(req: Request) {
     console.error("❌ Failed to insert log:", error.message);
     return NextResponse.json(
       { ok: false, error: error.message },
-      { status: 500 }
+      { status: 500 },
     );
   }
   // Right now just log to console (shows up in Vercel/Netlify logs)

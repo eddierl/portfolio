@@ -5,7 +5,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "deploy": " bash ./scripts/deploy.sh"
+    "deploy": " bash ./scripts/deploy.sh",
+    "format": "biome format --write .",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write ."
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.74.0",
@@ -33,6 +36,7 @@
     "usehooks-ts": "^3.1.1"
   },
   "devDependencies": {
+    "@biomejs/biome": "^2.2.5",
     "@playwright/test": "^1.56.0",
     "@tailwindcss/postcss": "^4.1.14",
     "@tailwindcss/typography": "^0.5.19",

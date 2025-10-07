@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 
 test("admin login and view records", async ({ page }) => {
   //   test.setTimeout(5000);

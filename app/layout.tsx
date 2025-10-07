@@ -1,15 +1,15 @@
 import "./globals.css";
-import type { Metadata } from "next";
-import { Nunito } from "next/font/google";
-import { Navbar } from "./components/nav";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import Footer from "./components/footer";
-import { ThemeProvider } from "./components/theme-switch";
-import { metaData } from "./lib/config";
 import { Notifications } from "app/components/notifications";
 import { getBlogPosts } from "app/lib/posts";
 import dayjs from "dayjs";
+import type { Metadata } from "next";
+import { Nunito } from "next/font/google";
+import Footer from "./components/footer";
+import { Navbar } from "./components/nav";
+import { ThemeProvider } from "./components/theme-switch";
+import { metaData } from "./lib/config";
 
 const mainFontFamily = Nunito({ subsets: ["latin"] });
 
@@ -57,7 +57,7 @@ export default function RootLayout({
   const allBlogs = getBlogPosts();
   const aWeekAgo = dayjs().subtract(1, "week");
   const isThereNewBlog = allBlogs.some((blog) =>
-    dayjs(blog.metadata.publishedAt).isAfter(aWeekAgo)
+    dayjs(blog.metadata.publishedAt).isAfter(aWeekAgo),
   );
 
   return (

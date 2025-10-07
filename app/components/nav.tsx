@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { ThemeSwitch } from "./theme-switch";
-import { metaData } from "../lib/config";
 import { isAuthenticated } from "../admin/actions";
+import { metaData } from "../lib/config";
+import { ThemeSwitch } from "./theme-switch";
 
 const navItems = {
   "/blog": { name: "Blog" },

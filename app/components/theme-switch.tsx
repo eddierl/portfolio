@@ -1,11 +1,10 @@
 "use client";
-import * as React from "react";
-import { useTheme } from "next-themes";
-import { ThemeProvider as NextThemesProvider } from "next-themes";
 import type { ThemeProviderProps } from "next-themes";
+import { ThemeProvider as NextThemesProvider, useTheme } from "next-themes";
+import * as React from "react";
 
 const FaCircleHalfStroke = (
-  props: React.JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>
+  props: React.JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>,
 ) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -47,7 +46,7 @@ export const ThemeSwitch: React.FC = () => {
   const { setTheme } = useTheme();
   const [mounted, setMounted] = React.useState(false);
   const [currentTheme, setCurrentTheme] = React.useState<"light" | "dark">(
-    "light"
+    "light",
   );
 
   const getColorPreference = (): "light" | "dark" => {

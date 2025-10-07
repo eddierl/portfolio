@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { isAuthenticated, login, logout } from "./actions";
-import { supabase } from "../lib/supabase";
 import TimeCell from "../components/time-cell";
+import { supabase } from "../lib/supabase";
+import { isAuthenticated, login, logout } from "./actions";
 
 export const dynamic = "force-dynamic";
 
@@ -102,7 +102,7 @@ export default async function AdminPage({
                     const base = 127397; // 0x1F1E6 - 'A' (65)
                     return String.fromCodePoint(
                       code.charCodeAt(0) + base,
-                      code.charCodeAt(1) + base
+                      code.charCodeAt(1) + base,
                     );
                   };
 
@@ -123,7 +123,7 @@ export default async function AdminPage({
                       const firefox = ua.match(/Firefox\/?([\d.]+)/);
                       if (firefox) return `Firefox ${firefox[1] ?? ""}`.trim();
                       const versionSafari = ua.match(
-                        /Version\/?([\d.]+).*Safari/
+                        /Version\/?([\d.]+).*Safari/,
                       );
                       const safari =
                         ua.includes("Safari") && !ua.includes("Chrome")

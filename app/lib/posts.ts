@@ -41,15 +41,15 @@ function getMDXFiles(dir: string) {
 }
 
 function readMDXFile(filePath: string) {
-  let rawContent = fs.readFileSync(filePath, "utf-8");
+  const rawContent = fs.readFileSync(filePath, "utf-8");
   return parseFrontmatter(rawContent);
 }
 
 function getMDXData(dir: string) {
-  let mdxFiles = getMDXFiles(dir);
+  const mdxFiles = getMDXFiles(dir);
   return mdxFiles.map((file) => {
-    let { metadata, content } = readMDXFile(path.join(dir, file));
-    let slug = path.basename(file, path.extname(file));
+    const { metadata, content } = readMDXFile(path.join(dir, file));
+    const slug = path.basename(file, path.extname(file));
 
     return {
       metadata,
@@ -63,44 +63,46 @@ const isDraft = ({ metadata }: { metadata: Metadata }) => metadata.isDraft;
 
 export function getBlogPosts() {
   return getMDXData(path.join(process.cwd(), "content")).filter(
-    negate(isDraft)
+    negate(isDraft),
   );
 }
 
 export function calculateReadingTime(content: string): number {
   // Remove markdown syntax and HTML tags
   const cleanContent = content
-    .replace(/```[\s\S]*?```/g, '') // Remove code blocks
-    .replace(/`[^`]*`/g, '') // Remove inline code
-    .replace(/!\[.*?\]\(.*?\)/g, '') // Remove images
-    .replace(/\[.*?\]\(.*?\)/g, '') // Remove links
-    .replace(/#{1,6}\s/g, '') // Remove headers
-    .replace(/\*\*.*?\*\*/g, '') // Remove bold
-    .replace(/\*.*?\*/g, '') // Remove italic
-    .replace(/^\s*[-*+]\s/gm, '') // Remove list markers
-    .replace(/^\s*\d+\.\s/gm, '') // Remove numbered list markers
-    .replace(/<[^>]*>/g, '') // Remove HTML tags
-    .replace(/\s+/g, ' ') // Normalize whitespace
+    .replace(/```[\s\S]*?```/g, "") // Remove code blocks
+    .replace(/`[^`]*`/g, "") // Remove inline code
+    .replace(/!\[.*?\]\(.*?\)/g, "") // Remove images
+    .replace(/\[.*?\]\(.*?\)/g, "") // Remove links
+    .replace(/#{1,6}\s/g, "") // Remove headers
+    .replace(/\*\*.*?\*\*/g, "") // Remove bold
+    .replace(/\*.*?\*/g, "") // Remove italic
+    .replace(/^\s*[-*+]\s/gm, "") // Remove list markers
+    .replace(/^\s*\d+\.\s/gm, "") // Remove numbered list markers
+    .replace(/<[^>]*>/g, "") // Remove HTML tags
+    .replace(/\s+/g, " ") // Normalize whitespace
     .trim();
 
   // Average reading speed: 200-250 words per minute
   // Using 225 as a middle ground
   const wordsPerMinute = 225;
-  const wordCount = cleanContent.split(' ').filter(word => word.length > 0).length;
+  const wordCount = cleanContent
+    .split(" ")
+    .filter((word) => word.length > 0).length;
 
   return Math.ceil(wordCount / wordsPerMinute);
 }
 
 export function formatDate(date: string, includeRelative = false) {
-  let currentDate = new Date();
+  const currentDate = new Date();
   if (!date.includes("T")) {
     date = `${date}T00:00:00`;
   }
-  let targetDate = new Date(date);
+  const targetDate = new Date(date);
 
-  let yearsAgo = currentDate.getFullYear() - targetDate.getFullYear();
-  let monthsAgo = currentDate.getMonth() - targetDate.getMonth();
-  let daysAgo = currentDate.getDate() - targetDate.getDate();
+  const yearsAgo = currentDate.getFullYear() - targetDate.getFullYear();
+  const monthsAgo = currentDate.getMonth() - targetDate.getMonth();
+  const daysAgo = currentDate.getDate() - targetDate.getDate();
 
   let formattedDate = "";
 
@@ -114,7 +116,7 @@ export function formatDate(date: string, includeRelative = false) {
     formattedDate = "Today";
   }
 
-  let fullDate = targetDate.toLocaleString("en-us", {
+  const fullDate = targetDate.toLocaleString("en-us", {
     month: "short",
     day: "numeric",
     year: "numeric",
