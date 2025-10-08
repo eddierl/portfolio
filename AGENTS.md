@@ -92,3 +92,7 @@ The agent will:
 - Run lint checks
 - Summarize changes
 - At the end of each task, run build, then test, with lint running in parallel
+
+## When stuck
+
+- ask a clarifying question, propose a short plan
