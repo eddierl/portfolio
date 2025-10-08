@@ -16,7 +16,9 @@ export default function Page() {
 
         />
       </a> */}
-      <h1 className="mb-8 text-2xl font-medium"> Hi, I'm Eddie! 👋</h1>
+      <h1 className="mb-8 text-2xl font-medium">
+        Hi, I'm Eddie! <span className="animate-wave inline-block">👋</span>
+      </h1>
 
       <div className="prose prose-neutral dark:prose-invert">
         <p>
