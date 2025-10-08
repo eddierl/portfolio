@@ -2,30 +2,34 @@
 import type { ThemeProviderProps } from "next-themes";
 import { ThemeProvider as NextThemesProvider, useTheme } from "next-themes";
 import * as React from "react";
+import { useId } from "react";
 
 const FaCircleHalfStroke = (
   props: React.JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>,
-) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    aria-hidden="true"
-    width="1em"
-    height="1em"
-    fill="currentColor"
-    viewBox="0 0 32 32"
-    {...props}
-  >
-    <clipPath>
-      <path
-        className={"dark:-translate-x-1/2 dark:translate-y-1 transition-all"}
-        d="M0-5h55v37h-55zm32 12a1 1 0 0025 0 1 1 0 00-25 0"
-      />
-    </clipPath>
-    <g clipPath="url(#theme-toggle__simple__cutout)">
-      <circle cx="16" cy="16" r="15" />
-    </g>
-  </svg>
-);
+) => {
+  const uniqueId = useId();
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      width="1em"
+      height="1em"
+      fill="currentColor"
+      viewBox="0 0 32 32"
+      {...props}
+    >
+      <clipPath id={`theme-toggle__simple__cutout-${uniqueId}`}>
+        <path
+          className={"dark:-translate-x-1/2 dark:translate-y-1 transition-all"}
+          d="M0-5h55v37h-55zm32 12a1 1 0 0025 0 1 1 0 00-25 0"
+        />
+      </clipPath>
+      <g clipPath={`url(#theme-toggle__simple__cutout-${uniqueId})`}>
+        <circle cx="16" cy="16" r="15" />
+      </g>
+    </svg>
+  );
+};
 
 const storageKey = "theme-preference";
 
