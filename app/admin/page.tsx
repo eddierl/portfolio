@@ -24,11 +24,10 @@ export default async function AdminPage({
           <input
             type="text"
             name="username"
-            value="admin"
-            className="w-full border rounded px-3 py-2 bg-gray-100 text-gray-500 cursor-not-allowed"
+            defaultValue="admin"
+            className="w-full border rounded px-3 py-2 bg-transparent"
             autoComplete="username"
-            readOnly
-            hidden
+            required
           />
           <input
             type="password"
