@@ -2,6 +2,7 @@ import Link from "next/link";
 import TimeCell from "../components/time-cell";
 import { supabase } from "../lib/supabase";
 import { isAuthenticated, login, logout } from "./actions";
+import RefreshCookie from "./refresh-cookie";
 
 export const dynamic = "force-dynamic";
 
@@ -65,6 +66,7 @@ export default async function AdminPage({
 
   return (
     <div className="max-w-3xl mx-auto p-6">
+      <RefreshCookie />
       <div className="flex items-center justify-between mb-4">
         <h1 className="text-2xl font-semibold">Admin</h1>
         <form action={logout}>

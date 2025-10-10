@@ -41,6 +41,10 @@ export async function logout() {
   redirect("/admin");
 }
 
+export async function refreshAdminCookie() {
+  (await cookies()).set(COOKIE_NAME, "1", getCookieOptions());
+}
+
 export async function isAuthenticated(): Promise<boolean> {
   const cookieStore = await cookies();
   const cookie = cookieStore.get(COOKIE_NAME);
