@@ -22,6 +22,7 @@ This is a Next.js application built with React Server Components, Tailwind CSS, 
 - **Images:** Optimize images using `next/image`, specifying `width`, `height`, and `loading="lazy"`.
 - **Error Handling:** Implement `try-catch` blocks and provide fallback UI for error scenarios.
 - **Performance:** Consider `React.memo` for performance optimization in client components and analyze bundle size regularly.
+- **Commits:** Follow conventional commit format (e.g., `fix: resolve issue` or `feat: add feature`).
 
 ## Testing Instructions
 
