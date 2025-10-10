@@ -22,10 +22,20 @@ export default async function AdminPage({
         {error ? <p className="text-red-600 mb-3">{error}</p> : null}
         <form action={login} className="space-y-3">
           <input
+            type="text"
+            name="username"
+            value="admin"
+            className="w-full border rounded px-3 py-2 bg-gray-100 text-gray-500 cursor-not-allowed"
+            autoComplete="username"
+            readOnly
+            hidden
+          />
+          <input
             type="password"
             name="password"
             placeholder="Enter admin password"
             className="w-full border rounded px-3 py-2 bg-transparent"
+            autoComplete="current-password"
             required
           />
           <button
