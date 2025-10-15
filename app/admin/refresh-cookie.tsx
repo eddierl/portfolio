@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { useEffect, useTransition } from 'react';
-import { refreshAdminCookie } from './actions';
+import { useEffect, useTransition } from "react";
+import { refreshAdminCookie } from "./actions";
 
 export default function RefreshCookie() {
   const [, startTransition] = useTransition();

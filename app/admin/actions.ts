@@ -1,5 +1,6 @@
 "use server";
 
+import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
@@ -13,6 +14,7 @@ type CookieOptions = {
 
 const COOKIE_NAME = "admin-auth";
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD ?? "admin123";
+const JWT_SECRET = process.env.JWT_SECRET ?? "fallback-secret";
 
 function getCookieOptions(overrides?: Partial<CookieOptions>) {
   const defaults = {
@@ -29,7 +31,8 @@ export async function login(formData: FormData) {
   const password = String(formData.get("password") ?? "");
 
   if (password === ADMIN_PASSWORD) {
-    (await cookies()).set(COOKIE_NAME, "1", getCookieOptions());
+    const token = jwt.sign({ role: "admin" }, JWT_SECRET, { expiresIn: "7d" });
+    (await cookies()).set(COOKIE_NAME, token, getCookieOptions());
     redirect("/admin");
   }
 
@@ -42,11 +45,19 @@ export async function logout() {
 }
 
 export async function refreshAdminCookie() {
-  (await cookies()).set(COOKIE_NAME, "1", getCookieOptions());
+  const token = jwt.sign({ role: "admin" }, JWT_SECRET, { expiresIn: "7d" });
+  (await cookies()).set(COOKIE_NAME, token, getCookieOptions());
 }
 
 export async function isAuthenticated(): Promise<boolean> {
   const cookieStore = await cookies();
   const cookie = cookieStore.get(COOKIE_NAME);
-  return cookie?.value === "1";
+  if (!cookie?.value) return false;
+
+  try {
+    jwt.verify(cookie.value, JWT_SECRET);
+    return true;
+  } catch {
+    return false;
+  }
 }
