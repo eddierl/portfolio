@@ -2,9 +2,9 @@ export const metaData = {
   baseUrl: "https://dev.erlich.dev/",
   title: "erlich.dev",
   name: "Eddie",
-  ogImage: "/opengraph-image.png",
+  ogImage: "/logo.png",
   description:
-    "A clean, fast, and lightweight portfolio template built with Next.js, Vercel, and Tailwind CSS for optimal performance.",
+    "Eddie Erlich — frontend-focused software engineer with 9+ years of experience. I craft scalable web & mobile applications using React, TypeScript, Node.js and clean functional-programming techniques. Let’s build something great together.",
 };
 
 export const socialLinks = {
