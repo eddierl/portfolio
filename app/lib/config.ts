@@ -1,5 +1,5 @@
 export const metaData = {
-  baseUrl: "https://dev.erlich.dev/",
+  baseUrl: "https://www.erlich.dev/",
   title: "erlich.dev",
   name: "Eddie",
   ogImage: "/logo.png",
