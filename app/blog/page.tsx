@@ -14,7 +14,6 @@ export default function BlogPosts() {
 
   return (
     <section>
-      <h1 className="mb-8 text-2xl font-medium">My Blog</h1>
       <UpdateLastSeen />
       <div>
         {allBlogs
