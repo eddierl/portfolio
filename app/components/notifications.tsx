@@ -11,8 +11,8 @@ export const Notifications = (props: { isThereNewBlog: boolean }) => {
     useReadLocalStorage<string>("last-seen") || new Date().toISOString();
   const [hasShownNotification, setHasShownNotification] = useState(false);
 
-  const showNotification = dayjs(lastSeenDate).isBefore(
-    dayjs().subtract(14, "day"),
+  const showNotification = dayjs(lastSeenDate).isAfter(
+    dayjs().subtract(14, "day")
   );
 
   useEffect(() => {
@@ -55,7 +55,7 @@ export const Notifications = (props: { isThereNewBlog: boolean }) => {
         {
           duration: 8000,
           className: "animate-in slide-in-from-top-2 duration-300",
-        },
+        }
       );
     }
   }, [props.isThereNewBlog, showNotification, hasShownNotification]);
