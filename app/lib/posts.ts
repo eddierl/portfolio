@@ -63,7 +63,7 @@ const isDraft = ({ metadata }: { metadata: Metadata }) => metadata.isDraft;
 
 export function getBlogPosts() {
   return getMDXData(path.join(process.cwd(), "content")).filter(
-    negate(isDraft),
+    negate(isDraft)
   );
 }
 
@@ -85,7 +85,7 @@ export function calculateReadingTime(content: string): number {
 
   // Average reading speed: 200-250 words per minute
   // Using 225 as a middle ground
-  const wordsPerMinute = 225;
+  const wordsPerMinute = 175;
   const wordCount = cleanContent
     .split(" ")
     .filter((word) => word.length > 0).length;
