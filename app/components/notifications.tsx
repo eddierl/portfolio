@@ -9,15 +9,13 @@ import { useReadLocalStorage } from "usehooks-ts";
 export const Notifications = (props: { isThereNewBlog: boolean }) => {
   const lastSeenDate =
     useReadLocalStorage<string>("last-seen") || new Date().toISOString();
-  const [hasShownNotification, setHasShownNotification] = useState(false);
 
-  const showNotification = dayjs(lastSeenDate).isAfter(
+  const showNotification = dayjs(lastSeenDate).isBefore(
     dayjs().subtract(14, "day")
   );
 
   useEffect(() => {
-    if (props.isThereNewBlog && showNotification && !hasShownNotification) {
-      setHasShownNotification(true);
+    if (props.isThereNewBlog && showNotification) {
 
       const id = toast.success(
         <div className="flex items-center justify-between w-full animate-in slide-in-from-top-2 duration-300 gap-8">
@@ -58,7 +56,7 @@ export const Notifications = (props: { isThereNewBlog: boolean }) => {
         }
       );
     }
-  }, [props.isThereNewBlog, showNotification, hasShownNotification]);
+  }, [props.isThereNewBlog, showNotification]);
 
   return <Toaster position="top-center" />;
 };
