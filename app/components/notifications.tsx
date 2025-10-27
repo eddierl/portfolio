@@ -30,7 +30,7 @@ export const Notifications = (props: { isThereNewBlog: boolean }) => {
           <Link
             href="/blog"
             onClick={() => toast.dismiss(id)}
-            className="group inline-flex items-center px-3 py-1.5 text-xs font-medium text-white bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 dark:from-green-600 dark:to-green-700 dark:hover:from-green-700 dark:hover:to-green-800 rounded-full transition-all  transform hover:scale-105 hover:shadow-lg animate-in fade-in duration-500 delay-300"
+            className="group inline-flex items-center px-3 py-1.5 text-xs font-medium text-white bg-linear-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 dark:from-green-600 dark:to-green-700 dark:hover:from-green-700 dark:hover:to-green-800 rounded-full transition-all"
           >
             <span className="mr-1">Read Now</span>
             <svg
