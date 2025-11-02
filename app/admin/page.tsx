@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Login } from "app/components/Login/login";
 import TimeCell from "../components/time-cell";
 import { supabase } from "../lib/supabase";
 import { isAuthenticated, login, logout } from "./actions";
@@ -16,41 +16,7 @@ export default async function AdminPage({
   const params = (await searchParams) ?? {};
   const error = params?.error ? "Invalid password" : "";
 
-  if (!authed) {
-    return (
-      <div className="max-w-md mx-auto p-6">
-        <h1 className="text-2xl font-semibold mb-4">Admin Login</h1>
-        {error ? <p className="text-red-600 mb-3">{error}</p> : null}
-        <form action={login} className="space-y-3">
-          <input
-            type="text"
-            name="username"
-            defaultValue="admin"
-            className="w-full border rounded px-3 py-2 bg-transparent"
-            autoComplete="username"
-            required
-          />
-          <input
-            type="password"
-            name="password"
-            placeholder="Enter admin password"
-            className="w-full border rounded px-3 py-2 bg-transparent"
-            autoComplete="current-password"
-            required
-          />
-          <button
-            type="submit"
-            className="inline-flex items-center justify-center rounded px-4 py-2 border"
-          >
-            Login
-          </button>
-        </form>
-        <p className="mt-6 text-sm text-muted-foreground">
-          <Link href="/">Back to site</Link>
-        </p>
-      </div>
-    );
-  }
+  if (!authed) return <Login error={error} login={login} />;
 
   const table = process.env.ADMIN_ENTRIES_TABLE ?? "logs";
 
@@ -113,7 +79,7 @@ export default async function AdminPage({
                     const base = 127397; // 0x1F1E6 - 'A' (65)
                     return String.fromCodePoint(
                       code.charCodeAt(0) + base,
-                      code.charCodeAt(1) + base,
+                      code.charCodeAt(1) + base
                     );
                   };
 
@@ -134,7 +100,7 @@ export default async function AdminPage({
                       const firefox = ua.match(/Firefox\/?([\d.]+)/);
                       if (firefox) return `Firefox ${firefox[1] ?? ""}`.trim();
                       const versionSafari = ua.match(
-                        /Version\/?([\d.]+).*Safari/,
+                        /Version\/?([\d.]+).*Safari/
                       );
                       const safari =
                         ua.includes("Safari") && !ua.includes("Chrome")
@@ -193,9 +159,8 @@ export default async function AdminPage({
                         ];
                         let display: string;
                         if (key === "device") {
-                          const uaValue = (row as Record<string, unknown>).ua as
-                            | string
-                            | undefined;
+                          const uaValue = (row as Record<string, unknown>)
+                            .ua as string | undefined;
                           display = getDevice(String(uaValue ?? ""));
                         } else if (
                           key === "geo" &&
