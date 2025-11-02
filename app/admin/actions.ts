@@ -1,6 +1,7 @@
 "use server";
 
-import jwt from "jsonwebtoken";
+import { generateTokens, verify } from "app/lib/jwt";
+
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
@@ -12,9 +13,8 @@ type CookieOptions = {
   maxAge: number;
 };
 
-const COOKIE_NAME = "admin-auth";
+const ACCESS_TOKEN_COOKIE_NAME = "access-token";
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD ?? "admin123";
-const JWT_SECRET = process.env.JWT_SECRET ?? "fallback-secret";
 
 function getCookieOptions(overrides?: Partial<CookieOptions>) {
   const defaults = {
@@ -27,12 +27,28 @@ function getCookieOptions(overrides?: Partial<CookieOptions>) {
   return { ...defaults, ...overrides };
 }
 
+export const setTokenCookies = async ({
+  accessToken,
+}: {
+  accessToken: string;
+}) => {
+  (await cookies()).set(
+    ACCESS_TOKEN_COOKIE_NAME,
+    accessToken,
+    getCookieOptions()
+  );
+};
+
 export async function login(formData: FormData) {
   const password = String(formData.get("password") ?? "");
 
   if (password === ADMIN_PASSWORD) {
-    const token = jwt.sign({ role: "admin" }, JWT_SECRET, { expiresIn: "7d" });
-    (await cookies()).set(COOKIE_NAME, token, getCookieOptions());
+    const { accessToken } = await generateTokens({
+      role: "admin",
+    });
+
+    await setTokenCookies({ accessToken });
+
     redirect("/admin");
   }
 
@@ -40,22 +56,26 @@ export async function login(formData: FormData) {
 }
 
 export async function logout() {
-  (await cookies()).set(COOKIE_NAME, "", getCookieOptions({ maxAge: 0 }));
+  (await cookies()).set(
+    ACCESS_TOKEN_COOKIE_NAME,
+    "",
+    getCookieOptions({ maxAge: 0 })
+  );
   redirect("/admin");
 }
 
 export async function refreshAdminCookie() {
-  const token = jwt.sign({ role: "admin" }, JWT_SECRET, { expiresIn: "7d" });
-  (await cookies()).set(COOKIE_NAME, token, getCookieOptions());
+  const token = await generateTokens({ role: "admin" });
+  return setTokenCookies(token);
 }
 
 export async function isAuthenticated(): Promise<boolean> {
   const cookieStore = await cookies();
-  const cookie = cookieStore.get(COOKIE_NAME);
+  const cookie = cookieStore.get(ACCESS_TOKEN_COOKIE_NAME);
   if (!cookie?.value) return false;
 
   try {
-    jwt.verify(cookie.value, JWT_SECRET);
+    verify(cookie.value);
     return true;
   } catch {
     return false;
