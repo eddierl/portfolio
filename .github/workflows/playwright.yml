@@ -38,8 +38,19 @@ jobs:
       - name: Pull Vercel Environment Information
         run: vercel env pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
 
+      - name: Restore Playwright binaries cache
+        uses: actions/cache@v4
+        id: playwright-cache
+        with:
+          key: ${{ runner.os }}-playwright-${{ hashFiles('**/playwright.config.ts') }}
+          path: ~/.cache/ms-playwright
+          restore-keys: |
+            ${{ runner.os }}-playwright-${{ hashFiles('**/playwright.config.ts') }}
+            ${{ runner.os }}-playwright-
+
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
 
       - name: Run Playwright tests
         run: npx playwright test
