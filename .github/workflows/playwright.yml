@@ -29,6 +29,12 @@ jobs:
 
       - name: Install Vercel CLI
         run: pnpm install --global vercel@latest
+
+      - name: Vercel Link
+        run: |
+          npx vercel link --token=${{ secrets.VERCEL_TOKEN }}
+          # Ensure .vercel/project.json is present after linking
+
       - name: Pull Vercel Environment Information
         run: vercel env pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
 
