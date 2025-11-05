@@ -6,7 +6,10 @@ test("admin login and view records", async ({ page }) => {
   await page.goto("/admin");
 
   // Fill password
-  await page.fill('input[name="password"]', "admin123");
+  await page.fill(
+    'input[name="password"]',
+    process.env.ADMIN_PASSWORD || "no-password"
+  );
 
   // Submit form
   await page.click('button[type="submit"]');
