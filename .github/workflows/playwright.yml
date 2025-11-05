@@ -32,7 +32,7 @@ jobs:
 
       - name: Vercel Link
         run: |
-          npx vercel link --token=${{ secrets.VERCEL_TOKEN }}
+          pnpm dlx vercel link --yes --token=${{ secrets.VERCEL_TOKEN }}
           # Ensure .vercel/project.json is present after linking
 
       - name: Pull Vercel Environment Information
