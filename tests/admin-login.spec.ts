@@ -8,7 +8,7 @@ test("admin login and view records", async ({ page }) => {
   // Fill password
   await page.fill(
     'input[name="password"]',
-    process.env.ADMIN_PASSWORD || "no-password"
+    process.env.ADMIN_PASSWORD || "admin123"
   );
 
   // Submit form
