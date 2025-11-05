@@ -23,6 +23,7 @@
     "@vercel/functions": "^3.1.4",
     "@vercel/speed-insights": "^1.2.0",
     "dayjs": "^1.11.18",
+    "dotenv": "^17.2.3",
     "es-toolkit": "^1.41.0",
     "feed": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
