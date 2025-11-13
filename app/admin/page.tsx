@@ -1,6 +1,7 @@
+import { gql } from "@apollo/client";
 import { Login } from "app/components/Login/login";
+import createApolloClient from "app/lib/apollo-client";
 import TimeCell from "../components/time-cell";
-import { supabase } from "../lib/supabase";
 import { isAuthenticated, login, logout } from "./actions";
 import RefreshCookie from "./refresh-cookie";
 
@@ -18,17 +19,23 @@ export default async function AdminPage({
 
   if (!authed) return <Login error={error} login={login} />;
 
-  const table = process.env.ADMIN_ENTRIES_TABLE ?? "logs";
-
-  const { data, error: supabaseError } = await supabase
-    .from(table)
-    .select("time,ua,geo,client_id")
-    .neq("geo->>country", null)
-    .neq("geo->>country", "")
-    .neq("client_id", "c2b6d823-85c4-4687-a255-a9908861c014")
-    .neq("client_id", null)
-    .order("time", { ascending: false })
-    .limit(100);
+  const { data, error: apolloError } = await createApolloClient().query<{
+    log: { ua: string; client_id: string }[];
+  }>({
+    query: gql`
+      query {
+        log(take: 20) {
+          time
+          ua
+          geo {
+            country
+            city
+          }
+          client_id
+        }
+      }
+    `,
+  });
 
   return (
     <div className="max-w-3xl mx-auto p-6">
@@ -41,8 +48,8 @@ export default async function AdminPage({
           </button>
         </form>
       </div>
-      {supabaseError ? (
-        <p className="text-red-600">{supabaseError.message}</p>
+      {apolloError ? (
+        <p className="text-red-600">{apolloError.message}</p>
       ) : (
         <div className="overflow-x-auto">
           <table className="w-full text-sm border-collapse">
@@ -56,7 +63,7 @@ export default async function AdminPage({
                     "geo",
                     "client_id",
                   ] as const;
-                  if (data && data.length > 0) {
+                  if (data && data.log.length > 0) {
                     return columns.map((key) => (
                       <th key={key} className="py-2 pr-4 font-medium">
                         {key}
@@ -71,7 +78,7 @@ export default async function AdminPage({
               {(() => {
                 const seen = new Set<string>();
                 let currentColorIndex = 0;
-                return data?.map((row, idx) => {
+                return data?.log.map((row, idx) => {
                   const toFlagEmoji = (countryCode?: string) => {
                     if (!countryCode) return "";
                     const code = countryCode.trim().toUpperCase();
