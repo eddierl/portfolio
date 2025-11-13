@@ -1,5 +1,3 @@
-import SkillGroups from "./components/skill-groups";
-
 export default function Page() {
   return (
     <section>
@@ -66,8 +64,6 @@ export default function Page() {
           .
         </p> */}
       </div>
-
-      <SkillGroups />
     </section>
   );
 }

@@ -58,6 +58,7 @@
     "autoprefixer": "^10.4.21",
     "husky": "^9.1.7",
     "tailwindcss": "^4.1.16",
+    "type-fest": "^5.2.0",
     "typescript": "^5.9.3"
   }
 }

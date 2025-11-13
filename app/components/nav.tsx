@@ -1,3 +1,4 @@
+import { typedEntries } from "app/lib/types";
 import Link from "next/link";
 import { isAuthenticated } from "../admin/actions";
 import { metaData } from "../lib/config";
@@ -5,7 +6,7 @@ import { ThemeSwitch } from "./theme-switch";
 
 const navItems = {
   "/blog": { name: "Blog" },
-  // "/projects": { name: "Projects" },
+  "/skills": { name: "Skills" },
   // "/photos": { name: "Photos" },
   "/Edward_Erlich_-_Senior_Software_Engineer_CV.pdf": {
     name: "Resume",
@@ -33,7 +34,7 @@ export async function Navbar() {
             </Link>
           ) : null}
 
-          {Object.entries(navItems).map(([path, { name, ...rest }]) => (
+          {typedEntries(navItems).map(([path, { name, ...rest }]) => (
             <Link
               key={path}
               href={path}
