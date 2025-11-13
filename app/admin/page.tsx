@@ -20,11 +20,12 @@ export default async function AdminPage({
   if (!authed) return <Login error={error} login={login} />;
 
   const { data, error: apolloError } = await createApolloClient().query<{
-    log: { ua: string; client_id: string }[];
+    logByClientId: { ua: string; count: number; client_id: string }[];
   }>({
     query: gql`
       query {
-        log(take: 20) {
+        logByClientId(take: 20) {
+          count
           time
           ua
           geo {
@@ -58,12 +59,13 @@ export default async function AdminPage({
                 {(() => {
                   const columns = [
                     "time",
-                    "ua",
-                    "device",
+                    "count",
+
                     "geo",
+                    "ua",
                     "client_id",
                   ] as const;
-                  if (data && data.log.length > 0) {
+                  if (data && data.logByClientId.length > 0) {
                     return columns.map((key) => (
                       <th key={key} className="py-2 pr-4 font-medium">
                         {key}
@@ -78,7 +80,7 @@ export default async function AdminPage({
               {(() => {
                 const seen = new Set<string>();
                 let currentColorIndex = 0;
-                return data?.log.map((row, idx) => {
+                return data?.logByClientId.map((row, idx) => {
                   const toFlagEmoji = (countryCode?: string) => {
                     if (!countryCode) return "";
                     const code = countryCode.trim().toUpperCase();
@@ -154,17 +156,28 @@ export default async function AdminPage({
                     currentColorIndex = (currentColorIndex + 1) % 2;
                   }
                   const bgClass =
-                    currentColorIndex === 0 ? "" : "text-gray-900 bg-slate-50 ";
+                    row.count === 1
+                      ? "bg-slate-200 text-gray-500"
+                      : "text-gray-900 bg-slate-50 ";
 
                   return (
                     <tr key={idx} className={`border-b/50  ${bgClass}`}>
                       {(
-                        ["time", "ua", "device", "geo", "client_id"] as const
+                        [
+                          "time",
+                          "count",
+                          "geo",
+                          "ua",
+                          // "device",
+
+                          "client_id",
+                        ] as const
                       ).map((key) => {
                         const value = (row as Record<string, unknown>)[
                           key as string
                         ];
                         let display: string;
+                        //@ts-expect-error not showing device, need to remove probably
                         if (key === "device") {
                           const uaValue = (row as Record<string, unknown>)
                             .ua as string | undefined;

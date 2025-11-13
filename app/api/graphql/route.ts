@@ -1,5 +1,4 @@
-// Next.js Custom Route Handler: https://nextjs.org/docs/app/building-your-application/routing/router-handlers
-import { supabase } from "app/lib/supabase";
+import { sql } from "app/lib/neon";
 import { createSchema, createYoga } from "graphql-yoga";
 
 interface NextContext {
@@ -13,6 +12,7 @@ const { handleRequest } = createYoga<NextContext>({
         greetings: String
         viewer(user: String): Int
         log(take: Int, skip: Int): [Log]
+        logByClientId(take: Int, skip: Int): [LogWithCount]
       }
 
       type Log {
@@ -21,6 +21,14 @@ const { handleRequest } = createYoga<NextContext>({
         ua: String
         geo: Geo
         client_id: String
+      }
+
+      type LogWithCount {
+        count: Int
+        time: String
+        ua: String
+        client_id: String
+        geo: Geo
       }
 
       type Geo {
@@ -42,17 +50,32 @@ const { handleRequest } = createYoga<NextContext>({
           console.log({ parent, args, ctx });
           return null;
         },
-        log: async (parent, args, ctx) => {
+        logByClientId: async (_parent, args, _ctx) => {
           const { skip = 0, take = 10 } = args;
-          const { data, error: supabaseError } = await supabase
-            .from("logs")
-            .select("id,time,ua,geo,client_id")
-            .neq("geo->>country", null)
-            .neq("geo->>country", "")
-            .neq("client_id", "c2b6d823-85c4-4687-a255-a9908861c014")
-            .neq("client_id", null)
-            .order("time", { ascending: false })
-            .range(skip, skip + take);
+
+          const data = await sql.query(`
+            select count(1),max(time) as time,ua,client_id,geo from public.logs
+            where client_id != 'c2b6d823-85c4-4687-a255-a9908861c014'
+            
+            group by client_id,geo,ua
+            order by time DESC
+            limit ${take}
+            offset ${skip}
+            `);
+
+          return data;
+        },
+        log: async (_parent, args, _ctx) => {
+          const { skip = 0, take = 10 } = args;
+
+          const data = await sql.query(`
+            select  time, ua, geo, client_id from public.logs
+            where client_id != 'c2b6d823-85c4-4687-a255-a9908861c014'
+            order by time DESC
+            limit ${take}
+            offset ${skip}
+            `);
+
           return data;
         },
       },

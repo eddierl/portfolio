@@ -33,7 +33,11 @@ function formatRelative(from: Date, to: Date): string {
 }
 
 export default function TimeCell({ iso }: TimeCellProps) {
-  const date = useMemo(() => new Date(iso), [iso]);
+  const date = useMemo(
+    () => new Date(typeof iso === "string" ? parseInt(iso, 10) : iso),
+    [iso]
+  );
+
   const localFormatted = useMemo(() => {
     try {
       return new Intl.DateTimeFormat(undefined, {
