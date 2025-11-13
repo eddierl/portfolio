@@ -13,11 +13,10 @@ import "katex/dist/katex.min.css";
 import { blur } from "app/lib/image/blur";
 import Image from "next/image";
 
-function CustomLink(props: PropsWithChildren<{ href: string }>) {
-  const href = props.href;
+function CustomLink({ href, ...props }: PropsWithChildren<{ href: string }>) {
   if (href.startsWith("/")) {
     return (
-      <Link {...props} href={href}>
+      <Link {...props} href={{ href }}>
         {props.children}
       </Link>
     );
@@ -80,7 +79,7 @@ function Table({ data }: { data: { headers: string[]; rows: string[][] } }) {
 function Strikethrough(
   props: React.JSX.IntrinsicAttributes &
     React.ClassAttributes<HTMLModElement> &
-    React.DelHTMLAttributes<HTMLModElement>,
+    React.DelHTMLAttributes<HTMLModElement>
 ) {
   return <del {...props} />;
 }
@@ -118,7 +117,7 @@ function createHeading(level: number) {
           className: "anchor",
         }),
       ],
-      children,
+      children
     );
   };
   Heading.displayName = `Heading${level}`;
@@ -145,7 +144,7 @@ const components = {
 };
 
 export function CustomMDX(
-  props: React.JSX.IntrinsicAttributes & MDXRemoteProps,
+  props: React.JSX.IntrinsicAttributes & MDXRemoteProps
 ) {
   return (
     <MDXRemote
