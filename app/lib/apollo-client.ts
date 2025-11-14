@@ -8,6 +8,7 @@ const createApolloClient = () => {
           ? `https://${process.env.VERCEL_URL}`
           : "http://localhost:3000"
       }/api/graphql`,
+      credentials: "same-origin",
     }),
     cache: new InMemoryCache(),
   });
