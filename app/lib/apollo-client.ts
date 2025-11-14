@@ -4,7 +4,9 @@ const createApolloClient = () => {
   return new ApolloClient({
     link: new HttpLink({
       uri: `${
-        process.env.DEPLOYMENT_URL || "http://localhost:3000"
+        process.env.DEPLOYMENT_URL
+          ? `https://${process.env.DEPLOYMENT_URL}`
+          : "http://localhost:3000"
       }/api/graphql`,
       credentials: "same-origin",
     }),
