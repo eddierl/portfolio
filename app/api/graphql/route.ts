@@ -51,6 +51,7 @@ const { handleRequest } = createYoga<NextContext>({
           return null;
         },
         logByClientId: async (_parent, args, _ctx) => {
+          console.log("enter logByClientId");
           const { skip = 0, take = 10 } = args;
 
           const data = await sql.query(`
