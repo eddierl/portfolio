@@ -4,9 +4,7 @@ const createApolloClient = () => {
   return new ApolloClient({
     link: new HttpLink({
       uri: `${
-        process.env.VERCEL_URL
-          ? `https://${process.env.VERCEL_URL}`
-          : "http://localhost:3000"
+        process.env.VERCEL_URL ? `https://erlich.dev` : "http://localhost:3000"
       }/api/graphql`,
       credentials: "same-origin",
     }),
