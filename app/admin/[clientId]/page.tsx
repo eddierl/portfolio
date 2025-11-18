@@ -1,33 +1,34 @@
 import { gql } from "@apollo/client";
+import { isAuthenticated, login, logout } from "app/admin/actions";
+import RefreshCookie from "app/admin/refresh-cookie";
 import { Login } from "app/components/Login/login";
+import TimeCell from "app/components/time-cell";
 import createApolloClient from "app/lib/apollo-client";
 import type { Route } from "next";
 import Link from "next/link";
-import TimeCell from "../components/time-cell";
-import { isAuthenticated, login, logout } from "./actions";
-import RefreshCookie from "./refresh-cookie";
 
 export const dynamic = "force-dynamic";
 
 export default async function AdminPage({
   searchParams,
+  params,
 }: {
   searchParams?: Promise<Record<string, string>>;
+  params: Promise<Record<string, string>>;
 }) {
   const authed = await isAuthenticated();
 
-  const params = (await searchParams) ?? {};
-  const error = params?.error ? "Invalid password" : "";
+  const error = (await searchParams)?.error ? "Invalid password" : "";
 
   if (!authed) return <Login error={error} login={login} />;
 
+  const clientId = (await params).clientId;
   const { data, error: apolloError } = await createApolloClient().query<{
-    logByClientId: { ua: string; count: number; client_id: string }[];
+    log: { ua: string; count: number; client_id: string }[];
   }>({
     query: gql`
-      query {
-        logByClientId(take: 20) {
-          count
+      query ($clientId: String) {
+        log(take: 20, clientId: $clientId) {
           time
           ua
           geo {
@@ -38,6 +39,9 @@ export default async function AdminPage({
         }
       }
     `,
+    variables: {
+      clientId,
+    },
   });
 
   return (
@@ -67,7 +71,7 @@ export default async function AdminPage({
                     "ua",
                     "client_id",
                   ] as const;
-                  if (data && data.logByClientId.length > 0) {
+                  if (data && data.log.length > 0) {
                     return columns.map((key) => (
                       <th key={key} className="py-2 pr-4 font-medium">
                         {key}
@@ -82,7 +86,7 @@ export default async function AdminPage({
               {(() => {
                 const seen = new Set<string>();
                 let currentColorIndex = 0;
-                return data?.logByClientId.map((row, idx) => {
+                return data?.log.map((row, idx) => {
                   const toFlagEmoji = (countryCode?: string) => {
                     if (!countryCode) return "";
                     const code = countryCode.trim().toUpperCase();

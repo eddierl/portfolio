@@ -11,7 +11,7 @@ const { handleRequest } = createYoga<NextContext>({
       type Query {
         greetings: String
         viewer(user: String): Int
-        log(take: Int, skip: Int): [Log]
+        log(take: Int, skip: Int, clientId: String): [Log]
         logByClientId(take: Int, skip: Int): [LogWithCount]
       }
 
@@ -67,11 +67,12 @@ const { handleRequest } = createYoga<NextContext>({
           return data;
         },
         log: async (_parent, args, _ctx) => {
-          const { skip = 0, take = 10 } = args;
+          const { skip = 0, take = 10, clientId = null } = args;
 
           const data = await sql.query(`
             select  time, ua, geo, client_id from public.logs
             where client_id != 'c2b6d823-85c4-4687-a255-a9908861c014'
+            ${clientId ? `and client_id = '${clientId}'` : ""}
             order by time DESC
             limit ${take}
             offset ${skip}
