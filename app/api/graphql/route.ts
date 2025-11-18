@@ -59,7 +59,7 @@ const { handleRequest } = createYoga<NextContext>({
           const data = await sql.query(`
             select count(1),max(time) as time,ua,client_id,geo from public.logs
             where client_id != 'c2b6d823-85c4-4687-a255-a9908861c014'
-            
+            and geo->>'country' is not null
             group by client_id,geo,ua
             order by time DESC
             limit ${take}
@@ -74,6 +74,7 @@ const { handleRequest } = createYoga<NextContext>({
           const data = await sql.query(`
             select  time, ua, geo, client_id from public.logs
             where client_id != 'c2b6d823-85c4-4687-a255-a9908861c014'
+            and geo->>'country' is not null
             ${clientId ? `and client_id = '${clientId}'` : ""}
             order by time DESC
             limit ${take}
