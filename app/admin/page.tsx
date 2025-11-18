@@ -30,6 +30,7 @@ export default async function AdminPage({
           count
           time
           ua
+          device
           geo {
             country
             city
@@ -170,7 +171,7 @@ export default async function AdminPage({
                           "count",
                           "geo",
                           "ua",
-                          // "device",
+                          "device",
 
                           "client_id",
                         ] as const
@@ -179,7 +180,7 @@ export default async function AdminPage({
                           key as string
                         ];
                         let display: string;
-                        //@ts-expect-error not showing device, need to remove probably
+
                         if (key === "device") {
                           const uaValue = (row as Record<string, unknown>)
                             .ua as string | undefined;

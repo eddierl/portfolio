@@ -19,6 +19,7 @@ const { handleRequest } = createYoga<NextContext>({
         id: ID
         time: String
         ua: String
+        device: String
         geo: Geo
         client_id: String
       }
@@ -27,6 +28,7 @@ const { handleRequest } = createYoga<NextContext>({
         count: Int
         time: String
         ua: String
+        device: String
         client_id: String
         geo: Geo
       }
