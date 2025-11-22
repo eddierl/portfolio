@@ -6,8 +6,8 @@ export async function POST(req: Request) {
 
   try {
     await sql`
-    INSERT INTO logs(path, ua, geo, time, client_id)
-    VALUES(${body.path}, ${body.ua}, ${body.geo}, ${body.time}, ${body.clientId})`;
+    INSERT INTO logs(path, ua, geo, time, client_id, referrer)
+    VALUES(${body.path}, ${body.ua}, ${body.geo}, ${body.time}, ${body.clientId}, ${body.referrer})`;
 
     // Right now just log to console (shows up in Vercel/Netlify logs)
     console.log("📜 Middleware log:", body);

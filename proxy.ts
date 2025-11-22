@@ -40,6 +40,7 @@ export function proxy(request: NextRequest) {
       ua: request.headers.get("user-agent"),
       geo,
       clientId: anonId,
+      referrer: request.headers.get("referer") || null,
     };
 
     // Send asynchronously (don’t block request)
