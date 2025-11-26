@@ -24,7 +24,7 @@ export default async function AdminPage({
 
   const clientId = (await params).clientId;
   const { data, error: apolloError } = await createApolloClient().query<{
-    log: { ua: string; count: number; client_id: string }[];
+    log: { ua: string; count: number; clientId: string }[];
   }>({
     query: gql`
       query ($clientId: String) {
@@ -35,7 +35,7 @@ export default async function AdminPage({
             country
             city
           }
-          client_id
+          clientId
         }
       }
     `,
@@ -63,14 +63,7 @@ export default async function AdminPage({
             <thead>
               <tr className="text-left border-b">
                 {(() => {
-                  const columns = [
-                    "time",
-                    "count",
-
-                    "geo",
-                    "ua",
-                    "client_id",
-                  ] as const;
+                  const columns = ["time", "geo", "ua", "clientId"] as const;
                   if (data && data.log.length > 0) {
                     return columns.map((key) => (
                       <th key={key} className="py-2 pr-4 font-medium">
@@ -155,7 +148,7 @@ export default async function AdminPage({
                       : "Desktop";
                   };
 
-                  const clientId = row.client_id as string;
+                  const clientId = row.clientId as string;
                   const isNew = !seen.has(clientId);
                   if (isNew) {
                     seen.add(clientId);
@@ -171,12 +164,12 @@ export default async function AdminPage({
                       {(
                         [
                           "time",
-                          "count",
+
                           "geo",
                           "ua",
                           // "device",
 
-                          "client_id",
+                          "clientId",
                         ] as const
                       ).map((key) => {
                         const value = (row as Record<string, unknown>)[
@@ -213,6 +206,8 @@ export default async function AdminPage({
                           key === "geo"
                             ? "py-2 pr-4 align-middle"
                             : "py-2 pr-4 align-top";
+
+                        console.log({ display, value });
                         return (
                           <td key={key} className={cellClass}>
                             {key === "time" ? (

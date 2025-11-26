@@ -5,6 +5,7 @@ import {
   and,
   count,
   desc,
+  eq,
   getTableColumns,
   max,
   ne,
@@ -32,7 +33,7 @@ const { handleRequest } = createYoga<NextContext>({
         ua: String
         device: String
         geo: Geo
-        client_id: String
+        clientId: String
       }
 
       type LogWithCount {
@@ -40,7 +41,7 @@ const { handleRequest } = createYoga<NextContext>({
         time: String
         ua: String
         device: String
-        client_id: String
+        clientId: String
         geo: Geo
       }
 
@@ -70,7 +71,7 @@ const { handleRequest } = createYoga<NextContext>({
             const columns = getTableColumns(logsTable);
             const logs = await db
               ?.select({
-                client_id: columns.clientId,
+                clientId: columns.clientId,
                 geo: columns.geo,
                 ua: columns.ua,
                 count: count(logsTable.id),
@@ -100,17 +101,22 @@ const { handleRequest } = createYoga<NextContext>({
         log: async (_parent, args, _ctx) => {
           const { skip = 0, take = 10, clientId = null } = args;
 
-          const data = await sql.query(`
-            select  time, ua, geo, client_id from public.logs
-            where client_id != 'c2b6d823-85c4-4687-a255-a9908861c014'
-            and geo->>'country' is not null
-            ${clientId ? `and client_id = '${clientId}'` : ""}
-            order by time DESC
-            limit ${take}
-            offset ${skip}
-            `);
+          const columns = getTableColumns(logsTable);
+          const logs = await db
+            ?.select(columns)
+            .from(logsTable)
+            .where(
+              and(
+                ne(logsTable.clientId, "c2b6d823-85c4-4687-a255-a9908861c014"),
+                sqlsql`geo->>'country' is not null`,
+                ...(clientId ? [eq(logsTable.clientId, clientId)] : [])
+              )
+            )
+            .limit(take)
+            .offset(skip)
+            .orderBy(desc(logsTable.time));
 
-          return data;
+          return logs;
         },
       },
     },

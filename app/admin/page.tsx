@@ -22,7 +22,7 @@ export default async function AdminPage({
   if (!authed) return <Login error={error} login={login} />;
 
   const { data, error: apolloError } = await createApolloClient().query<{
-    logByClientId: { ua: string; count: number; client_id: string }[];
+    logByClientId: { ua: string; count: number; clientId: string }[];
   }>({
     query: gql`
       query {
@@ -34,7 +34,7 @@ export default async function AdminPage({
             country
             city
           }
-          client_id
+          clientId
         }
       }
     `,
@@ -65,7 +65,7 @@ export default async function AdminPage({
 
                     "geo",
                     "ua",
-                    "client_id",
+                    "clientId",
                   ] as const;
                   if (data && data.logByClientId.length > 0) {
                     return columns.map((key) => (
@@ -151,7 +151,7 @@ export default async function AdminPage({
                       : "Desktop";
                   };
 
-                  const clientId = row.client_id as string;
+                  const clientId = row.clientId as string;
                   const isNew = !seen.has(clientId);
                   if (isNew) {
                     seen.add(clientId);
@@ -172,7 +172,7 @@ export default async function AdminPage({
                           "ua",
                           // "device",
 
-                          "client_id",
+                          "clientId",
                         ] as const
                       ).map((key) => {
                         const value = (row as Record<string, unknown>)[

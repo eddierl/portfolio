@@ -44,7 +44,7 @@ test.describe("Admin Page", () => {
     await expect(page.getByText(/ua/i)).toBeVisible();
     // await expect(page.getByText(/device/i)).toBeVisible();
     await expect(page.getByText(/geo/i)).toBeVisible();
-    await expect(page.getByText(/client_id/i)).toBeVisible();
+    await expect(page.getByText(/clientId/i)).toBeVisible();
   });
 
   test("logout returns to login form", async ({ page }) => {
