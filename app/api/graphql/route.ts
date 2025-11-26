@@ -1,6 +1,5 @@
 import { db } from "app/lib/drizzle";
 import { logsTable } from "app/lib/drizzle/schema";
-import { sql } from "app/lib/neon";
 import {
   and,
   count,
@@ -9,7 +8,7 @@ import {
   getTableColumns,
   max,
   ne,
-  sql as sqlsql,
+  sql,
 } from "drizzle-orm";
 import { createSchema, createYoga } from "graphql-yoga";
 
@@ -84,7 +83,7 @@ const { handleRequest } = createYoga<NextContext>({
                     logsTable.clientId,
                     "c2b6d823-85c4-4687-a255-a9908861c014"
                   ),
-                  sqlsql`geo->>'country' is not null`
+                  sql`${logsTable.geo}->>'country' is not null`
                 )
               )
               .groupBy(logsTable.clientId, logsTable.geo, logsTable.ua)
@@ -108,7 +107,7 @@ const { handleRequest } = createYoga<NextContext>({
             .where(
               and(
                 ne(logsTable.clientId, "c2b6d823-85c4-4687-a255-a9908861c014"),
-                sqlsql`geo->>'country' is not null`,
+                sql`${logsTable.geo}->>'country' is not null`,
                 ...(clientId ? [eq(logsTable.clientId, clientId)] : [])
               )
             )
