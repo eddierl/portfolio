@@ -1,4 +1,15 @@
+import { db } from "app/lib/drizzle";
+import { logsTable } from "app/lib/drizzle/schema";
 import { sql } from "app/lib/neon";
+import {
+  and,
+  count,
+  desc,
+  getTableColumns,
+  max,
+  ne,
+  sql as sqlsql,
+} from "drizzle-orm";
 import { createSchema, createYoga } from "graphql-yoga";
 
 interface NextContext {
@@ -53,20 +64,38 @@ const { handleRequest } = createYoga<NextContext>({
           return null;
         },
         logByClientId: async (_parent, args, _ctx) => {
-          console.log("enter logByClientId");
           const { skip = 0, take = 10 } = args;
 
-          const data = await sql.query(`
-            select count(1),max(time) as time,ua,client_id,geo from public.logs
-            where client_id != 'c2b6d823-85c4-4687-a255-a9908861c014'
-            and geo->>'country' is not null
-            group by client_id,geo,ua
-            order by time DESC
-            limit ${take}
-            offset ${skip}
-            `);
+          try {
+            const columns = getTableColumns(logsTable);
+            const logs = await db
+              ?.select({
+                client_id: columns.clientId,
+                geo: columns.geo,
+                ua: columns.ua,
+                count: count(logsTable.id),
+                time: max(logsTable.time),
+              })
+              .from(logsTable)
+              .where(
+                and(
+                  ne(
+                    logsTable.clientId,
+                    "c2b6d823-85c4-4687-a255-a9908861c014"
+                  ),
+                  sqlsql`geo->>'country' is not null`
+                )
+              )
+              .groupBy(logsTable.clientId, logsTable.geo, logsTable.ua)
+              .limit(take)
+              .offset(skip)
+              .orderBy(desc(max(logsTable.time)));
 
-          return data;
+            return logs;
+          } catch (error) {
+            console.error("error", error);
+            throw new Error("failed");
+          }
         },
         log: async (_parent, args, _ctx) => {
           const { skip = 0, take = 10, clientId = null } = args;

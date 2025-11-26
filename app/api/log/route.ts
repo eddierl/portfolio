@@ -1,14 +1,11 @@
-import { sql } from "app/lib/neon";
+import { db } from "app/lib/drizzle";
+import { logsTable } from "app/lib/drizzle/schema";
 import { NextResponse } from "next/server";
-
 export async function POST(req: Request) {
   const body = await req.json();
 
   try {
-    await sql`
-    INSERT INTO logs(path, ua, geo, time, client_id, referrer)
-    VALUES(${body.path}, ${body.ua}, ${body.geo}, ${body.time}, ${body.clientId}, ${body.referrer})`;
-
+    await db?.insert(logsTable).values(body);
     // Right now just log to console (shows up in Vercel/Netlify logs)
     console.log("📜 Middleware log:", body);
 
