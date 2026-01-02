@@ -207,7 +207,6 @@ export default async function AdminPage({
                             ? "py-2 pr-4 align-middle"
                             : "py-2 pr-4 align-top";
 
-                        console.log({ display, value });
                         return (
                           <td key={key} className={cellClass}>
                             {key === "time" ? (

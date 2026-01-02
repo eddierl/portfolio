@@ -48,7 +48,6 @@ export default async function AdminPage({
     `,
   });
 
-  console.log(data);
   return (
     <div className="max-w-3xl mx-auto p-6">
       <RefreshCookie />
