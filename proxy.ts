@@ -13,7 +13,7 @@ export function proxy(request: NextRequest) {
   if (url.pathname === "/Eddie_Erlich_Resume.pdf") {
     return NextResponse.redirect(
       new URL("/Edward_Erlich_-_Senior_Software_Engineer_CV.pdf", request.url),
-      { status: 308 },
+      { status: 308 }
     );
   }
 
@@ -32,7 +32,7 @@ export function proxy(request: NextRequest) {
     });
   }
 
-  if (isPdf) {
+  if (isPdf || !request.headers.get("referer")?.includes("erlich.dev")) {
     const geo = geolocation(request);
     const log = {
       path: request.nextUrl.pathname,
