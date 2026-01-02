@@ -42,6 +42,7 @@ const { handleRequest } = createYoga<NextContext>({
         device: String
         clientId: String
         geo: Geo
+        referrals: [String]
       }
 
       type Geo {
@@ -75,6 +76,7 @@ const { handleRequest } = createYoga<NextContext>({
                 ua: columns.ua,
                 count: count(logsTable.id),
                 time: max(logsTable.time),
+                referrals: sql`array_agg(${logsTable.referrer})`,
               })
               .from(logsTable)
               .where(

@@ -22,7 +22,14 @@ export default async function AdminPage({
   if (!authed) return <Login error={error} login={login} />;
 
   const { data, error: apolloError } = await createApolloClient().query<{
-    logByClientId: { ua: string; count: number; clientId: string }[];
+    logByClientId: {
+      count: number;
+      time: string;
+      ua: string;
+      geo: { country?: string; city?: string };
+      clientId: string;
+      referral?: string[];
+    }[];
   }>({
     query: gql`
       query {
@@ -35,11 +42,13 @@ export default async function AdminPage({
             city
           }
           clientId
+          referrals
         }
       }
     `,
   });
 
+  console.log(data);
   return (
     <div className="max-w-3xl mx-auto p-6">
       <RefreshCookie />
@@ -65,6 +74,7 @@ export default async function AdminPage({
 
                     "geo",
                     "ua",
+                    "referrals",
                     "clientId",
                   ] as const;
                   if (data && data.logByClientId.length > 0) {
@@ -170,6 +180,8 @@ export default async function AdminPage({
                           "count",
                           "geo",
                           "ua",
+                          "referrals",
+
                           // "device",
 
                           "clientId",
