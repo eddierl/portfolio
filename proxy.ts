@@ -5,6 +5,7 @@ import { type NextRequest, NextResponse } from "next/server";
 export function proxy(request: NextRequest) {
   const baseUrl = request.nextUrl.origin;
   const COOKIE_NAME = "anon_id";
+  const ignorePatterns = ["erlich.dev", "http://localhost"] as const;
 
   const url = new URL(request.url);
   const isPdf = url.pathname.endsWith(".pdf");
@@ -33,7 +34,10 @@ export function proxy(request: NextRequest) {
   }
 
   const referer = request.headers.get("referer");
-  if (isPdf || (referer && !referer.includes("erlich.dev"))) {
+  if (
+    isPdf ||
+    (referer && !ignorePatterns.some((pattern) => referer.includes(pattern)))
+  ) {
     const geo = geolocation(request);
     const log = {
       path: request.nextUrl.pathname,
