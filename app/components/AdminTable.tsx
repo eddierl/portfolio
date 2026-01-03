@@ -8,6 +8,7 @@ import {
 } from "@tanstack/react-table";
 import type { Route } from "next";
 import Link from "next/link";
+import { useMemo } from "react";
 import TimeCell from "./time-cell";
 
 type LogEntry = {
@@ -138,23 +139,17 @@ function AdminTable({ data }: AdminTableProps) {
   ];
 
   // Compute bgClass
-  const processedData = (() => {
-    const seen = new Set<string>();
-    let currentColorIndex = 0;
-    return data.map((row) => {
-      const clientId = row.clientId;
-      const isNew = !seen.has(clientId);
-      if (isNew) {
-        seen.add(clientId);
-        currentColorIndex = (currentColorIndex + 1) % 2;
-      }
-      const bgClass =
-        row.count === 1
-          ? "bg-slate-200 text-gray-500"
-          : "text-gray-900 bg-slate-50 ";
-      return { ...row, bgClass };
-    });
-  })();
+  const processedData = useMemo(
+    () =>
+      data.map((row) => ({
+        ...row,
+        bgClass:
+          row.count === 1
+            ? "bg-slate-200 text-gray-500"
+            : "text-gray-900 bg-slate-50 ",
+      })),
+    [data]
+  );
 
   const table = useReactTable({
     data: processedData,
