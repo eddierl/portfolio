@@ -1,5 +1,11 @@
+import Groq from "groq-sdk";
 import { type NextRequest, NextResponse } from "next/server";
 
+const groq = new Groq({
+  apiKey:
+    process.env.GROQ_API_KEY ||
+    "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",
+});
 export async function GET(req: NextRequest) {
   const url = new URL(req.url);
   const mode = url.searchParams.get("hub.mode");
@@ -36,11 +42,19 @@ const getMessage = (s: S) => {
   }
 };
 
-const processJSON = (s: S) => {
+const processJSON = async (s: S) => {
   const message = getMessage(s);
   if (!message) throw new Error(`Failed to get message ${JSON.stringify(s)}`);
 
-  return message;
+  const result = await groq.chat.completions.create({
+    messages: [
+      { role: "system", content: "Here is a list of groceries to buy." },
+      { role: "system", content: message },
+    ],
+    model: "llama-3.1-8b-instant",
+  });
+
+  return { message, result };
 };
 
 type S = typeof ss;
