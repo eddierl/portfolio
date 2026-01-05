@@ -46,15 +46,31 @@ const processJSON = async (s: S) => {
   const message = getMessage(s);
   if (!message) throw new Error(`Failed to get message ${JSON.stringify(s)}`);
 
+  console.debug({ message });
   const result = await groq.chat.completions.create({
     messages: [
-      { role: "system", content: "Here is a list of groceries to buy." },
-      { role: "system", content: message },
+      {
+        role: "system",
+        content: `
+        * Extract the list of groceries from the user's message. 
+        * Output a JSON object with a key "groceries" that is an array of objects, each with "original_name" (string), "name" (string) (which is the original_name translated to English), "quantity" (number). 
+        * Default quantity is 1 if not specified.`,
+      },
+      { role: "user", content: message },
     ],
     model: "llama-3.1-8b-instant",
+    response_format: {
+      type: "json_object",
+    },
   });
 
-  return { message, result: JSON.stringify(result.choices[0]) };
+  console.debug({ result });
+
+  const parsed = JSON.parse(result.choices[0]?.message?.content || "{}");
+  return {
+    message,
+    result: parsed.groceries || [],
+  };
 };
 
 type S = typeof ss;
