@@ -54,7 +54,7 @@ const processJSON = async (s: S) => {
     model: "llama-3.1-8b-instant",
   });
 
-  return { message, result };
+  return { message, result: JSON.stringify(result.choices[0]) };
 };
 
 type S = typeof ss;
