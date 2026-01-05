@@ -22,7 +22,7 @@ export async function POST(req: NextRequest) {
   console.log("POST received"); // Check Vercel logs
   const body = await req.json(); // Raw for WhatsApp
 
-  const reply = processJSON(body);
+  const reply = await processJSON(body);
 
   console.log(reply);
   return NextResponse.json({ received: true });
