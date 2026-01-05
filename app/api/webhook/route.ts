@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
   console.log("POST received"); // Check Vercel logs
   const body = await req.json(); // Raw for WhatsApp
 
-  const reply = process(body);
+  const reply = processJSON(body);
 
   console.log(reply);
   return NextResponse.json({ received: true });
@@ -36,7 +36,7 @@ const getMessage = (s: S) => {
   }
 };
 
-const process = (s: S) => {
+const processJSON = (s: S) => {
   const message = getMessage(s);
   if (!message) throw new Error(`Failed to get message ${JSON.stringify(s)}`);
   const decodedMessage = JSON.parse(message);
