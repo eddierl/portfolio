@@ -39,9 +39,8 @@ const getMessage = (s: S) => {
 const processJSON = (s: S) => {
   const message = getMessage(s);
   if (!message) throw new Error(`Failed to get message ${JSON.stringify(s)}`);
-  const decodedMessage = JSON.parse(message);
 
-  return decodedMessage;
+  return message;
 };
 
 type S = typeof ss;
