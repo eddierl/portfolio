@@ -2,9 +2,7 @@ import Groq from "groq-sdk";
 import { type NextRequest, NextResponse } from "next/server";
 
 const groq = new Groq({
-  apiKey:
-    process.env.GROQ_API_KEY ||
-    "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",
+  apiKey: process.env.GROQ_API_KEY,
 });
 export async function GET(req: NextRequest) {
   const url = new URL(req.url);
@@ -54,7 +52,16 @@ const processJSON = async (s: S) => {
         content: `
         * Extract the list of groceries from the user's message. 
         * Output a JSON object with a key "groceries" that is an array of objects, each with "original_name" (string), "name" (string) (which is the original_name translated to English), "quantity" (number). 
-        * Default quantity is 1 if not specified.`,
+        * Default quantity is 1 if not specified.
+        * For example:
+           input: אבוקדו, עגבניות שיר, מלפפון 
+           output: 
+              [
+                  {original_name:"אבוקדו", name:"Avocado", quantity:1},
+                  {original_name:"עגבניות שרי", name:"Cherry Tomato", quantity:1},
+                  {original_name:"מלפפון", name:"Cucumber", quantity:1}
+              ]
+           `,
       },
       { role: "user", content: message },
     ],
