@@ -35,7 +35,7 @@ export const setTokenCookies = async ({
   (await cookies()).set(
     ACCESS_TOKEN_COOKIE_NAME,
     accessToken,
-    getCookieOptions()
+    getCookieOptions(),
   );
 };
 
@@ -59,7 +59,7 @@ export async function logout() {
   (await cookies()).set(
     ACCESS_TOKEN_COOKIE_NAME,
     "",
-    getCookieOptions({ maxAge: 0 })
+    getCookieOptions({ maxAge: 0 }),
   );
   redirect("/admin");
 }

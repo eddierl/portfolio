@@ -83,10 +83,10 @@ const { handleRequest } = createYoga<NextContext>({
                 and(
                   ne(
                     logsTable.clientId,
-                    "c2b6d823-85c4-4687-a255-a9908861c014"
+                    "c2b6d823-85c4-4687-a255-a9908861c014",
                   ),
-                  sql`${logsTable.geo}->>'country' is not null`
-                )
+                  sql`${logsTable.geo}->>'country' is not null`,
+                ),
               )
               .groupBy(logsTable.clientId, logsTable.geo, logsTable.ua)
               .limit(take)
@@ -110,8 +110,8 @@ const { handleRequest } = createYoga<NextContext>({
               and(
                 ne(logsTable.clientId, "c2b6d823-85c4-4687-a255-a9908861c014"),
                 sql`${logsTable.geo}->>'country' is not null`,
-                ...(clientId ? [eq(logsTable.clientId, clientId)] : [])
-              )
+                ...(clientId ? [eq(logsTable.clientId, clientId)] : []),
+              ),
             )
             .limit(take)
             .offset(skip)
