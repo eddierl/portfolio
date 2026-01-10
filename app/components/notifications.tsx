@@ -2,7 +2,7 @@
 import { Toaster } from "app/components/sonner";
 import dayjs from "dayjs";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { toast } from "sonner";
 import { useReadLocalStorage } from "usehooks-ts";
 
