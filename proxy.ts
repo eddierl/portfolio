@@ -14,7 +14,7 @@ export function proxy(request: NextRequest) {
   if (url.pathname === "/Eddie_Erlich_Resume.pdf") {
     return NextResponse.redirect(
       new URL("/Edward_Erlich_-_Senior_Software_Engineer_CV.pdf", request.url),
-      { status: 308 }
+      { status: 308 },
     );
   }
 

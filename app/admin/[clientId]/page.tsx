@@ -87,7 +87,7 @@ export default async function AdminPage({
                     const base = 127397; // 0x1F1E6 - 'A' (65)
                     return String.fromCodePoint(
                       code.charCodeAt(0) + base,
-                      code.charCodeAt(1) + base
+                      code.charCodeAt(1) + base,
                     );
                   };
 
@@ -108,7 +108,7 @@ export default async function AdminPage({
                       const firefox = ua.match(/Firefox\/?([\d.]+)/);
                       if (firefox) return `Firefox ${firefox[1] ?? ""}`.trim();
                       const versionSafari = ua.match(
-                        /Version\/?([\d.]+).*Safari/
+                        /Version\/?([\d.]+).*Safari/,
                       );
                       const safari =
                         ua.includes("Safari") && !ua.includes("Chrome")
@@ -178,8 +178,9 @@ export default async function AdminPage({
                         let display: string;
                         //@ts-expect-error not showing device, need to remove probably
                         if (key === "device") {
-                          const uaValue = (row as Record<string, unknown>)
-                            .ua as string | undefined;
+                          const uaValue = (row as Record<string, unknown>).ua as
+                            | string
+                            | undefined;
                           display = getDevice(String(uaValue ?? ""));
                         } else if (
                           key === "geo" &&

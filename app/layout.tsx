@@ -57,7 +57,7 @@ export default function RootLayout({
   const allBlogs = getBlogPosts();
   const aWeekAgo = dayjs().subtract(1, "week");
   const isThereNewBlog = allBlogs.some((blog) =>
-    dayjs(blog.metadata.publishedAt).isAfter(aWeekAgo)
+    dayjs(blog.metadata.publishedAt).isAfter(aWeekAgo),
   );
 
   return (

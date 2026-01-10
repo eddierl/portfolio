@@ -63,7 +63,7 @@ const isDraft = ({ metadata }: { metadata: Metadata }) => metadata.isDraft;
 
 export function getBlogPosts() {
   return getMDXData(path.join(process.cwd(), "content")).filter(
-    negate(isDraft)
+    negate(isDraft),
   );
 }
 

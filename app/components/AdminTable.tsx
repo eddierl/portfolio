@@ -34,7 +34,7 @@ function AdminTable({ data }: AdminTableProps) {
     const base = 127397; // 0x1F1E6 - 'A' (65)
     return String.fromCodePoint(
       code.charCodeAt(0) + base,
-      code.charCodeAt(1) + base
+      code.charCodeAt(1) + base,
     );
   };
 
@@ -148,7 +148,7 @@ function AdminTable({ data }: AdminTableProps) {
             ? "bg-slate-200 text-gray-500"
             : "text-gray-900 bg-slate-50 ",
       })),
-    [data]
+    [data],
   );
 
   const table = useReactTable({
@@ -169,7 +169,7 @@ function AdminTable({ data }: AdminTableProps) {
                     ? null
                     : flexRender(
                         header.column.columnDef.header,
-                        header.getContext()
+                        header.getContext(),
                       )}
                 </th>
               ))}
