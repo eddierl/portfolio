@@ -20,6 +20,9 @@ export function proxy(request: NextRequest) {
 
   const response = NextResponse.next();
 
+  // Add custom header
+  response.headers.set("x-path", request.nextUrl.pathname);
+
   // Ensure anonymous cookie exists
   let anonId = request.cookies.get(COOKIE_NAME)?.value;
   if (!anonId) {
