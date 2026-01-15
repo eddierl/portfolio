@@ -1,5 +1,3 @@
-"use client";
-
 import { metaData, socialLinks } from "app/lib/config";
 import type { IconType } from "react-icons";
 import { FaGithub, FaLinkedinIn } from "react-icons/fa6";
@@ -77,14 +75,6 @@ export default function Footer() {
       >
         {metaData.title}
       </a>
-      <style jsx>{`
-        @media screen and (max-width: 480px) {
-          article {
-            padding-top: 2rem;
-            padding-bottom: 4rem;
-          }
-        }
-      `}</style>
       <SocialLinks />
     </small>
   );
