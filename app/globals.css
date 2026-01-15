@@ -279,3 +279,9 @@ table {
 .title {
   text-wrap: balance;
 }
+
+.toaster {
+  --normal-bg: var(--popover);
+  --normal-text: var(--popover-foreground);
+  --normal-border: var(--border);
+}
