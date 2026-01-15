@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { skillGroups } from "../lib/skills";
 
 export default function SkillGroups() {
@@ -16,12 +17,14 @@ export default function SkillGroups() {
                 >
                   <span className="text-2xl opacity-50 group-hover:opacity-100 transition-opacity duration-300">
                     {skill.icon.startsWith("http") ? (
-                      <img
+                      <Image
                         className={["size-6", skill?.className]
                           .filter(Boolean)
                           .join(" ")}
                         src={skill.icon}
                         alt={skill.name}
+                        width={24}
+                        height={24}
                       />
                     ) : (
                       skill.icon
