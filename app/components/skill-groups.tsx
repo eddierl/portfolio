@@ -24,7 +24,7 @@ export default function SkillGroups() {
                       alt={skill.name}
                       width={24}
                       height={24}
-                      loading="eager"
+                      unoptimized
                     />
                   </span>
                   <span className="text-sm">{skill.name}</span>
