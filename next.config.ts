@@ -6,6 +6,19 @@ const nextConfig: NextConfig = {
   experimental: {
     typedEnv: true,
   },
+  async headers() {
+    return [
+      {
+        source: "/icons/:slug*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
+    ];
+  },
   async rewrites() {
     return [
       {
