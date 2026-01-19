@@ -16,7 +16,6 @@ export default function SkillGroups() {
                   className="flex items-center space-x-2 group hover:scale-105 transition-transform duration-200  grayscale-50 hover:grayscale-0 select-none"
                 >
                   <span className="text-2xl opacity-50 group-hover:opacity-100 transition-opacity duration-300">
-
                     <Image
                       className={["size-6", skill?.className]
                         .filter(Boolean)
@@ -25,7 +24,7 @@ export default function SkillGroups() {
                       alt={skill.name}
                       width={24}
                       height={24}
-                      preload
+                      loading="eager"
                     />
                   </span>
                   <span className="text-sm">{skill.name}</span>
