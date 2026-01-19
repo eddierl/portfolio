@@ -15,27 +15,27 @@ export const skillGroups: SkillGroup[] = [
     skills: [
       {
         name: "Next.js",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg",
+        icon: "./icons/nextjs-original.svg",
       },
       {
         name: "React",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg",
+        icon: "./icons/react-original.svg",
       },
       {
         name: "Tailwind",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg",
+        icon: "./icons/tailwindcss-original.svg",
       },
       {
         name: "TypeScript",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg",
+        icon: "./icons/typescript-original.svg",
       },
       {
         name: "React Native",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/reactnative/reactnative-original.svg",
+        icon: "./icons/reactnative-original.svg",
       },
       {
         name: "Sequelize",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/sequelize/sequelize-original.svg",
+        icon: "./icons/sequelize-original.svg",
       },
     ],
   },
@@ -44,15 +44,15 @@ export const skillGroups: SkillGroup[] = [
     skills: [
       {
         name: "Playwright",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/playwright/playwright-original.svg",
+        icon: "./icons/playwright-original.svg",
       },
       {
         name: "Jest",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jest/jest-plain.svg",
+        icon: "./icons/jest-plain.svg",
       },
       {
         name: "Cypress",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cypressio/cypressio-original.svg",
+        icon: "./icons/cypressio-original.svg",
       },
     ],
   },
@@ -61,24 +61,24 @@ export const skillGroups: SkillGroup[] = [
     skills: [
       {
         name: "GCP",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/googlecloud/googlecloud-original.svg",
+        icon: "./icons/googlecloud-original.svg",
       },
 
       {
         name: "MongoDB",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg",
+        icon: "./icons/mongodb-original.svg",
       },
       {
         name: "GraphQL",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/graphql/graphql-plain.svg",
+        icon: "./icons/graphql-plain.svg",
       },
       {
         name: "AWS",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg",
+        icon: "./icons/amazonwebservices-plain-wordmark.svg",
       },
       {
         name: "PostgreSQL",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg",
+        icon: "./icons/postgresql-original.svg",
       },
     ],
   },
@@ -87,12 +87,12 @@ export const skillGroups: SkillGroup[] = [
     skills: [
       {
         name: "GitHub",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg",
+        icon: "./icons/github-original.svg",
         className: "dark:invert",
       },
       {
         name: "CircleCI",
-        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/circleci/circleci-plain.svg",
+        icon: "./icons/circleci-plain.svg",
         className: "dark:invert",
       },
     ],
