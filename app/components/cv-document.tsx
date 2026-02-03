@@ -35,17 +35,6 @@ Font.register({
 });
 
 const styles = StyleSheet.create({
-  list: { display: "flex", flexDirection: "column" },
-  listItem: {
-    display: "flex",
-    flexDirection: "row",
-    gap: 8,
-    width: "100%",
-  },
-  text: { fontSize: 12, flex: 1 },
-  /*
-
-*/
   page: {
     display: "flex",
     flexDirection: "row",
@@ -187,14 +176,6 @@ const styles = StyleSheet.create({
     marginBottom: 4,
     textDecoration: "underline",
   },
-  sidebarLabel: {
-    fontSize: cvStyles.sizes.sidebarHeader,
-    fontWeight: 700,
-    fontFamily: "Oswald",
-    color: cvStyles.colors.white,
-    marginTop: cvStyles.spacing.sectionGap,
-    marginBottom: 6,
-  },
   skillsGrid: {
     display: "flex",
     flexDirection: "column",
@@ -207,17 +188,20 @@ const styles = StyleSheet.create({
   },
 });
 
-function renderWithBold(text: string) {
-  const parts = text.split(/(<b>.*?<\/b>)/g);
-
-  return parts.map((part, i) => {
-    const m = part.match(/^<b>(.*)<\/b>$/);
-    if (m)
+/**
+ * Parse text with <b>...</b> markers and render bold sections.
+ * Example: "text with <b>bold</b> part" renders with "bold" in fontWeight 700.
+ */
+function renderWithBold(text: string): any[] {
+  return text.split(/(<b>.*?<\/b>)/g).map((part, i) => {
+    const match = part.match(/^<b>(.*)<\/b>$/);
+    if (match) {
       return (
         <Text key={i} style={{ fontWeight: 700 }}>
-          {m[1]}
+          {match[1]}
         </Text>
       );
+    }
     return <Text key={i}>{part}</Text>;
   });
 }
@@ -259,9 +243,8 @@ export function CVDocument() {
             {cvContent.employment.map((job, index) => (
               <View key={index} style={styles.jobEntry}>
                 <Text style={styles.jobTitle}>
-                  {[job.title, job.company].join(", ")}
+                  {job.title}, {job.company}
                 </Text>
-                <Text style={styles.jobCompany}>{}</Text>
                 <Text style={styles.jobDateRange}>{job.dateRange}</Text>
                 <Text style={styles.techStack}>
                   Tech stack: {job.techStack}

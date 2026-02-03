@@ -65,7 +65,7 @@ export const cvContent = {
       achievements: [
         "Developed a React Native mobile app serving neighborhoods in 7 U.S. states, improving <b>engagement by 35%</b>.",
         "Set up a monorepo with NX, reducing build complexity and developer onboarding.",
-        "Maintained complex infrastructure of over 10 microservices.",
+        "Maintained complex infrastructure of over <b>10 microservices</b>.",
         "Contributed to a Remix-based back office platform.",
       ],
     },
