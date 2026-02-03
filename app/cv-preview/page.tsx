@@ -1,32 +1,24 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import Link from "next/link";
-import React, { Suspense } from "react";
+import { Suspense } from "react";
 
-// Lazy load PDFViewer and document to only render on client
-const PDFViewerComponent = React.lazy(() =>
-  import("@react-pdf/renderer").then((mod) => ({ default: mod.PDFViewer })),
-);
-const CVDocumentComponent = React.lazy(() =>
-  import("@/app/components/cv-document").then((mod) => ({
-    default: mod.CVDocument,
-  })),
+// Dynamically load the PDF viewer wrapper with ssr: false
+const PDFViewerWrapper = dynamic(
+  () => import("@/app/cv-preview/pdf-viewer-wrapper"),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="flex items-center justify-center h-full text-neutral-500">
+        Loading PDF...
+      </div>
+    ),
+  },
 );
 
 function CVPreviewContent() {
-  return (
-    <Suspense
-      fallback={
-        <div className="flex items-center justify-center h-full text-neutral-500">
-          Loading PDF...
-        </div>
-      }
-    >
-      <PDFViewerComponent style={{ width: "100%", height: "100vh" }}>
-        <CVDocumentComponent />
-      </PDFViewerComponent>
-    </Suspense>
-  );
+  return <PDFViewerWrapper />;
 }
 
 export default function CVPreview() {
