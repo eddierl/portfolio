@@ -8,9 +8,8 @@ const navItems = {
   "/blog": { name: "Blog" },
   "/skills": { name: "Skills" },
   // "/photos": { name: "Photos" },
-  ["/Edward_Erlich_-_Senior_Software_Engineer_CV.pdf" as "/"]: {
+  ["/cv-preview" as "/"]: {
     name: "Resume",
-    target: "_blank",
   },
 };
 
