@@ -1,5 +1,6 @@
 import { geolocation } from "@vercel/functions";
 import { type NextRequest, NextResponse } from "next/server";
+import { CV_FILE_NAME } from "@/lib/constants";
 
 // This function can be marked `async` if using `await` inside
 export function proxy(request: NextRequest) {
@@ -12,10 +13,9 @@ export function proxy(request: NextRequest) {
 
   // Redirect old resume PDF to new one
   if (url.pathname === "/Eddie_Erlich_Resume.pdf") {
-    return NextResponse.redirect(
-      new URL("/Edward_Erlich_-_Senior_Software_Engineer_CV.pdf", request.url),
-      { status: 308 },
-    );
+    return NextResponse.redirect(new URL(CV_FILE_NAME, request.url), {
+      status: 308,
+    });
   }
 
   const response = NextResponse.next();
