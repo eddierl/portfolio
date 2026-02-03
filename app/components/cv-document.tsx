@@ -34,6 +34,8 @@ Font.register({
   ],
 });
 
+Font.registerHyphenationCallback((word) => [word]);
+
 const styles = StyleSheet.create({
   page: {
     display: "flex",
@@ -56,17 +58,29 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   name: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "flex-end",
+    marginBottom: 4,
+  },
+  nameCapital: {
     fontSize: cvStyles.sizes.name,
     fontWeight: 700,
     fontFamily: "Oswald",
     color: cvStyles.colors.black,
-    marginBottom: 4,
+  },
+  nameRegular: {
+    fontSize: cvStyles.sizes.name * 0.8,
+    fontWeight: 700,
+    fontFamily: "Oswald",
+    color: cvStyles.colors.black,
+    marginBottom: 2,
   },
   title: {
     fontSize: cvStyles.sizes.title,
     fontFamily: "Oswald",
     color: cvStyles.colors.gray,
-    letterSpacing: 1.5,
+    letterSpacing: 1.75,
     fontWeight: 700,
   },
   // Section headers
@@ -92,7 +106,7 @@ const styles = StyleSheet.create({
     fontSize: cvStyles.sizes.bodyText,
     fontFamily: "Lato",
     color: cvStyles.colors.black,
-    lineHeight: 1.2,
+    lineHeight: 1.5,
     textAlign: "justify",
     marginBottom: cvStyles.spacing.sectionGap,
   },
@@ -103,10 +117,10 @@ const styles = StyleSheet.create({
   },
   jobTitle: {
     fontSize: cvStyles.sizes.jobTitle,
-    fontWeight: 400,
-    fontFamily: "Oswald",
+    fontWeight: 600,
+    fontFamily: "Lato",
     color: cvStyles.colors.black,
-    marginBottom: 0,
+    marginBottom: 2,
   },
   jobCompany: {
     fontSize: cvStyles.sizes.bodyText,
@@ -118,7 +132,7 @@ const styles = StyleSheet.create({
     fontSize: cvStyles.sizes.dateText,
     fontFamily: "Oswald",
     color: cvStyles.colors.lightGray,
-    letterSpacing: 0.5,
+    letterSpacing: 1.75,
     fontWeight: 400,
     marginBottom: 1,
   },
@@ -151,7 +165,7 @@ const styles = StyleSheet.create({
     fontSize: cvStyles.sizes.bodyText,
     fontFamily: "Lato",
     color: cvStyles.colors.black,
-    lineHeight: 1.2,
+    lineHeight: 1.5,
   },
   // Sidebar
   sidebarText: {
@@ -214,7 +228,25 @@ export function CVDocument() {
         <View style={styles.leftColumn}>
           {/* Header */}
           <View style={styles.header}>
-            <Text style={styles.name}>{cvContent.personal.name}</Text>
+            <View style={styles.name}>
+              {cvContent.personal.name
+                .match(/[A-Z]|[^A-Z]+/g)
+                ?.map((text, i) => {
+                  console.log(text, /[A-Z]+/.test(text));
+                  return (
+                    <Text
+                      key={i}
+                      style={
+                        /[A-Z]+/.test(text)
+                          ? styles.nameCapital
+                          : styles.nameRegular
+                      }
+                    >
+                      {text}
+                    </Text>
+                  );
+                })}
+            </View>
             <Text style={styles.title}>{cvContent.personal.title}</Text>
           </View>
 
