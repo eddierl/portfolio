@@ -222,7 +222,13 @@ function renderWithBold(text: string): any[] {
 
 export function CVDocument() {
   return (
-    <Document>
+    <Document
+      title="Senior Software Engineer"
+      author="Edward Erlich"
+      subject="CV"
+      keywords="Eddie Erlich Edward Erlich Senior Software Engineer Full Australian Working Rights Perth-based Remote-ready TypeScript React Go AI Agents MCP Playwright Microservices System Migrations"
+      language="English"
+    >
       <Page size="A4" style={styles.page}>
         {/* Left Column */}
         <View style={styles.leftColumn}>
