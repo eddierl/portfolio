@@ -238,7 +238,6 @@ export function CVDocument() {
               {cvContent.personal.name
                 .match(/[A-Z]|[^A-Z]+/g)
                 ?.map((text, i) => {
-                  console.log(text, /[A-Z]+/.test(text));
                   return (
                     <Text
                       key={i}
