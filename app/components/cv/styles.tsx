@@ -79,6 +79,8 @@ export const styles = StyleSheet.create({
   jobEntry: {
     marginBottom: cvStyles.spacing.jobGap,
     marginTop: cvStyles.spacing.jobGap,
+    display: "flex",
+    gap: 2,
   },
   jobTitle: {
     fontSize: cvStyles.sizes.jobTitle,
@@ -95,17 +97,17 @@ export const styles = StyleSheet.create({
   },
   jobDateRange: {
     fontSize: cvStyles.sizes.dateText,
-    fontFamily: "Oswald",
+    fontFamily: "Lato",
     color: cvStyles.colors.lightGray,
-    letterSpacing: 1.75,
+    letterSpacing: 1.5,
     fontWeight: 400,
     marginBottom: 1,
   },
   techStack: {
     fontSize: cvStyles.sizes.bodyText,
-    fontFamily: "Oswald",
+    fontFamily: "Lato",
     color: cvStyles.colors.black,
-    marginBottom: 1,
+    marginBottom: 6,
     fontWeight: 400,
   },
   // Bullets
