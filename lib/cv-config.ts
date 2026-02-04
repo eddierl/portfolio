@@ -4,7 +4,6 @@ export const cvStyles = {
     black: "#000000",
     darkSidebar: "#1b212f",
     white: "#ffffff",
-    gray: "#666666",
     lightGray: "#999999",
   },
   fonts: {
@@ -37,7 +36,7 @@ export const cvContent = {
     title: "SENIOR SOFTWARE ENGINEER",
     email: "eddie@erlich.dev",
   },
-  profile: `Senior Software Engineer with <b>9+ years'</b> experience delivering scalable web and mobile apps. Skilled in TypeScript, React, and modern testing, with proven success driving system migrations, boosting performance, and mentoring teams. Recently expanded into AI‑integrated development using agents.md, skills.md, MCPs, and various AI providers. Currently exploring <b>Go</b> for fun to strengthen backend and systems skills. Holds full working rights in Australia.`,
+  profile: `Senior Software Engineer with <b>9+ years'</b> experience delivering scalable web and mobile apps. Skilled in TypeScript, React, and modern testing, with proven success driving system migrations, boosting performance, and mentoring teams. Recently expanded into <b>AI</b> integrated development using agents.md, skills.md, MCPs, and various AI providers. Currently exploring <b>Go</b> for fun to strengthen backend and systems skills. Holds full working rights in Australia.`,
   education: [
     {
       degree: "B.Sc. in Computer Science, Ben Gurion University",

@@ -5,7 +5,7 @@ export const styles = StyleSheet.create({
   page: {
     display: "flex",
     flexDirection: "row",
-    backgroundColor: "#ffffff",
+    backgroundColor: cvStyles.colors.white,
   },
   leftColumn: {
     flex: 1,
@@ -44,7 +44,7 @@ export const styles = StyleSheet.create({
   title: {
     fontSize: cvStyles.sizes.title,
     fontFamily: "Oswald",
-    color: cvStyles.colors.gray,
+    color: cvStyles.colors.black,
     letterSpacing: 1.75,
     fontWeight: 700,
   },
