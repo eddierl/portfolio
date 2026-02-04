@@ -1,6 +1,15 @@
 "use client";
 
-import { PDFViewer } from "@react-pdf/renderer";
+import dynamic from "next/dynamic";
+
+const PDFViewer = dynamic(
+  () => import("@react-pdf/renderer").then(({ PDFViewer }) => PDFViewer),
+  {
+    loading: () => <p>Loading...</p>,
+    ssr: false,
+  },
+);
+
 import { CVDocument } from "@/app/components/cv/document";
 
 export default () => {
