@@ -7,6 +7,9 @@
     "moduleResolution": "node",
     "jsx": "react-jsx",
     "baseUrl": ".",
+    "paths": {
+      "@/*": ["./*"]
+    },
     "incremental": true,
     /* Base Options: */
     "esModuleInterop": true,

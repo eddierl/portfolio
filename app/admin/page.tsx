@@ -1,6 +1,7 @@
 import { gql } from "@apollo/client";
 import { Login } from "app/components/Login/login";
 import createApolloClient from "app/lib/apollo-client";
+import Link from "next/link";
 import AdminTable from "../components/AdminTable";
 import { isAuthenticated, login, logout } from "./actions";
 import RefreshCookie from "./refresh-cookie";
@@ -57,6 +58,12 @@ export default async function AdminPage({
           </button>
         </form>
       </div>
+      <Link
+        href="/admin/pdf"
+        className="text-sm font-semibold text-neutral-900 dark:text-neutral-100 hover:text-blue-500 dark:hover:text-blue-400 transition-colors"
+      >
+        PDF Preview
+      </Link>
       {apolloError ? (
         <p className="text-red-600">{apolloError.message}</p>
       ) : (

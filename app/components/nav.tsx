@@ -1,5 +1,6 @@
 import { typedEntries } from "app/lib/types";
 import Link from "next/link";
+import { CV_FILE_NAME } from "@/lib/constants";
 import { isAuthenticated } from "../admin/actions";
 import { metaData } from "../lib/config";
 import { ThemeSwitch } from "./theme-switch";
@@ -8,9 +9,8 @@ const navItems = {
   "/blog": { name: "Blog" },
   "/skills": { name: "Skills" },
   // "/photos": { name: "Photos" },
-  ["/Edward_Erlich_-_Senior_Software_Engineer_CV.pdf" as "/"]: {
+  [CV_FILE_NAME as "/"]: {
     name: "Resume",
-    target: "_blank",
   },
 };
 
