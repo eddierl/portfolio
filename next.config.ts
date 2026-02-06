@@ -6,6 +6,17 @@ const nextConfig: NextConfig = {
   experimental: {
     typedEnv: true,
   },
+  turbopack: {
+    rules: {
+      "*.svg": {
+        condition: {
+          path: /.*icons\/.+\.svg$/i,
+        },
+        loaders: ["@svgr/webpack"],
+        as: "*.js",
+      },
+    },
+  },
   async headers() {
     return [
       {
