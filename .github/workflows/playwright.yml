@@ -58,7 +58,7 @@ jobs:
           CI: true
 
       - name: Upload Playwright report
-        if: always()
+        if: always() && env.AZCOPY_SPA_CLIENT_SECRET != ''
         uses: actions/upload-artifact@v4
         with:
           name: playwright-report
