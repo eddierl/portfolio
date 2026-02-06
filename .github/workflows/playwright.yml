@@ -67,6 +67,7 @@ jobs:
         shell: bash
         if: ${{ !startsWith(github.head_ref, 'dependabot/') }}
         run: |
+          echo ${{ github.head_ref }}
           REPORT_DIR='run-${{ github.run_id }}-${{ github.run_attempt }}'
           azcopy cp --recursive "./playwright-report/*" "https://erlich.blob.core.windows.net/\$web/$REPORT_DIR"
           echo "::notice title=HTML report url::https://erlich.z13.web.core.windows.net/$REPORT_DIR/index.html [like this](http://someurl) <http://someurl|like this>"
