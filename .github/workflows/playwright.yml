@@ -65,7 +65,7 @@ jobs:
           path: playwright-report/
       - name: Upload HTML report to Azure
         shell: bash
-        if: env.AZCOPY_SPA_CLIENT_SECRET != ''
+        if:  ${{ secrets.AZCOPY_SPA_CLIENT_SECRET }} != ''
         run: |
           REPORT_DIR='run-${{ github.run_id }}-${{ github.run_attempt }}'
           azcopy cp --recursive "./playwright-report/*" "https://erlich.blob.core.windows.net/\$web/$REPORT_DIR"
