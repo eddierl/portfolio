@@ -27,7 +27,7 @@ export const cvStyles = {
     jobGap: 4,
     bulletIndent: 10,
   },
-};
+} as const;
 
 // CV Content configuration
 export const cvContent = {
@@ -94,7 +94,7 @@ export const cvContent = {
   details: {
     location: "Morley, WA 6062",
     country: "Australia",
-    phone: "0461 447 018",
+    phone: "0461 467 018",
     email: "eddie@erlich.dev",
   },
   links: [
