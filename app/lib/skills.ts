@@ -1,6 +1,6 @@
 type Skill = {
   name: string;
-  icon: string;
+  Icon: React.FC<React.SVGProps<SVGSVGElement>>;
   className?: string;
 };
 
@@ -15,27 +15,27 @@ export const skillGroups: SkillGroup[] = [
     skills: [
       {
         name: "Next.js",
-        icon: "./icons/nextjs-original.svg",
+        Icon: require("@/public/icons/nextjs-original.svg").default,
       },
       {
         name: "React",
-        icon: "./icons/react-original.svg",
+        Icon: require("@/public/icons/react-original.svg").default,
       },
       {
         name: "Tailwind",
-        icon: "./icons/tailwindcss-original.svg",
+        Icon: require("@/public/icons/tailwindcss-original.svg").default,
       },
       {
         name: "TypeScript",
-        icon: "./icons/typescript-original.svg",
+        Icon: require("@/public/icons/typescript-original.svg").default,
       },
       {
         name: "React Native",
-        icon: "./icons/reactnative-original.svg",
+        Icon: require("@/public/icons/reactnative-original.svg").default,
       },
       {
         name: "Sequelize",
-        icon: "./icons/sequelize-original.svg",
+        Icon: require("@/public/icons/sequelize-original.svg").default,
       },
     ],
   },
@@ -44,15 +44,15 @@ export const skillGroups: SkillGroup[] = [
     skills: [
       {
         name: "Playwright",
-        icon: "./icons/playwright-original.svg",
+        Icon: require("@/public/icons/playwright-original.svg").default,
       },
       {
         name: "Jest",
-        icon: "./icons/jest-plain.svg",
+        Icon: require("@/public/icons/jest-plain.svg").default,
       },
       {
         name: "Cypress",
-        icon: "./icons/cypressio-original.svg",
+        Icon: require("@/public/icons/cypressio-original.svg").default,
       },
     ],
   },
@@ -61,24 +61,25 @@ export const skillGroups: SkillGroup[] = [
     skills: [
       {
         name: "GCP",
-        icon: "./icons/googlecloud-original.svg",
+        Icon: require("@/public/icons/googlecloud-original.svg").default,
       },
 
       {
         name: "MongoDB",
-        icon: "./icons/mongodb-original.svg",
+        Icon: require("@/public/icons/mongodb-original.svg").default,
       },
       {
         name: "GraphQL",
-        icon: "./icons/graphql-plain.svg",
+        Icon: require("@/public/icons/graphql-plain.svg").default,
       },
       {
         name: "AWS",
-        icon: "./icons/amazonwebservices-plain-wordmark.svg",
+        Icon: require("@/public/icons/amazonwebservices-plain-wordmark.svg")
+          .default,
       },
       {
         name: "PostgreSQL",
-        icon: "./icons/postgresql-original.svg",
+        Icon: require("@/public/icons/postgresql-original.svg").default,
       },
     ],
   },
@@ -87,12 +88,12 @@ export const skillGroups: SkillGroup[] = [
     skills: [
       {
         name: "GitHub",
-        icon: "./icons/github-original.svg",
+        Icon: require("@/public/icons/github-original.svg").default,
         className: "dark:invert",
       },
       {
         name: "CircleCI",
-        icon: "./icons/circleci-plain.svg",
+        Icon: require("@/public/icons/circleci-plain.svg").default,
         className: "dark:invert",
       },
     ],

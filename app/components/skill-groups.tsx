@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { skillGroups } from "../lib/skills";
 
 export default function SkillGroups() {
@@ -10,24 +9,15 @@ export default function SkillGroups() {
           <div key={group.category}>
             <h3 className="text-lg font-medium mb-2">{group.category}</h3>
             <div className="flex flex-wrap gap-4">
-              {group.skills.map((skill, _skillIndex) => (
+              {group.skills.map(({ name, Icon, className }) => (
                 <div
-                  key={skill.name}
+                  key={name}
                   className="flex items-center space-x-2 group hover:scale-105 transition-transform duration-200  grayscale-50 hover:grayscale-0 select-none"
                 >
                   <span className="text-2xl opacity-50 group-hover:opacity-100 transition-opacity duration-300">
-                    <Image
-                      className={["size-6", skill?.className]
-                        .filter(Boolean)
-                        .join(" ")}
-                      src={skill.icon}
-                      alt={skill.name}
-                      width={24}
-                      height={24}
-                      unoptimized
-                    />
+                    <Icon className={["size-6", className].join(" ")} />
                   </span>
-                  <span className="text-sm">{skill.name}</span>
+                  <span className="text-sm">{name}</span>
                 </div>
               ))}
             </div>
