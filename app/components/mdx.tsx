@@ -3,7 +3,8 @@ import Link from "next/link";
 import { MDXRemote, type MDXRemoteProps } from "next-mdx-remote/rsc";
 import React, { type PropsWithChildren } from "react";
 import rehypeKatex from "rehype-katex";
-import remarkMath from "remark-math";
+import remarkGfm from "remark-gfm";
+
 import { highlight } from "sugar-high";
 import { CaptionComponent } from "./caption";
 import { ImageGrid } from "./image-grid";
@@ -16,7 +17,7 @@ import Image from "next/image";
 function CustomLink({ href, ...props }: PropsWithChildren<{ href: string }>) {
   if (href.startsWith("/")) {
     return (
-      <Link {...props} href={{ href }}>
+      <Link {...props} href={{ pathname: href }}>
         {props.children}
       </Link>
     );
@@ -24,18 +25,23 @@ function CustomLink({ href, ...props }: PropsWithChildren<{ href: string }>) {
   if (href.startsWith("#")) {
     return <a {...props} />;
   }
-  return <a target="_blank" rel="noopener noreferrer" {...props} />;
+
+  return <a target="_blank" rel="noopener noreferrer" href={href} {...props} />;
 }
 
 async function RoundedImage(imageProps: ImageProps) {
   const imageSrc = imageProps.src.toString();
-  const blurDataURL = await blur(imageSrc);
+  const [error, blurDataURL] = await blur(imageSrc);
+
+  if (error) {
+    console.warn("mdx-image", error);
+  }
 
   return (
     <figure className="flex flex-col my-4">
       <Image
         className="rounded-lg"
-        placeholder="blur"
+        placeholder={blurDataURL ? "blur" : "empty"}
         blurDataURL={blurDataURL}
         {...imageProps}
       />
@@ -152,7 +158,7 @@ export function CustomMDX(
       components={{ ...components, ...(props.components || {}) }}
       options={{
         mdxOptions: {
-          remarkPlugins: [remarkMath],
+          remarkPlugins: [remarkGfm],
           rehypePlugins: [rehypeKatex],
         },
       }}

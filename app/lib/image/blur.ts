@@ -3,15 +3,22 @@ import path from "node:path";
 import sharp from "sharp";
 
 export const blur = async (image: string) => {
-  const imagePath = path.join(process.cwd(), "public", image);
+  try {
+    const imagePath = path.join(process.cwd(), "public", image);
 
-  const imageBuffer = fs.readFileSync(imagePath);
+    const imageBuffer = fs.readFileSync(imagePath);
 
-  const filteredBuffer = await sharp(imageBuffer).resize(16).blur().toBuffer();
+    const filteredBuffer = await sharp(imageBuffer)
+      .resize(16)
+      .blur()
+      .toBuffer();
 
-  const base64Image = `data:image/jpeg;base64,${filteredBuffer.toString(
-    "base64",
-  )}`;
+    const base64Image = `data:image/jpeg;base64,${filteredBuffer.toString(
+      "base64",
+    )}`;
 
-  return base64Image;
+    return [undefined, base64Image] as const;
+  } catch (e) {
+    return [e, undefined] as const;
+  }
 };
