@@ -29,13 +29,17 @@ function CustomLink({ href, ...props }: PropsWithChildren<{ href: string }>) {
 
 async function RoundedImage(imageProps: ImageProps) {
   const imageSrc = imageProps.src.toString();
-  const blurDataURL = await blur(imageSrc);
+  const [error, blurDataURL] = await blur(imageSrc);
+
+  if (error) {
+    console.warn("mdx-image", error);
+  }
 
   return (
     <figure className="flex flex-col my-4">
       <Image
         className="rounded-lg"
-        placeholder="blur"
+        placeholder={blurDataURL ? "blur" : "empty"}
         blurDataURL={blurDataURL}
         {...imageProps}
       />
