@@ -1,0 +1,61 @@
+---
+title: "Turning My CV Into Code — and Myself Into a Candidate Again"
+publishedAt: "2026-02-04"
+summary: "After months of job searching, I decided to rebuild my CV from scratch using code. What started as a PDF hack turned into a small journey back into myself."
+tags: "cv resume first technical post"
+---
+
+
+Here is my first technical blog post.
+
+I’ll walk through how I took a PDF résumé template and turned it into my own editable version — one I can fully customize. For instance, I wanted to make the capital letter of my name 20% larger than the rest. Because why not?
+
+I originally created my CV on resume.io. It had a clean two-column design that I really liked — elegant, modern, and perfect for all those automated screening algorithms. I even paid to download the PDF.
+
+A few months later, still unemployed (💀 candle), I revisited the file. It looked fine, but I realized it completely lacked modern keywords — nothing about AI, automation, or Go, which are pretty essential these days.
+
+Let’s get technical.
+
+Whenever you open a web page, you can export it as a PDF using your browser. If you haven’t tried it before:
+File → Print (Ctrl + P) → Save as PDF.
+
+That’s where I began.
+
+First Version
+
+<Image
+  src="/printed-cv.png"
+  alt="My resume saved as PDF file."
+  width={480}
+  height={320}
+/>
+
+I rebuilt my résumé as an HTML page based on the original design I liked. It looked quite similar, but the file size nearly doubled:
+
+Original: 34 KB
+
+My version: 65 KB
+
+Around that time, I landed a promising interview and paused the project — maybe I wouldn’t need the CV after all.
+
+You know how that story ends. Didn’t get the job.
+
+Back to work.
+
+Second Attempt: Using React PDF
+This time, I went looking for a code-based solution and found react-pdf. After reading through the docs and examples, I dove in.
+
+I used AI to parse my original CV.pdf into a structured JSON object — experience, education, skills, everything. Then I built a layout to render that data in a PDF document.
+
+It was starting to come together.
+
+However, the fonts looked terrible. The AI hadn’t extracted them correctly. I discovered the original used two font families, each with 400 and 700 weights. After some digging, I found the right versions online and manually loaded them into the project. Finally — it looked right.
+
+At that point, only small issues remained: font sizes, letter spacing, and margins. These were beyond the AI’s help, so I spent the rest of the day tweaking everything by hand.
+
+Done (for now)
+After several rounds of fine-tuning, I was happy with how it turned out. I added some new “AI” and “Go” buzzwords in my profile section, and the result feels like a proper CV.
+
+Now I’m sending it to a few colleagues and contacts in Perth.
+
+Wish me luck. ✌️
