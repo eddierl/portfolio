@@ -126,5 +126,5 @@ export const cvContent = {
     "React Native",
     "Turborepo",
   ],
-  languages: ["Hebrew (Native)", "English (Fluent)"],
+  languages: ["English (Fluent)", "Hebrew (Native)"],
 };
