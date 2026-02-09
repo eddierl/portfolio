@@ -6,7 +6,11 @@ import { CV_FILE_NAME } from "@/lib/constants";
 export function proxy(request: NextRequest) {
   const baseUrl = request.nextUrl.origin;
   const COOKIE_NAME = "anon_id";
-  const ignorePatterns = ["erlich.dev", "http://localhost"] as const;
+  const ignorePatterns = [
+    "erlich.dev",
+    "http://localhost",
+    "vercel.app",
+  ] as const;
 
   const url = new URL(request.url);
   const isPdf = url.pathname.endsWith(".pdf");
