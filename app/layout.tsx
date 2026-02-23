@@ -6,6 +6,7 @@ import { getBlogPosts } from "app/lib/posts";
 import dayjs from "dayjs";
 import type { Metadata } from "next";
 import { Nunito } from "next/font/google";
+import Script from "next/script";
 import Footer from "./components/footer";
 import { Navbar } from "./components/nav";
 import { ThemeProvider } from "./components/theme-switch";
@@ -94,6 +95,12 @@ export default function RootLayout({
             {children}
             <Notifications isThereNewBlog={isThereNewBlog} />
             <Footer />
+            {/** Umami Analytics */}
+            <Script
+              async
+              src="https://cloud.umami.is/script.js"
+              data-website-id={process.env.UMAMI_WEBSITE_ID}
+            />
             <Analytics />
             <SpeedInsights />
           </main>
