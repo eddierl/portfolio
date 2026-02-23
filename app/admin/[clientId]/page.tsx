@@ -36,6 +36,7 @@ export default async function AdminPage({
             city
           }
           clientId
+          referrer
         }
       }
     `,
@@ -63,7 +64,13 @@ export default async function AdminPage({
             <thead>
               <tr className="text-left border-b">
                 {(() => {
-                  const columns = ["time", "geo", "ua", "clientId"] as const;
+                  const columns = [
+                    "time",
+                    "geo",
+                    "ua",
+                    "referrer",
+                    "clientId",
+                  ] as const;
                   if (data && data.log.length > 0) {
                     return columns.map((key) => (
                       <th key={key} className="py-2 pr-4 font-medium">
@@ -167,7 +174,8 @@ export default async function AdminPage({
 
                           "geo",
                           "ua",
-                          // "device",
+
+                          "referrer",
 
                           "clientId",
                         ] as const
