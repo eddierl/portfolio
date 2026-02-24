@@ -47,7 +47,7 @@ export const cvContent = {
     {
       title: "Senior Software Engineer",
       company: "Rhino Eco",
-      dateRange: "MAR 2022 — JUL 2025",
+      dateRange: "MAR 2023 — JUL 2025",
       techStack: "React, Next.js, MongoDB, GCP, Playwright, Tailwind",
       achievements: [
         "Delivered a financing platform for solar installers, an intuitive and efficient solar system design tool that reduced lead-to-offer time from <b>4 days to minutes</b>.",
@@ -59,7 +59,7 @@ export const cvContent = {
     {
       title: "Senior Software Engineer",
       company: "Venn",
-      dateRange: "JUL 2021 — MAR 2022",
+      dateRange: "JUL 2021 — MAR 2023",
       techStack: "React Native, NX, GraphQL",
       achievements: [
         "Developed a React Native mobile app serving neighborhoods in 7 U.S. states, improving <b>engagement by 35%</b>.",
