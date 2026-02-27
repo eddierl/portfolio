@@ -67,7 +67,7 @@
     "autoprefixer": "^10.4.24",
     "drizzle-kit": "^0.31.9",
     "husky": "^9.1.7",
-    "tailwindcss": "^4.2.0",
+    "tailwindcss": "^4.2.1",
     "type-fest": "^5.4.4",
     "typescript": "^5.9.3"
   }
