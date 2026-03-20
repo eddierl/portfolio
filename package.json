@@ -58,7 +58,7 @@
     "@commitlint/cli": "^20.5.0",
     "@commitlint/config-conventional": "^20.4.4",
     "@playwright/test": "^1.58.2",
-    "@tailwindcss/postcss": "^4.2.1",
+    "@tailwindcss/postcss": "^4.2.2",
     "@tailwindcss/typography": "^0.5.19",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^25.5.0",
