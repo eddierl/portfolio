@@ -99,7 +99,6 @@ export const styles = StyleSheet.create({
     fontSize: cvStyles.sizes.dateText,
     fontFamily: cvStyles.fonts.primary,
     color: cvStyles.colors.lightGray,
-    letterSpacing: 1.5,
     fontWeight: 400,
     marginBottom: 1,
   },
