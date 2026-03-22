@@ -11,12 +11,12 @@ export const cvStyles = {
     secondary: "Oswald",
   },
   sizes: {
-    name: 32,
-    title: 9,
+    name: 24,
+    title: 8,
     sectionHeader: 12,
     jobTitle: 9.25,
     bodyText: 9.25,
-    dateText: 5,
+    dateText: 7,
     sidebarHeader: 10,
     sidebarText: 8,
   },
@@ -36,18 +36,18 @@ export const cvContent = {
     title: "SENIOR SOFTWARE ENGINEER",
     email: "eddie@erlich.dev",
   },
-  profile: `Senior Software Engineer with <b>9+ years'</b> experience delivering scalable web and mobile apps. Skilled in TypeScript, React, and modern testing, with proven success driving system migrations, boosting performance, and mentoring teams. Recently expanded into <b>AI</b> integrated development using agents.md, skills.md, MCPs, and various AI providers. Currently exploring <b>Go</b> for fun to strengthen backend and systems skills. Holds full working rights in Australia.`,
+  profile: `Senior Software Engineer with <b>10 years</b> of experience delivering scalable web and mobile apps. Skilled in TypeScript, React, and modern testing practices, with proven success in driving system migrations, improving performance, and mentoring teams. Recently expanded into <b>AI</b>-integrated development using agents.md, skills.md, MCPs, and various AI providers. Currently exploring <b>Go</b> to strengthen backend and systems skills. Holds full working rights in Australia.`,
   education: [
     {
       degree: "B.Sc. in Computer Science, Ben Gurion University",
-      dateRange: "OCT 2012 — MAR 2016",
+      dateRange: "OCTOBER 2012 — MACH 2016",
     },
   ],
   employment: [
     {
       title: "Senior Software Engineer",
       company: "Rhino Eco",
-      dateRange: "MAR 2023 — JUL 2025",
+      dateRange: "MARCH 2023 — JULY 2025",
       techStack: "React, Next.js, MongoDB, GCP, Playwright, Tailwind",
       achievements: [
         "Delivered a financing platform for solar installers, an intuitive and efficient solar system design tool that reduced lead-to-offer time from <b>4 days to minutes</b>.",
@@ -59,8 +59,8 @@ export const cvContent = {
     {
       title: "Senior Software Engineer",
       company: "Venn",
-      dateRange: "JUL 2021 — MAR 2023",
-      techStack: "React Native, NX, GraphQL",
+      dateRange: "JULY 2021 — MARCH 2023",
+      techStack: "React Native, Microservices, GraphQL",
       achievements: [
         "Developed a React Native mobile app serving neighborhoods in 7 U.S. states, improving <b>engagement by 35%</b>.",
         "Set up a monorepo with NX, reducing build complexity and developer onboarding.",
@@ -71,7 +71,7 @@ export const cvContent = {
     {
       title: "Senior Software Engineer",
       company: "Autodesk",
-      dateRange: "APR 2019 — JUL 2021",
+      dateRange: "APRIL 2019 — JULY 2021",
       techStack: "TypeScript, Design Systems, Jest, Cypress",
       achievements: [
         "Maintained a TypeScript-based design library used by <b>20+ global teams</b>.",
@@ -82,7 +82,7 @@ export const cvContent = {
     {
       title: "Software Engineer",
       company: "Wix.com",
-      dateRange: "DEC 2015 — APR 2019",
+      dateRange: "DECEMBER 2015 — APRIL 2019",
       techStack: "Angular, React, TypeScript",
       achievements: [
         "Acted as technical lead in the Wix Inbox team (<b>1M+ users</b>), guiding a team through a large-scale migration from AngularJS to React.",

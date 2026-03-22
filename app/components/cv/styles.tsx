@@ -39,14 +39,14 @@ export const styles = StyleSheet.create({
     fontWeight: 700,
     fontFamily: cvStyles.fonts.secondary,
     color: cvStyles.colors.black,
-    marginBottom: 2,
+    marginBottom: 1.25,
   },
   title: {
     fontSize: cvStyles.sizes.title,
     fontFamily: cvStyles.fonts.secondary,
     color: cvStyles.colors.black,
-    letterSpacing: 1.75,
-    fontWeight: 700,
+    // letterSpacing: 1.75,
+    fontWeight: 400,
   },
   // Section headers
   sectionHeader: {
@@ -54,7 +54,7 @@ export const styles = StyleSheet.create({
     fontWeight: 700,
     fontFamily: cvStyles.fonts.secondary,
     color: cvStyles.colors.black,
-    marginTop: 2,
+    marginTop: 4,
     marginBottom: 2,
   },
   sidebarSectionHeader: {
@@ -88,6 +88,7 @@ export const styles = StyleSheet.create({
     fontFamily: cvStyles.fonts.primary,
     color: cvStyles.colors.black,
     marginBottom: 2,
+    marginTop: 1,
   },
   jobCompany: {
     fontSize: cvStyles.sizes.bodyText,
@@ -101,6 +102,7 @@ export const styles = StyleSheet.create({
     color: cvStyles.colors.lightGray,
     fontWeight: 400,
     marginBottom: 1,
+    marginTop:1,
   },
   techStack: {
     fontSize: cvStyles.sizes.bodyText,
@@ -167,3 +169,4 @@ export const styles = StyleSheet.create({
     marginBottom: 1,
   },
 });
+
