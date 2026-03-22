@@ -40,7 +40,7 @@ export const cvContent = {
   education: [
     {
       degree: "B.Sc. in Computer Science, Ben Gurion University",
-      dateRange: "OCTOBER 2012 — MACH 2016",
+      dateRange: "OCTOBER 2012 — MARCH 2016",
     },
   ],
   employment: [
