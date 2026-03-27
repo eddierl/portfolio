@@ -4,11 +4,11 @@
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "module": "preserve",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "jsx": "react-jsx",
-    "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "*": ["./*"]
     },
     "incremental": true,
     /* Base Options: */
