@@ -34,7 +34,7 @@ export function CVDocument() {
   return (
     <Document
       title="Senior Software Engineer"
-      author="Edward Erlich"
+      author="Eddie Erlich"
       subject="CV"
       keywords="Eddie Erlich Edward Erlich Senior Software Engineer Full Australian Working Rights Perth-based Remote-ready TypeScript React Go AI Agents MCP Playwright Microservices System Migrations"
       language="English"

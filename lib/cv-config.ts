@@ -32,7 +32,7 @@ export const cvStyles = {
 // CV Content configuration
 export const cvContent = {
   personal: {
-    name: "Edward Erlich",
+    name: "Eddie Erlich",
     title: "SENIOR SOFTWARE ENGINEER",
     email: "eddie@erlich.dev",
   },
@@ -99,8 +99,8 @@ export const cvContent = {
   },
   links: [
     {
-      label: "linkedin.com/in/eddierl",
-      url: "https://linkedin.com/in/eddierl",
+      label: "linkedin.com/in/eddie-erlich",
+      url: "https://linkedin.com/in/eddie-erlich",
     },
     {
       label: "github.com/eddierl",
