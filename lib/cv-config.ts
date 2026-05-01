@@ -36,7 +36,7 @@ export const cvContent = {
     title: "SENIOR SOFTWARE ENGINEER",
     email: "eddie@erlich.dev",
   },
-  profile: `Senior Software Engineer with <b>10 years</b> of experience delivering scalable web and mobile apps. Skilled in TypeScript, React, and modern testing practices, with proven success in driving system migrations, improving performance, and mentoring teams. Recently expanded into <b>AI</b>-integrated development using agents.md, skills.md, MCPs, and various AI providers. Currently exploring <b>Go</b> to strengthen backend and systems skills. Holds full working rights in Australia.`,
+  profile: `Senior Software Engineer with 10 years of experience building scalable web and mobile applications. Strong in TypeScript, React, testing, and <b>AWS cloud services</b> including Lambda, SQS, SNS, S3, ECS, and CloudFront. Proven in system migrations, performance improvements, and <b>AI-assisted development</b> using tools such as <b>Gemini, Claude, RooCode, Codex</b>, and MCP-based workflows. Holds full working rights in Australia.`,
   education: [
     {
       degree: "B.Sc. in Computer Science, Ben Gurion University",
@@ -48,7 +48,14 @@ export const cvContent = {
       title: "Senior Software Engineer",
       company: "Rhino Eco",
       dateRange: "MARCH 2023 — JULY 2025",
-      techStack: "React, Next.js, MongoDB, GCP, Playwright, Tailwind",
+      techStack: [
+        "React",
+        "Next.js",
+        "MongoDB",
+        "GCP",
+        "Playwright",
+        "Tailwind",
+      ].join(", "),
       achievements: [
         "Delivered a financing platform for solar installers, an intuitive and efficient solar system design tool that reduced lead-to-offer time from <b>4 days to minutes</b>.",
         "Migrated test suites from Cypress to Playwright, enhancing E2E <b>performance by 30%</b>.",
@@ -60,11 +67,13 @@ export const cvContent = {
       title: "Senior Software Engineer",
       company: "Venn",
       dateRange: "JULY 2021 — MARCH 2023",
-      techStack: "React Native, Microservices, GraphQL",
+      techStack: ["React Native", "AWS", "Microservices", "GraphQL", "NX"].join(
+        ", ",
+      ),
       achievements: [
         "Developed a React Native mobile app serving neighborhoods in 7 U.S. states, improving <b>engagement by 35%</b>.",
+        "Maintained and evolved a distributed AWS-based microservices architecture with <b>10+ services</b>.",
         "Set up a monorepo with NX, reducing build complexity and developer onboarding.",
-        "Maintained complex infrastructure of over <b>10 microservices</b>.",
         "Contributed to a Remix-based back office platform.",
       ],
     },
@@ -72,7 +81,7 @@ export const cvContent = {
       title: "Senior Software Engineer",
       company: "Autodesk",
       dateRange: "APRIL 2019 — JULY 2021",
-      techStack: "TypeScript, Design Systems, Jest, Cypress",
+      techStack: ["TypeScript", "Design Systems", "Jest", "Cypress"].join(", "),
       achievements: [
         "Maintained a TypeScript-based design library used by <b>20+ global teams</b>.",
         "Spearheaded the creation and rollout of comprehensive unit testing strategy using Jest and Cypress, resulting in a <b>40% reduction</b> in critical bugs post-release.",
@@ -83,7 +92,7 @@ export const cvContent = {
       title: "Software Engineer",
       company: "Wix.com",
       dateRange: "DECEMBER 2015 — APRIL 2019",
-      techStack: "Angular, React, TypeScript",
+      techStack: ["Angular", "React", "TypeScript"].join(", "),
       achievements: [
         "Acted as technical lead in the Wix Inbox team (<b>1M+ users</b>), guiding a team through a large-scale migration from AngularJS to React.",
         "Delivered a ReasonML workshop for <b>100+ engineers</b>, fostering adoption of modern functional programming techniques.",
