@@ -1,0 +1,73 @@
+---
+title: "Tic Tac Toe"
+publishedAt: "2026-04-25"
+summary: "My journey building Tic Tac Toe."
+tags: "Tic Tac Toe, React, TanStack, WebSockets, Tailwind, Playwright"
+---
+
+# From First Move to Final Match: Building a Modern Tic-Tac-Toe Game
+
+![Tic-Tac-Toe Journey](/Users/eddie/.gemini/antigravity/brain/0e20ec22-61cb-4aae-b3fd-124f05ebc8b8/blog_hero_image_1777724362476.png)
+
+What started as a simple coding exercise evolved into a feature-rich, modern web application. In just under a week, I transformed the classic Tic-Tac-Toe into a competitive multiplayer experience with an AI that's almost impossible to beat.
+
+Here’s the story of how this game came to life.
+
+---
+
+## 🕒 The 6-Day Development Sprint
+
+Based on the git history, the entire project from initial commit to the final scoring system took approximately **6 days** (specifically 5 days, 16 hours, and 41 minutes).
+
+### The Roadmap:
+- **Day 1 (Apr 25):** Project initialization and core test-driven development (TDD).
+- **Day 2 (Apr 26):** Implementing the game logic and applying the initial sleek styling.
+- **Day 3 (Apr 27):** Real-time multiplayer support via WebSockets and game hooks refactoring.
+- **Day 4 (Apr 28):** Adding the "VS Computer" mode, keyboard navigation, and custom assets.
+- **Day 5 (Apr 29):** Polishing accessibility (ARIA labels) and optimizing for performance.
+- **Day 6 (Apr 30):** Implementing the persistent scoring system and final UI refinements.
+
+---
+
+## 🛠️ The Tech Stack
+
+To build a "premium" feel, I chose modern, high-performance tools:
+- **[TanStack Start](https://tanstack.com/start):** For a robust, type-safe full-stack React framework.
+- **React 19:** Leveraging the latest features for UI management.
+- **WebSockets (Nitro/CrossWS):** For near-instant communication in multiplayer matches.
+- **Tailwind CSS:** For that clean, glassmorphic design.
+- **Playwright:** For comprehensive end-to-end testing.
+
+---
+
+## 🧠 Brains and Brawn: Key Features
+
+### 1. The Unbeatable AI (Minimax)
+The "Expert" mode isn't just random moves. It uses the **Minimax algorithm**, a recursive backtracking algorithm that explores all possible moves to ensure the computer never loses. If you play perfectly, you might get a draw—but you won't win.
+
+### 2. Real-Time Multiplayer
+Using a custom WebSocket handler, players can join a room, get matched instantly, and play with synchronized states. We even added a "Rematch" feature that swaps symbols to keep the rivalry going!
+
+### 3. Accessibility & Keyboard Navigation
+Gaming should be for everyone. The board supports full keyboard navigation (including Vim keys `h, j, k, l`) and includes detailed ARIA labels for screen readers.
+
+---
+
+## 🥷 The Secret Weapon: Our QA Team
+
+No project is complete without rigorous testing. I was lucky enough to have **two excellent QAs** on the team: my **6 and 4-year-old ninjas (my sons)**.
+
+They were responsible for "stress-testing" the UI, ensuring the buttons were big enough for small fingers, and making sure the "X" and "O" animations were "cool enough." Their feedback was brutal but necessary!
+
+---
+
+## 🏁 Conclusion
+
+Building this Tic-Tac-Toe game was more than just a coding task; it was an exercise in balancing performance, accessibility, and fun. From the mathematical depth of the Minimax AI to the frantic energy of multiplayer matches, it’s a project that shows how much can be achieved in a single week with the right tools.
+
+*Ready for a match? See you on the grid!*
+
+---
+
+> [!NOTE]
+> This post was generated based on the actual git history and codebase analysis. Screenshots were intended to be included via Playwright, but for now, we've used high-end generated illustrations to capture the aesthetic.
