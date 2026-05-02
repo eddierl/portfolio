@@ -39,7 +39,7 @@ Based on the git history, the entire project from initial commit to the final sc
 
 This project wasn't just about the end result; it was about the process. I followed a strict **Test-Driven Development (TDD)** approach for every single feature.
 
-The workflow was consistent: start with a test suite for a simple game lifecycle, verify the failures, and then build the implementation to satisfy them. This method was applied all over the game—from the core grid logic to the complex WebSocket state synchronization—ensuring a rock-solid foundation at every step.
+The workflow was consistent: start with a test suite for a simple game lifecycle, verify the failures, and then build the implementation to satisfy them. This method was applied all over the game, from the core grid logic to the complex WebSocket state synchronization, ensuring a rock-solid foundation at every step.
 
 ---
 
@@ -56,7 +56,7 @@ To build a "premium" feel, I chose modern, high-performance tools:
 
 ## 🚀 Why TanStack Start?
 
-I’ve been a fan of the TanStack ecosystem for a long time—I’ve followed their progress and used their smaller libraries for years—but I had never actually built a full-scale project with **TanStack Start** until now. And honestly? Cheers for that! 
+I’ve been a fan of the TanStack ecosystem for a long time. I’ve followed their progress and used their smaller libraries for years, but I had never actually built a full-scale project with **TanStack Start** until now. And honestly? Cheers for that! 
 
 I chose it because it offers incredible "building blocks" for modern React apps. The way it integrates routing, data fetching, and server-side logic into a single, cohesive, and fully type-safe experience is impressive. It allowed me to move fast while maintaining a level of confidence in the code that is hard to achieve with more fragmented stacks. It’s a framework that truly prioritizes developer experience (DX) and rock-solid reliability.
 
@@ -67,7 +67,7 @@ I chose it because it offers incredible "building blocks" for modern React apps.
 While Tic-Tac-Toe is a simple game, the engineering behind it was built with a production-first mindset. I treated this project as if it were a high-traffic system:
 
 ### 1. Robust E2E Testing with Playwright
-Multiplayer games are notoriously difficult to test due to their asynchronous nature. I implemented a comprehensive Playwright suite that **simulates two concurrent users** in separate browser contexts. This allowed me to automatically verify matchmaking, turn-taking, and win/draw conditions across both clients simultaneously—something that is almost impossible to reliably test manually.
+Multiplayer games are notoriously difficult to test due to their asynchronous nature. I implemented a comprehensive Playwright suite that **simulates two concurrent users** in separate browser contexts. This allowed me to automatically verify matchmaking, turn-taking, and win/draw conditions across both clients simultaneously. This level of testing is almost impossible to reliably perform manually.
 
 ### 2. Clean Code & Automated Quality Control
 To maintain a high standard, I integrated modern tooling into the daily workflow:
@@ -82,7 +82,7 @@ In a real-time game, efficiency is key. I leveraged **derived state** and custom
 ## 🧠 Brains and Brawn: Key Features
 
 ### 1. The Unbeatable AI (Minimax)
-The "Expert" mode isn't just random moves. It uses the **Minimax algorithm**, a recursive backtracking algorithm that explores every possible branch of the game tree. On a 3x3 grid, this makes the computer **mathematically impossible to beat**. If you play perfectly, you might squeeze out a draw—but you'll never see a "You Win" screen against this bot.
+The "Expert" mode isn't just random moves. It uses the **Minimax algorithm**, a recursive backtracking algorithm that explores every possible branch of the game tree. On a 3x3 grid, this makes the computer **mathematically impossible to beat**. If you play perfectly, you might squeeze out a draw, but you'll never see a "You Win" screen against this bot.
 
 ### 2. Real-Time Multiplayer
 Using a custom WebSocket handler, players can join a room, get matched instantly, and play with synchronized states. We even added a "Rematch" feature that swaps symbols to keep the rivalry going!
@@ -110,7 +110,7 @@ I initially looked at the usual suspects:
 
 I ultimately chose **[Render.com](https://render.com/)**. It seamlessly supported the WebSocket implementation, and best of all, it's completely free ($0)! 
 
-The only tradeoff on the free tier is a **"cold start"**—if the server hasn't been accessed in a while, it takes a few seconds to initialize. To handle this without frustrating the user, I implemented clear **loading indicators and status feedback**, ensuring the "connecting" phase feels intentional rather than like a broken screen. But for a hobby project with zero cost, it's a small price to pay for a lot of power.
+The only tradeoff on the free tier is a **"cold start."** If the server hasn't been accessed in a while, it takes a few seconds to initialize. To handle this without frustrating the user, I implemented clear **loading indicators and status feedback**, ensuring the "connecting" phase feels intentional rather than like a broken screen. But for a hobby project with zero cost, it's a small price to pay for a lot of power.
 
 ---
 
