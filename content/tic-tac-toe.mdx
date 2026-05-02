@@ -7,7 +7,13 @@ tags: "Tic Tac Toe, React, TanStack, WebSockets, Tailwind, Playwright"
 
 # From First Move to Final Match: Building a Modern Tic-Tac-Toe Game
 
-![Tic-Tac-Toe Journey](/Users/eddie/.gemini/antigravity/brain/0e20ec22-61cb-4aae-b3fd-124f05ebc8b8/blog_hero_image_1777724362476.png)
+<Image
+  src="/tic-tac-toe.png"
+  alt="Tic-Tac-Toe Journey"
+  width={640}
+  height={640}
+/>
+
 
 What started as a simple coding exercise evolved into a feature-rich, modern web application. In just under a week, I transformed the classic Tic-Tac-Toe into a competitive multiplayer experience with an AI that's almost impossible to beat.
 
@@ -61,13 +67,21 @@ They were responsible for "stress-testing" the UI, ensuring the buttons were big
 
 ---
 
+## 🚀 The Quest for Free WebSocket Hosting
+
+When it came time to deploy, I hit a snag. The real-time multiplayer feature required WebSocket support, which narrowed my hosting options.
+
+I initially looked at the usual suspects:
+- **Vercel:** An excellent platform, but it doesn't natively support WebSockets outside of the Next.js framework's specific constructs.
+- **Netlify:** Another great option, but their WebSocket support isn't free.
+
+I ultimately chose **[Render.com](https://render.com/)**. It seamlessly supported the WebSocket implementation, and best of all, it's completely free ($0)! The only tradeoff on the free tier is a "cold start"—if the server hasn't been accessed in a while, it takes a few seconds to spin up and initialize. But for a hobby project with zero cost, it's a small price to pay.
+
+---
+
 ## 🏁 Conclusion
 
 Building this Tic-Tac-Toe game was more than just a coding task; it was an exercise in balancing performance, accessibility, and fun. From the mathematical depth of the Minimax AI to the frantic energy of multiplayer matches, it’s a project that shows how much can be achieved in a single week with the right tools.
 
-*Ready for a match? See you on the grid!*
+*Ready for a match? [Play the live demo here!](https://ttt.erlich.dev) See you on the grid!*
 
----
-
-> [!NOTE]
-> This post was generated based on the actual git history and codebase analysis. Screenshots were intended to be included via Playwright, but for now, we've used high-end generated illustrations to capture the aesthetic.
