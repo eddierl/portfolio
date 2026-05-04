@@ -11,8 +11,8 @@ import { ImageGrid } from "./image-grid";
 import { TweetComponent } from "./tweet";
 import { YouTubeComponent } from "./youtube";
 import "katex/dist/katex.min.css";
-import { blur } from "app/lib/image/blur";
 import Image from "next/image";
+import { getBlurBuffer, getSharpImage } from "@/app/lib/image";
 
 function CustomLink({ href, ...props }: PropsWithChildren<{ href: string }>) {
   if (href.startsWith("/")) {
@@ -29,27 +29,50 @@ function CustomLink({ href, ...props }: PropsWithChildren<{ href: string }>) {
   return <a target="_blank" rel="noopener noreferrer" href={href} {...props} />;
 }
 
-async function RoundedImage(imageProps: ImageProps) {
-  const imageSrc = imageProps.src.toString();
-  const [error, blurDataURL] = await blur(imageSrc);
+async function RoundedImage(props: ImageProps) {
+  const { src, alt, ...rest } = props;
+  const imageSrc = src.toString();
 
-  if (error) {
+  try {
+    const instance = getSharpImage(imageSrc);
+
+    const [metadata, blurBuffer] = await Promise.all([
+      instance.metadata(),
+      getBlurBuffer(instance),
+    ]);
+
+    const blurDataURL = `data:image/jpeg;base64,${blurBuffer.toString(
+      "base64",
+    )}`;
+
+    return (
+      <figure className="flex flex-col my-4">
+        <Image
+          className="rounded-lg"
+          placeholder="blur"
+          blurDataURL={blurDataURL}
+          width={metadata.width}
+          height={metadata.height}
+          src={src}
+          alt={alt}
+          {...rest}
+        />
+        <figcaption className="mt-2 text-sm text-gray-500 italic">
+          {alt}
+        </figcaption>
+      </figure>
+    );
+  } catch (error) {
     console.warn("mdx-image", error);
+    return (
+      <figure className="flex flex-col my-4">
+        <img src={imageSrc} alt={alt} className="rounded-lg" />
+        <figcaption className="mt-2 text-sm text-gray-500 italic">
+          {alt}
+        </figcaption>
+      </figure>
+    );
   }
-
-  return (
-    <figure className="flex flex-col my-4">
-      <Image
-        className="rounded-lg"
-        placeholder={blurDataURL ? "blur" : "empty"}
-        blurDataURL={blurDataURL}
-        {...imageProps}
-      />
-      <figcaption className="mt-2 text-sm text-gray-500 italic">
-        {imageProps.alt}
-      </figcaption>
-    </figure>
-  );
 }
 
 function Code({
