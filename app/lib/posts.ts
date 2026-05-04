@@ -60,11 +60,13 @@ function getMDXData(dir: string) {
 }
 
 const isDraft = ({ metadata }: { metadata: Metadata }) => metadata.isDraft;
+const isPublished = ({ metadata }: { metadata: Metadata }) =>
+  new Date(metadata.publishedAt) <= new Date();
 
 export function getBlogPosts() {
-  return getMDXData(path.join(process.cwd(), "content")).filter(
-    negate(isDraft),
-  );
+  return getMDXData(path.join(process.cwd(), "content"))
+    .filter(negate(isDraft))
+    .filter(isPublished);
 }
 
 export function calculateReadingTime(content: string): number {
