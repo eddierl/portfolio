@@ -36,7 +36,7 @@ export const cvContent = {
     title: "SENIOR SOFTWARE ENGINEER",
     email: "eddie@erlich.dev",
   },
-  profile: `Senior Software Engineer with 10 years of experience building scalable web and mobile applications. Strong in TypeScript, React, testing, and <b>AWS cloud services</b> including Lambda, SQS, SNS, S3, ECS, and CloudFront. Proven in system migrations, performance improvements, and <b>AI-assisted development</b> using tools such as <b>Gemini, Claude, RooCode, Codex</b>, and MCP-based workflows. Holds full working rights in Australia.`,
+  profile: `Senior Software Engineer with over 10 years of experience designing and delivering scalable web and mobile applications. Demonstrates strong expertise in TypeScript and React, with a solid foundation in testing practices and cloud-native development on <b>AWS</b>, including services such as Lambda, SQS, SNS, S3, ECS, and CloudFront. Proven track record in leading system migrations, optimizing performance, and accelerating development through <b>AI-assisted tools</b> and workflows, including <b>Gemini, Claude, RooCode, Codex, and MCP-based</b> approaches. Holds full working rights in Australia.`,
   education: [
     {
       degree: "B.Sc. in Computer Science, Ben Gurion University",
