@@ -46,7 +46,7 @@ async function RoundedImage(props: ImageProps) {
     )}`;
 
     return (
-      <figure className="flex flex-col my-4">
+      <figure className="my-4 flex flex-col">
         <Image
           className="rounded-lg"
           placeholder="blur"
@@ -57,7 +57,7 @@ async function RoundedImage(props: ImageProps) {
           alt={alt}
           {...rest}
         />
-        <figcaption className="mt-2 text-sm text-gray-500 italic">
+        <figcaption className="mt-2 text-gray-500 text-sm italic">
           {alt}
         </figcaption>
       </figure>
@@ -65,9 +65,9 @@ async function RoundedImage(props: ImageProps) {
   } catch (error) {
     console.warn("mdx-image", error);
     return (
-      <figure className="flex flex-col my-4">
+      <figure className="my-4 flex flex-col">
         <img src={imageSrc} alt={alt} className="rounded-lg" />
-        <figcaption className="mt-2 text-sm text-gray-500 italic">
+        <figcaption className="mt-2 text-gray-500 text-sm italic">
           {alt}
         </figcaption>
       </figure>
@@ -115,9 +115,9 @@ function Strikethrough(
 
 function Callout(props: { emoji: React.ReactNode; children: React.ReactNode }) {
   return (
-    <div className="px-4 py-3 bg-[#F7F7F7] dark:bg-[#181818] rounded p-1 text-sm flex items-center text-neutral-900 dark:text-neutral-100 mb-8">
-      <div className="flex items-center w-4 mr-4">{props.emoji}</div>
-      <div className="w-full callout leading-relaxed">{props.children}</div>
+    <div className="mb-8 flex items-center rounded bg-[#F7F7F7] p-1 px-4 py-3 text-neutral-900 text-sm dark:bg-[#181818] dark:text-neutral-100">
+      <div className="mr-4 flex w-4 items-center">{props.emoji}</div>
+      <div className="callout w-full leading-relaxed">{props.children}</div>
     </div>
   );
 }
