@@ -1,7 +1,7 @@
 import type { ImageProps } from "next/image";
 import Link from "next/link";
 import { MDXRemote, type MDXRemoteProps } from "next-mdx-remote/rsc";
-import React, { type PropsWithChildren } from "react";
+import React, { type ComponentProps, type PropsWithChildren } from "react";
 import rehypeKatex from "rehype-katex";
 import remarkGfm from "remark-gfm";
 
@@ -46,7 +46,7 @@ async function RoundedImage(props: ImageProps) {
     )}`;
 
     return (
-      <figure className="my-4 flex flex-col">
+      <_Figure alt={alt}>
         <Image
           className="rounded-lg"
           placeholder="blur"
@@ -57,24 +57,39 @@ async function RoundedImage(props: ImageProps) {
           alt={alt}
           {...rest}
         />
-        <figcaption className="mt-2 text-gray-500 text-sm italic">
-          {alt}
-        </figcaption>
-      </figure>
+      </_Figure>
     );
   } catch (error) {
     console.warn("mdx-image", error);
     return (
-      <figure className="my-4 flex flex-col">
+      <_Figure alt={alt}>
         <img src={imageSrc} alt={alt} className="rounded-lg" />
-        <figcaption className="mt-2 text-gray-500 text-sm italic">
-          {alt}
-        </figcaption>
-      </figure>
+      </_Figure>
     );
   }
 }
 
+const _YTC = ({ alt, ...props }: ComponentProps<typeof YouTubeComponent>) => (
+  <_Figure alt={alt}>
+    <YouTubeComponent {...props} />
+  </_Figure>
+);
+const _Figure = ({
+  children,
+  alt,
+}: {
+  children: React.ReactNode;
+  alt: string;
+}) => {
+  return (
+    <figure className="my-4 flex flex-col">
+      {children}
+      <figcaption className="mt-2 text-gray-500 text-sm italic">
+        {alt}
+      </figcaption>
+    </figure>
+  );
+};
 function Code({
   children,
   ...props
@@ -165,7 +180,7 @@ const components = {
   a: CustomLink,
   StaticTweet: TweetComponent,
   Caption: CaptionComponent,
-  YouTube: YouTubeComponent,
+  YouTube: _YTC,
   code: Code,
   Table,
   del: Strikethrough,
