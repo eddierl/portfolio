@@ -33,6 +33,7 @@ const { handleRequest } = createYoga<NextContext>({
         device: String
         geo: Geo
         clientId: String
+        path: String
         referrer: String
       }
 
