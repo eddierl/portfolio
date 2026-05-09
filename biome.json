@@ -29,6 +29,9 @@
         "noUnknownFunction": "warn",
         "useExhaustiveDependencies": "off"
       },
+      "nursery": {
+        "useSortedClasses": "on"
+      },
       "suspicious": {
         "noArrayIndexKey": "off",
         "noExplicitAny": "off"
