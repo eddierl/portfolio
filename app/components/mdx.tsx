@@ -1,19 +1,16 @@
 import type { ImageProps } from "next/image";
+import Image from "next/image";
 import Link from "next/link";
 import { MDXRemote, type MDXRemoteProps } from "next-mdx-remote/rsc";
 import React, { type ComponentProps, type PropsWithChildren } from "react";
-import rehypeKatex from "rehype-katex";
 import remarkGfm from "remark-gfm";
-
 import { highlight } from "sugar-high";
+import { getBlurBuffer, getSharpImage } from "@/app/lib/image";
 import { CaptionComponent } from "./caption";
 import { Figure } from "./figure";
 import { ImageGrid } from "./image-grid";
 import { TweetComponent } from "./tweet";
 import { YouTubeComponent } from "./youtube";
-import "katex/dist/katex.min.css";
-import Image from "next/image";
-import { getBlurBuffer, getSharpImage } from "@/app/lib/image";
 
 function CustomLink({ href, ...props }: PropsWithChildren<{ href: string }>) {
   if (href.startsWith("/")) {
@@ -185,7 +182,7 @@ export function CustomMDX(
       options={{
         mdxOptions: {
           remarkPlugins: [remarkGfm],
-          rehypePlugins: [rehypeKatex],
+          rehypePlugins: [],
         },
       }}
     />

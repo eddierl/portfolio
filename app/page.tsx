@@ -29,7 +29,7 @@ export default function Page() {
         </p>
         <p>
           {/* Nextfolio has everything you need for a portfolio: MDX blog, SEO, RSS,
-          Atom & JSON feeds, analytics, Tweet & YouTube embeds, KaTeX and {""} */}
+          Atom & JSON feeds, analytics, Tweet & YouTube embeds and {""} */}
           {/* <a
             target="_blank"
             href="https://github.com/1msirius/Nextfolio?tab=readme-ov-file#features"
