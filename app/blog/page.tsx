@@ -33,16 +33,16 @@ export default function BlogPosts() {
             return (
               <Link
                 key={post.slug}
-                className="flex flex-col space-y-1 mb-5 transition-opacity duration-200 hover:opacity-80"
+                className="mb-5 flex flex-col space-y-1 transition-opacity duration-200 hover:opacity-80"
                 href={`/blog/${post.slug}`}
               >
-                <div className="w-full flex flex-col sm:flex-row justify-between items-start space-y-1 sm:space-y-0 sm:space-x-2">
+                <div className="flex w-full flex-col items-start justify-between space-y-1 sm:flex-row sm:space-x-2 sm:space-y-0">
                   <div className="flex flex-col space-y-1">
                     <h2 className="text-black dark:text-white">
                       {post.metadata.title}
                     </h2>
                     <div className="flex items-center gap-2">
-                      <span className="text-xs bg-neutral-100 dark:bg-neutral-800 px-2 py-1 rounded inline-flex items-center gap-1">
+                      <span className="inline-flex items-center gap-1 rounded bg-neutral-100 px-2 py-1 text-xs dark:bg-neutral-800">
                         <FiClock aria-hidden="true" />
                         {calculateReadingTime(post.content)} min
                       </span>
@@ -50,7 +50,7 @@ export default function BlogPosts() {
                     </div>
                   </div>
 
-                  <p className="text-neutral-600 dark:text-neutral-400 tabular-nums text-sm">
+                  <p className="text-neutral-600 text-sm tabular-nums dark:text-neutral-400">
                     {formatDate(post.metadata.publishedAt, false)}
                   </p>
                 </div>

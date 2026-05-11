@@ -5,7 +5,7 @@ export const Badge = ({
   ...props
 }: PropsWithChildren<{ label: string }>) => (
   <span
-    className="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm dark:bg-green-900 dark:text-green-300"
+    className="me-2 rounded-sm bg-green-100 px-2.5 py-0.5 font-medium text-green-800 text-xs dark:bg-green-900 dark:text-green-300"
     {...props}
   >
     {props.label}

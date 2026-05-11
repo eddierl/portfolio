@@ -20,7 +20,7 @@ const FaCircleHalfStroke = (
     >
       <clipPath id={`theme-toggle__simple__cutout-${uniqueId}`}>
         <path
-          className={"dark:-translate-x-1/2 dark:translate-y-1 transition-all"}
+          className={"transition-all dark:-translate-x-1/2 dark:translate-y-1"}
           d="M0-5h55v37h-55zm32 12a1 1 0 0025 0 1 1 0 00-25 0"
         />
       </clipPath>
@@ -106,10 +106,10 @@ export const ThemeSwitch: React.FC = () => {
       aria-label="Toggle theme"
       aria-pressed={currentTheme === "dark"}
       onClick={toggleTheme}
-      className="flex items-center justify-center transition-opacity duration-300 hover:opacity-80 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-current rounded"
+      className="flex cursor-pointer items-center justify-center rounded transition-opacity duration-300 hover:opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-current focus-visible:ring-offset-2"
     >
       <FaCircleHalfStroke
-        className={"size-3.5 dark:text-[#D4D4D4] text-[#1c1c1c]"}
+        className={"size-3.5 text-[#1c1c1c] dark:text-[#D4D4D4]"}
       />
     </button>
   );

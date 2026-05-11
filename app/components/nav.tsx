@@ -17,18 +17,18 @@ const navItems = {
 export async function Navbar() {
   const authed = await isAuthenticated();
   return (
-    <nav className="lg:mb-16 mb-12 py-5">
-      <div className="flex flex-col md:flex-row md:items-center justify-between">
+    <nav className="mb-12 py-5 lg:mb-16">
+      <div className="flex flex-col justify-between md:flex-row md:items-center">
         <div className="flex items-center">
-          <Link href="/" className="text-3xl font-semibold">
+          <Link href="/" className="font-semibold text-3xl">
             {metaData.title}
           </Link>
         </div>
-        <div className="flex flex-row gap-4 mt-6 md:mt-0 md:ml-auto items-center">
+        <div className="mt-6 flex flex-row items-center gap-4 md:mt-0 md:ml-auto">
           {authed ? (
             <Link
               href="/admin"
-              className="transition-all hover:text-neutral-800 hover:underline dark:hover:text-neutral-200 flex align-middle relative"
+              className="relative flex align-middle transition-all hover:text-neutral-800 hover:underline dark:hover:text-neutral-200"
             >
               Admin
             </Link>
@@ -38,8 +38,7 @@ export async function Navbar() {
             <Link
               key={path}
               href={path}
-              className="transition-all hover:text-neutral-800 
-              hover:underline dark:hover:text-neutral-200 flex align-middle relative"
+              className="relative flex align-middle transition-all hover:text-neutral-800 hover:underline dark:hover:text-neutral-200"
               {...rest}
             >
               {name}

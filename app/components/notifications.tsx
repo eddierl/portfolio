@@ -17,12 +17,12 @@ export const Notifications = (props: { isThereNewBlog: boolean }) => {
   useEffect(() => {
     if (props.isThereNewBlog && showNotification) {
       const id = toast.success(
-        <div className="flex items-center justify-between w-full animate-in slide-in-from-top-2 duration-300 gap-8">
+        <div className="slide-in-from-top-2 flex w-full animate-in items-center justify-between gap-8 duration-300">
           <div className="flex flex-col">
-            <span className="text-sm font-semibold text-gray-900 dark:text-gray-100 animate-in fade-in duration-500 delay-100">
+            <span className="fade-in animate-in font-semibold text-gray-900 text-sm delay-100 duration-500 dark:text-gray-100">
               🎉 New Blog Post!
             </span>
-            <span className="text-xs text-gray-600 dark:text-gray-400 animate-in fade-in duration-500 delay-200">
+            <span className="fade-in animate-in text-gray-600 text-xs delay-200 duration-500 dark:text-gray-400">
               Fresh content just published
             </span>
           </div>
@@ -30,11 +30,11 @@ export const Notifications = (props: { isThereNewBlog: boolean }) => {
           <Link
             href="/blog"
             onClick={() => toast.dismiss(id)}
-            className="group inline-flex items-center px-3 py-1.5 text-xs font-medium text-white bg-linear-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 dark:from-green-600 dark:to-green-700 dark:hover:from-green-700 dark:hover:to-green-800 rounded-full transition-all"
+            className="group inline-flex items-center rounded-full bg-linear-to-r from-green-500 to-green-600 px-3 py-1.5 font-medium text-white text-xs transition-all hover:from-green-600 hover:to-green-700 dark:from-green-600 dark:to-green-700 dark:hover:from-green-700 dark:hover:to-green-800"
           >
             <span className="mr-1">Read Now</span>
             <svg
-              className="w-3 h-3 transition-transform duration-300 group-hover:translate-x-1"
+              className="h-3 w-3 transition-transform duration-300 group-hover:translate-x-1"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"

@@ -159,10 +159,10 @@ function AdminTable({ data }: AdminTableProps) {
 
   return (
     <div className="overflow-x-auto">
-      <table className="w-full text-sm border-collapse">
+      <table className="w-full border-collapse text-sm">
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
-            <tr key={headerGroup.id} className="text-left border-b">
+            <tr key={headerGroup.id} className="border-b text-left">
               {headerGroup.headers.map((header) => (
                 <th key={header.id} className="py-2 pr-4 font-medium">
                   {header.isPlaceholder

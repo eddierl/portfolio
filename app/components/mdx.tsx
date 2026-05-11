@@ -1,12 +1,13 @@
 import type { ImageProps } from "next/image";
 import Link from "next/link";
 import { MDXRemote, type MDXRemoteProps } from "next-mdx-remote/rsc";
-import React, { type PropsWithChildren } from "react";
+import React, { type ComponentProps, type PropsWithChildren } from "react";
 import rehypeKatex from "rehype-katex";
 import remarkGfm from "remark-gfm";
 
 import { highlight } from "sugar-high";
 import { CaptionComponent } from "./caption";
+import { Figure } from "./figure";
 import { ImageGrid } from "./image-grid";
 import { TweetComponent } from "./tweet";
 import { YouTubeComponent } from "./youtube";
@@ -46,7 +47,7 @@ async function RoundedImage(props: ImageProps) {
     )}`;
 
     return (
-      <figure className="flex flex-col my-4">
+      <Figure alt={alt}>
         <Image
           className="rounded-lg"
           placeholder="blur"
@@ -57,24 +58,26 @@ async function RoundedImage(props: ImageProps) {
           alt={alt}
           {...rest}
         />
-        <figcaption className="mt-2 text-sm text-gray-500 italic">
-          {alt}
-        </figcaption>
-      </figure>
+      </Figure>
     );
   } catch (error) {
     console.warn("mdx-image", error);
     return (
-      <figure className="flex flex-col my-4">
+      <Figure alt={alt}>
         <img src={imageSrc} alt={alt} className="rounded-lg" />
-        <figcaption className="mt-2 text-sm text-gray-500 italic">
-          {alt}
-        </figcaption>
-      </figure>
+      </Figure>
     );
   }
 }
 
+const YouTubeWithCaption = ({
+  alt,
+  ...props
+}: ComponentProps<typeof YouTubeComponent> & { alt?: string }) => (
+  <Figure alt={alt}>
+    <YouTubeComponent {...props} />
+  </Figure>
+);
 function Code({
   children,
   ...props
@@ -115,9 +118,9 @@ function Strikethrough(
 
 function Callout(props: { emoji: React.ReactNode; children: React.ReactNode }) {
   return (
-    <div className="px-4 py-3 bg-[#F7F7F7] dark:bg-[#181818] rounded p-1 text-sm flex items-center text-neutral-900 dark:text-neutral-100 mb-8">
-      <div className="flex items-center w-4 mr-4">{props.emoji}</div>
-      <div className="w-full callout leading-relaxed">{props.children}</div>
+    <div className="mb-8 flex items-center rounded bg-[#F7F7F7] p-1 px-4 py-3 text-neutral-900 text-sm dark:bg-[#181818] dark:text-neutral-100">
+      <div className="mr-4 flex w-4 items-center">{props.emoji}</div>
+      <div className="callout w-full leading-relaxed">{props.children}</div>
     </div>
   );
 }
@@ -165,7 +168,7 @@ const components = {
   a: CustomLink,
   StaticTweet: TweetComponent,
   Caption: CaptionComponent,
-  YouTube: YouTubeComponent,
+  YouTube: YouTubeWithCaption,
   code: Code,
   Table,
   del: Strikethrough,
