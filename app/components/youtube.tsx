@@ -1,26 +1,28 @@
 "use client";
-import YT from "react-youtube";
 
-export interface YouTubeProps extends React.ComponentProps<typeof YT> {
-  start?: string | number;
+import ReactPlayer from "react-player";
+
+export interface YouTubeProps {
+  videoId: string;
+  start?: string;
 }
 
-export function YouTubeComponent({ start, ...props }: YouTubeProps) {
-  const startSeconds =
-    typeof start === "string" ? Number.parseInt(start, 10) : start;
+export function YouTubeComponent({ videoId, start }: YouTubeProps) {
+  const url = new URL("https://www.youtube.com/watch");
+  url.searchParams.set("v", videoId);
+
+  if (start) {
+    url.searchParams.set("t", start);
+  }
 
   return (
     <div className="relative h-0 w-full overflow-hidden rounded-lg pb-[56.25%]">
-      <YT
-        opts={{
-          height: "100%",
-          width: "100%",
-          playerVars: {
-            ...(startSeconds ? { start: startSeconds } : {}),
-          },
-        }}
-        {...props}
-        className="absolute top-0 left-0 h-full w-full"
+      <ReactPlayer
+        src={url.toString()}
+        width="100%"
+        height="100%"
+        className="absolute top-0 left-0"
+        controls
       />
     </div>
   );
