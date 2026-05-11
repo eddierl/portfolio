@@ -28,7 +28,7 @@ function SocialLink({
 
 function SocialLinks() {
   return (
-    <div className="flex text-lg gap-3.5 float-right transition-opacity duration-300 *:hover:opacity-80">
+    <div className="float-right flex gap-3.5 text-lg transition-opacity duration-300 *:hover:opacity-80">
       {(
         Object.entries(socialLinks) as Array<[keyof typeof socialLinks, string]>
       ).map(([type, link]) => (
@@ -65,7 +65,7 @@ function SocialLinks() {
 
 export default function Footer() {
   return (
-    <small className="block lg:mt-24 mt-16 text-[#1C1C1C] dark:text-[#D4D4D4]">
+    <small className="mt-16 block text-[#1C1C1C] lg:mt-24 dark:text-[#D4D4D4]">
       <time>© {YEAR}</time>{" "}
       <a
         className="no-underline"

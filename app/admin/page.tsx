@@ -48,19 +48,19 @@ export default async function AdminPage({
   });
 
   return (
-    <div className="max-w-3xl mx-auto p-6">
+    <div className="mx-auto max-w-3xl p-6">
       <RefreshCookie />
-      <div className="flex items-center justify-between mb-4">
-        <h1 className="text-2xl font-semibold">Admin</h1>
+      <div className="mb-4 flex items-center justify-between">
+        <h1 className="font-semibold text-2xl">Admin</h1>
         <form action={logout}>
-          <button type="submit" className="border rounded px-3 py-2">
+          <button type="submit" className="rounded border px-3 py-2">
             Logout
           </button>
         </form>
       </div>
       <Link
         href="/admin/pdf"
-        className="text-sm font-semibold text-neutral-900 dark:text-neutral-100 hover:text-blue-500 dark:hover:text-blue-400 transition-colors"
+        className="font-semibold text-neutral-900 text-sm transition-colors hover:text-blue-500 dark:text-neutral-100 dark:hover:text-blue-400"
       >
         PDF Preview
       </Link>

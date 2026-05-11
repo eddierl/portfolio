@@ -9,15 +9,15 @@ export const Login = ({
   login: FormHTMLAttributes<HTMLFormElement>["action"];
 }) => {
   return (
-    <div className="max-w-md mx-auto p-6">
-      <h1 className="text-2xl font-semibold mb-4">Admin Login</h1>
-      {error ? <p className="text-red-600 mb-3">{error}</p> : null}
+    <div className="mx-auto max-w-md p-6">
+      <h1 className="mb-4 font-semibold text-2xl">Admin Login</h1>
+      {error ? <p className="mb-3 text-red-600">{error}</p> : null}
       <form action={login} className="space-y-3">
         <input
           type="text"
           name="username"
           defaultValue="admin"
-          className="w-full border rounded px-3 py-2 bg-transparent"
+          className="w-full rounded border bg-transparent px-3 py-2"
           autoComplete="username"
           required
         />
@@ -25,18 +25,18 @@ export const Login = ({
           type="password"
           name="password"
           placeholder="Enter admin password"
-          className="w-full border rounded px-3 py-2 bg-transparent"
+          className="w-full rounded border bg-transparent px-3 py-2"
           autoComplete="current-password"
           required
         />
         <button
           type="submit"
-          className="inline-flex items-center justify-center rounded px-4 py-2 border"
+          className="inline-flex items-center justify-center rounded border px-4 py-2"
         >
           Login
         </button>
       </form>
-      <p className="mt-6 text-sm text-muted-foreground">
+      <p className="mt-6 text-muted-foreground text-sm">
         <Link href="/">Back to site</Link>
       </p>
     </div>

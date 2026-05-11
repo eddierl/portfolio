@@ -46,12 +46,12 @@ export default async function AdminPage({
   });
 
   return (
-    <div className="max-w-3xl mx-auto p-6">
+    <div className="mx-auto max-w-3xl p-6">
       <RefreshCookie />
-      <div className="flex items-center justify-between mb-4">
-        <h1 className="text-2xl font-semibold">Admin</h1>
+      <div className="mb-4 flex items-center justify-between">
+        <h1 className="font-semibold text-2xl">Admin</h1>
         <form action={logout}>
-          <button type="submit" className="border rounded px-3 py-2">
+          <button type="submit" className="rounded border px-3 py-2">
             Logout
           </button>
         </form>
@@ -60,9 +60,9 @@ export default async function AdminPage({
         <p className="text-red-600">{apolloError.message}</p>
       ) : (
         <div className="overflow-x-auto">
-          <table className="w-full text-sm border-collapse">
+          <table className="w-full border-collapse text-sm">
             <thead>
-              <tr className="text-left border-b">
+              <tr className="border-b text-left">
                 {(() => {
                   const columns = [
                     "time",
@@ -167,7 +167,7 @@ export default async function AdminPage({
                       : "text-gray-900 bg-slate-50 ";
 
                   return (
-                    <tr key={idx} className={`border-b/50  ${bgClass}`}>
+                    <tr key={idx} className={`border-b/50 ${bgClass}`}>
                       {(
                         [
                           "time",

@@ -102,7 +102,7 @@ export const styles = StyleSheet.create({
     color: cvStyles.colors.lightGray,
     fontWeight: 400,
     marginBottom: 1,
-    marginTop:1,
+    marginTop: 1,
   },
   techStack: {
     fontSize: cvStyles.sizes.bodyText,
@@ -169,4 +169,3 @@ export const styles = StyleSheet.create({
     marginBottom: 1,
   },
 });
-

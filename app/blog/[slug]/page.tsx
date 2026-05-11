@@ -96,8 +96,8 @@ export default async function Blog({
         }}
       />
       <h1 className="title mb-3 font-medium text-2xl">{post.metadata.title}</h1>
-      <div className="flex justify-between items-center mt-2 mb-8 text-medium">
-        <div className="flex items-center space-x-2 text-sm text-neutral-600 dark:text-neutral-400">
+      <div className="mt-2 mb-8 flex items-center justify-between text-medium">
+        <div className="flex items-center space-x-2 text-neutral-600 text-sm dark:text-neutral-400">
           <span>{formatDate(post.metadata.publishedAt)}</span>
           <span>•</span>
           <span className="inline-flex items-center gap-1">
