@@ -18,7 +18,6 @@ A clean, fast, and lightweight portfolio template built with [Next.js](https://n
 - **Dynamic [OG Images](https://vercel.com/docs/functions/og-image-generation)**: Auto-generate Open Graph images for sharing.
 - **SEO Optimization**: Enhance search visibility with sitemap, robots.txt, and JSON-LD schema.
 - **Dynamic Feed Generation**: Automatic dynamic [RSS](https://nextfolio-template.vercel.app/rss.xml), [Atom](https://nextfolio-template.vercel.app/atom.xml), and [JSON](https://nextfolio-template.vercel.app/feed.json) feeds.
-- **[KaTeX](https://katex.org/) Integration**: Render mathematical expressions smoothly.
 - **Performance Tracking**: Monitor web performance with [Vercel Web Analytics](https://vercel.com/docs/speed-insights) and [Speed Insights](https://vercel.com/docs/speed-insights).
 - **Interactive Embeds**: Easily embed interactive tweets and YouTube videos.
 - **Captions**: Add descriptive captions to photos, tweets, and videos.
