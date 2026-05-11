@@ -7,6 +7,7 @@ import remarkGfm from "remark-gfm";
 
 import { highlight } from "sugar-high";
 import { CaptionComponent } from "./caption";
+import { Figure } from "./figure";
 import { ImageGrid } from "./image-grid";
 import { TweetComponent } from "./tweet";
 import { YouTubeComponent } from "./youtube";
@@ -46,7 +47,7 @@ async function RoundedImage(props: ImageProps) {
     )}`;
 
     return (
-      <_Figure alt={alt}>
+      <Figure alt={alt}>
         <Image
           className="rounded-lg"
           placeholder="blur"
@@ -57,39 +58,26 @@ async function RoundedImage(props: ImageProps) {
           alt={alt}
           {...rest}
         />
-      </_Figure>
+      </Figure>
     );
   } catch (error) {
     console.warn("mdx-image", error);
     return (
-      <_Figure alt={alt}>
+      <Figure alt={alt}>
         <img src={imageSrc} alt={alt} className="rounded-lg" />
-      </_Figure>
+      </Figure>
     );
   }
 }
 
-const _YTC = ({ alt, ...props }: ComponentProps<typeof YouTubeComponent>) => (
-  <_Figure alt={alt}>
-    <YouTubeComponent {...props} />
-  </_Figure>
-);
-const _Figure = ({
-  children,
+const YouTubeWithCaption = ({
   alt,
-}: {
-  children: React.ReactNode;
-  alt: string;
-}) => {
-  return (
-    <figure className="my-4 flex flex-col">
-      {children}
-      <figcaption className="mt-2 text-gray-500 text-sm italic">
-        {alt}
-      </figcaption>
-    </figure>
-  );
-};
+  ...props
+}: ComponentProps<typeof YouTubeComponent> & { alt?: string }) => (
+  <Figure alt={alt}>
+    <YouTubeComponent {...props} />
+  </Figure>
+);
 function Code({
   children,
   ...props
@@ -180,7 +168,7 @@ const components = {
   a: CustomLink,
   StaticTweet: TweetComponent,
   Caption: CaptionComponent,
-  YouTube: _YTC,
+  YouTube: YouTubeWithCaption,
   code: Code,
   Table,
   del: Strikethrough,
