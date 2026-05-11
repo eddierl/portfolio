@@ -36,6 +36,7 @@ export default async function AdminPage({
             city
           }
           clientId
+          path
           referrer
         }
       }
@@ -44,6 +45,15 @@ export default async function AdminPage({
       clientId,
     },
   });
+
+  const columns = [
+    "time",
+    "geo",
+    "ua",
+    "path",
+    "referrer",
+    "clientId",
+  ] as const;
 
   return (
     <div className="mx-auto max-w-3xl p-6">
@@ -64,13 +74,6 @@ export default async function AdminPage({
             <thead>
               <tr className="border-b text-left">
                 {(() => {
-                  const columns = [
-                    "time",
-                    "geo",
-                    "ua",
-                    "referrer",
-                    "clientId",
-                  ] as const;
                   if (data && data.log.length > 0) {
                     return columns.map((key) => (
                       <th key={key} className="py-2 pr-4 font-medium">
@@ -168,18 +171,7 @@ export default async function AdminPage({
 
                   return (
                     <tr key={idx} className={`border-b/50 ${bgClass}`}>
-                      {(
-                        [
-                          "time",
-
-                          "geo",
-                          "ua",
-
-                          "referrer",
-
-                          "clientId",
-                        ] as const
-                      ).map((key) => {
+                      {columns.map((key) => {
                         const value = (row as Record<string, unknown>)[
                           key as string
                         ];
