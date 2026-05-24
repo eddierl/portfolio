@@ -2,3 +2,6 @@ allowBuilds:
   '@sentry/cli': true
   esbuild: true
   sharp: true
+
+# Disable pnpm v11's default 24-hour supply chain delay policy to prevent CI failures for recent dependency updates
+minimumReleaseAge: 0
