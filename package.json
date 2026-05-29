@@ -28,7 +28,7 @@
     "@vercel/analytics": "^2.0.1",
     "@vercel/functions": "^3.5.1",
     "@vercel/speed-insights": "^2.0.0",
-    "dayjs": "^1.11.20",
+    "dayjs": "^1.11.21",
     "dotenv": "^17.4.2",
     "drizzle-orm": "^0.45.2",
     "es-toolkit": "^1.46.1",
