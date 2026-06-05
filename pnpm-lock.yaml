@@ -102,8 +102,8 @@ importers:
         specifier: ^2.0.7
         version: 2.0.7(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       sugar-high:
-        specifier: ^1.1.0
-        version: 1.2.0
+        specifier: ^1.2.1
+        version: 1.2.1
       usehooks-ts:
         specifier: ^3.1.1
         version: 3.1.1(react@19.2.6)
@@ -4271,8 +4271,8 @@ packages:
       babel-plugin-macros:
         optional: true
 
-  sugar-high@1.2.0:
-    resolution: {integrity: sha512-tDChykLsm/+arY5Fb3cOiptiW75WQMkm/J/zQFuOaU0eB6tTVg/C5ANwh9bFw/3JrYaLK2mMm0F9VdXHbNtOhQ==}
+  sugar-high@1.2.1:
+    resolution: {integrity: sha512-C2E0iSC0Gwv+7t32ATFxgiH6fxskoSfd/nF5z11pQSrgJHYjY8/U11K+X0izV9ZyPNPwaomtn6uF7y11MxVNQA==}
 
   super-media-element@1.4.2:
     resolution: {integrity: sha512-9pP/CVNp4NF2MNlRzLwQkjiTgKKe9WYXrLh9+8QokWmMxz+zt2mf1utkWLco26IuA3AfVcTb//qtlTIjY3VHxA==}
@@ -9039,7 +9039,7 @@ snapshots:
     optionalDependencies:
       '@babel/core': 7.29.0
 
-  sugar-high@1.2.0: {}
+  sugar-high@1.2.1: {}
 
   super-media-element@1.4.2: {}
 
