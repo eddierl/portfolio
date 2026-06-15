@@ -12,6 +12,7 @@
     "test": "playwright test",
     "prepare": "husky"
   },
+  "packageManager": "pnpm@11.5.0",
   "commitlint": {
     "extends": [
       "@commitlint/config-conventional"
