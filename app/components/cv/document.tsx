@@ -88,7 +88,7 @@ export function CVDocument() {
           <View>
             <Text style={styles.sectionHeader}>Employment History</Text>
             {cvContent.employment.map((job, index) => (
-              <View key={index} style={styles.jobEntry}>
+              <View key={index} wrap={false} style={styles.jobEntry}>
                 <Text style={styles.jobTitle}>
                   {job.title}, {job.company}
                 </Text>
