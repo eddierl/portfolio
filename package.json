@@ -15,7 +15,7 @@
     "@apollo/client": "^4.2.2",
     "@neondatabase/serverless": "^1.1.0",
     "@react-pdf/renderer": "^4.5.1",
-    "@sentry/nextjs": "^10.57.0",
+    "@sentry/nextjs": "^10.58.0",
     "@supabase/supabase-js": "^2.108.2",
     "@svgr/webpack": "^8.1.0",
     "@tanstack/react-table": "^8.21.3",
