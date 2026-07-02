@@ -72,7 +72,7 @@ export const cvContent = {
       title: "Senior Software Engineer",
       company: "Venn",
       dateRange: "JULY 2021 — MARCH 2023",
-      techStack: ["React Native", "AWS", "Microservices", "GraphQL", "NX"].join(
+      techStack: ["React Native", "AWS", "Microservices", "GraphQL","Postgres", "NX"].join(
         ", ",
       ),
       achievements: [
