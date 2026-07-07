@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import sharp from "sharp";
+import sharp, { type Sharp } from "sharp";
 
 export const getSharpImage = (imagePath: string) => {
   const imageFullPath = path.join(process.cwd(), "public", imagePath);
@@ -9,6 +9,6 @@ export const getSharpImage = (imagePath: string) => {
   return sharpImage;
 };
 
-export const getBlurBuffer = async (image: sharp.Sharp) => {
+export const getBlurBuffer = async (image: Sharp) => {
   return image.resize(16).blur().toBuffer();
 };
