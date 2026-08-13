@@ -58,6 +58,6 @@
     "drizzle-kit": "^0.31.10",
     "tailwindcss": "^4.3.2",
     "type-fest": "^5.7.0",
-    "typescript": "^7.0.2"
+    "typescript": "^5.9.3"
   }
 }
