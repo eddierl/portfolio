@@ -89,8 +89,12 @@ export default function RootLayout({
         <script async src="https://scripts.simpleanalyticscdn.com/latest.js" />
       </head>
       <body className="mx-auto mt-2 mb-12 flex flex-col items-center justify-center antialiased lg:mt-8">
+        {/* Background layers */}
+        <div className="glow" aria-hidden="true" />
+        <div className="grid-bg" aria-hidden="true" />
+
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <main className="mt-2 flex w-full min-w-0 max-w-156 flex-auto flex-col px-6 sm:px-4 md:mt-6 md:px-0">
+          <main className="content-max mt-2 flex w-full min-w-0 flex-auto flex-col px-6 sm:px-4 md:mt-6 md:px-0">
             <Navbar />
             {children}
             <Notifications isThereNewBlog={isThereNewBlog} />

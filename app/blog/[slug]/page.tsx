@@ -95,9 +95,9 @@ export default async function Blog({
           }),
         }}
       />
-      <h1 className="title mb-3 font-medium text-2xl">{post.metadata.title}</h1>
-      <div className="mt-2 mb-8 flex items-center justify-between text-medium">
-        <div className="flex items-center space-x-2 text-neutral-600 text-sm dark:text-neutral-400">
+      <div className="card">
+        <h1 className="title mb-3 font-medium text-2xl">{post.metadata.title}</h1>
+        <div className="mb-6 flex items-center gap-2 text-neutral-500 text-sm dark:text-neutral-400">
           <span>{formatDate(post.metadata.publishedAt)}</span>
           <span>•</span>
           <span className="inline-flex items-center gap-1">
@@ -105,10 +105,10 @@ export default async function Blog({
             {calculateReadingTime(post.content)} min read
           </span>
         </div>
-      </div>
-      <article className="prose prose-quoteless prose-neutral dark:prose-invert">
+        <article className="prose prose-quoteless prose-neutral dark:prose-invert">
         <CustomMDX source={post.content} />
       </article>
+      </div>
     </section>
   );
 }

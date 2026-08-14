@@ -4,13 +4,18 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-::selection {
-  background-color: #47a3f3;
-  color: #fefefe;
-}
-
-/* Light theme colors */
+/* ── Design tokens (inspired by wfoster.dev) ── */
 :root {
+  /* Light theme */
+  --ink: #ffffff;
+  --panel: #f5f5f5;
+  --border: #e5e7eb;
+  --text: #0a0a0a;
+  --dim: #525252;
+  --muted: #737373;
+  --accent: #d97706;
+  --accent-dim: #b45309;
+  --glow: #f59e0b;
   --sh-class: #2d5e9d;
   --sh-identifier: #354150;
   --sh-sign: #8996a3;
@@ -20,15 +25,20 @@
   --sh-jsxliterals: #6266d1;
   --sh-property: #e25a1c;
   --sh-entity: #e25a1c;
-  /* UI surface tokens */
   --popover: #ffffff;
   --popover-foreground: #0a0a0a;
-  --border: #e5e7eb;
 }
 
-/* Dark theme colors */
 .dark {
-  background-color: #111010;
+  --ink: #0a0a0a;
+  --panel: #ffffff07;
+  --border: #ffffff1a;
+  --text: #e8efec;
+  --dim: #b3c2bd;
+  --muted: #8b9a95;
+  --accent: #f59e0b;
+  --accent-dim: #d97706;
+  --glow: #f59e0b;
   --sh-class: #4c97f8;
   --sh-identifier: white;
   --sh-sign: #8996a3;
@@ -38,131 +48,205 @@
   --sh-jsxliterals: #6266d1;
   --sh-property: #e25a1c;
   --sh-entity: #e25a1c;
-  /* UI surface tokens */
   --popover: #0a0a0a;
   --popover-foreground: #fafafa;
   --border: #262626;
 }
 
-html {
-  min-width: 360px;
+::selection {
+  background-color: var(--accent);
+  color: #fefefe;
 }
 
-/* Animation utilities */
+/* ── Background: glow + grid ── */
+body {
+  position: relative;
+  overflow-x: hidden;
+}
+
+.glow {
+  pointer-events: none;
+  z-index: 0;
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(
+    70% 50% at 80% -10%,
+    color-mix(in srgb, var(--glow) 18%, transparent) 0%,
+    transparent 60%
+  );
+  opacity: 0.6;
+}
+
+.grid-bg {
+  pointer-events: none;
+  z-index: 0;
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 70% 50% at 75% 0%, black 40%, transparent 80%);
+  opacity: 0.4;
+}
+
+html {
+  min-width: 360px;
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+/* ── Layout ── */
+.content-max {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 24px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Eyebrow (small uppercase accent label) ── */
+.eyebrow {
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+/* ── Hero ── */
+.hero h1 {
+  letter-spacing: -0.03em;
+  font-size: clamp(2.25rem, 6vw, 3.5rem);
+  font-weight: 650;
+  line-height: 1.05;
+  margin: 0;
+}
+
+.hero .lede {
+  color: var(--dim);
+  max-width: 42ch;
+  margin: 18px 0 0;
+  font-size: clamp(1rem, 2.2vw, 1.2rem);
+  line-height: 1.6;
+}
+
+.hero .lede .accent {
+  color: var(--accent);
+  font-weight: 500;
+}
+
+/* ── Card (skills, blog posts) ── */
+.card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px 24px;
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.card:hover {
+  border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+  transform: translateY(-2px);
+}
+
+/* ── Skill chip ── */
+.skill-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  font-size: 0.875rem;
+  transition: border-color 0.2s, transform 0.2s, background 0.2s;
+  cursor: default;
+}
+
+.skill-chip:hover {
+  border-color: color-mix(in srgb, var(--accent) 50%, var(--border));
+  transform: scale(1.05);
+  background: color-mix(in srgb, var(--accent) 8%, var(--panel));
+}
+
+/* ── Section heading ── */
+.section-heading {
+  letter-spacing: -0.02em;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+/* ── Blog meta ── */
+.blog-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+/* ── Badge (updated for new theme) ── */
+.badge-new {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  background: color-mix(in srgb, var(--accent) 15%, transparent);
+  color: var(--accent);
+}
+
+/* ── Animations ── */
 @keyframes slide-in-from-top {
-  from {
-    transform: translateY(-100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
+  from { transform: translateY(-100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }
 
 @keyframes fade-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 @keyframes scale-in {
-  from {
-    transform: scale(0.95);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
 }
 
 @keyframes bounce {
-  0%,
-  20%,
-  53%,
-  80%,
-  100% {
-    transform: translate3d(0, 0, 0);
-  }
-  40%,
-  43% {
-    transform: translate3d(0, -8px, 0);
-  }
-  70% {
-    transform: translate3d(0, -4px, 0);
-  }
-  90% {
-    transform: translate3d(0, -2px, 0);
-  }
+  0%, 20%, 53%, 80%, 100% { transform: translate3d(0, 0, 0); }
+  40%, 43% { transform: translate3d(0, -8px, 0); }
+  70% { transform: translate3d(0, -4px, 0); }
+  90% { transform: translate3d(0, -2px, 0); }
 }
 
 @keyframes wave {
-  0% {
-    transform: rotate(0deg);
-  }
-  10% {
-    transform: rotate(14deg);
-  }
-  20% {
-    transform: rotate(-8deg);
-  }
-  30% {
-    transform: rotate(14deg);
-  }
-  40% {
-    transform: rotate(-4deg);
-  }
-  50% {
-    transform: rotate(10deg);
-  }
-  60% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(0deg);
-  }
+  0% { transform: rotate(0deg); }
+  10% { transform: rotate(14deg); }
+  20% { transform: rotate(-8deg); }
+  30% { transform: rotate(14deg); }
+  40% { transform: rotate(-4deg); }
+  50% { transform: rotate(10deg); }
+  60% { transform: rotate(0deg); }
+  100% { transform: rotate(0deg); }
 }
 
-.animate-in {
-  animation-fill-mode: both;
-}
+.animate-in { animation-fill-mode: both; }
+.slide-in-from-top-2 { animation: slide-in-from-top 0.3s ease-out; }
+.fade-in { animation: fade-in 0.5s ease-out; }
+.scale-in { animation: scale-in 0.3s ease-out; }
+.animate-bounce { animation: bounce 1s infinite; }
+.animate-wave { animation: wave 2.5s ease-in-out infinite; }
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
 
-.slide-in-from-top-2 {
-  animation: slide-in-from-top 0.3s ease-out;
-}
-
-.fade-in {
-  animation: fade-in 0.5s ease-out;
-}
-
-.scale-in {
-  animation: scale-in 0.3s ease-out;
-}
-
-.animate-bounce {
-  animation: bounce 1s infinite;
-}
-
-.animate-wave {
-  animation: wave 2.5s ease-in-out infinite;
-}
-
-.delay-100 {
-  animation-delay: 0.1s;
-}
-
-.delay-200 {
-  animation-delay: 0.2s;
-}
-
-.delay-300 {
-  animation-delay: 0.3s;
-}
-
+/* ── Prose overrides ── */
 .prose {
   @apply text-[#000000] dark:text-[#FFFFFF];
 }
@@ -176,9 +260,7 @@ html {
   cursor: pointer;
 }
 
-.anchor:hover {
-  @apply visible;
-}
+.anchor:hover { @apply visible; }
 
 .prose a {
   @apply transition-all decoration-neutral-400 dark:decoration-neutral-600 underline-offset-2 decoration-[0.1em] font-normal text-[#000000] dark:text-[#FFFFFF];
@@ -193,9 +275,7 @@ html {
   content: "#";
 }
 
-.prose *:hover > .anchor {
-  @apply visible;
-}
+.prose *:hover > .anchor { @apply visible; }
 
 .prose pre {
   @apply bg-[#F7F7F7] dark:bg-[#181818] rounded-lg overflow-x-auto;
@@ -211,29 +291,11 @@ html {
   line-height: 1.5;
 }
 
-.prose code span {
-  @apply font-medium;
-}
-
-.prose img {
-  /* Don't apply styles to next/image */
-  @apply m-0;
-}
-
-.prose h2,
-h3,
-h4,
-h5,
-h6 {
-  @apply font-medium;
-}
-
-.prose strong {
-  @apply font-medium;
-}
-
+.prose code span { @apply font-medium; }
+.prose img { @apply m-0; }
+.prose h2, h3, h4, h5, h6 { @apply font-medium; }
+.prose strong { @apply font-medium; }
 .prose > :first-child {
-  /* Override removing top margin, causing layout shift */
   margin-top: 1.25em;
   margin-bottom: 1.25em;
 }
@@ -243,16 +305,9 @@ h6 {
   content: none;
 }
 
-pre::-webkit-scrollbar {
-  display: none;
-}
+pre::-webkit-scrollbar { display: none; }
+pre { -ms-overflow-style: none; scrollbar-width: none; }
 
-pre {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-}
-
-/* Remove Safari input shadow on mobile */
 input[type="text"],
 input[type="email"] {
   -webkit-appearance: none;
@@ -272,13 +327,9 @@ table {
   white-space: nowrap;
 }
 
-.prose .callout > p {
-  margin: 0;
-}
+.prose .callout > p { margin: 0; }
 
-.title {
-  text-wrap: balance;
-}
+.title { text-wrap: balance; }
 
 .toaster {
   --normal-bg: var(--popover);

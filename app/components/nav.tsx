@@ -20,7 +20,10 @@ export async function Navbar() {
     <nav className="mb-12 py-5 lg:mb-16">
       <div className="flex flex-col justify-between md:flex-row md:items-center">
         <div className="flex items-center">
-          <Link href="/" className="font-semibold text-3xl">
+          <Link
+            href="/"
+            className="font-semibold text-3xl tracking-tight text-[var(--text)]"
+          >
             {metaData.title}
           </Link>
         </div>
@@ -28,7 +31,7 @@ export async function Navbar() {
           {authed ? (
             <Link
               href="/admin"
-              className="relative flex align-middle transition-all hover:text-neutral-800 hover:underline dark:hover:text-neutral-200"
+              className="relative flex align-middle text-sm text-[var(--dim)] transition-all hover:text-[var(--accent)]"
             >
               Admin
             </Link>
@@ -38,7 +41,7 @@ export async function Navbar() {
             <Link
               key={path}
               href={path}
-              className="relative flex align-middle transition-all hover:text-neutral-800 hover:underline dark:hover:text-neutral-200"
+              className="relative flex align-middle text-sm text-[var(--dim)] transition-all hover:text-[var(--accent)]"
               {...rest}
             >
               {name}
