@@ -1,10 +1,12 @@
 "use client";
 
+import type { ColumnDef } from "@tanstack/react-table";
 import {
-  type ColumnDef,
+  columnVisibilityFeature,
+  coreRowModelsFeature,
   flexRender,
-  getCoreRowModel,
-  useReactTable,
+  tableFeatures,
+  useTable,
 } from "@tanstack/react-table";
 import type { Route } from "next";
 import Link from "next/link";
@@ -25,6 +27,12 @@ type ProcessedLogEntry = LogEntry & { bgClass: string };
 interface AdminTableProps {
   data: LogEntry[];
 }
+
+// Create features once, statically (recommended by TanStack Table v9)
+const features = tableFeatures({
+  coreRowModelsFeature,
+  columnVisibilityFeature,
+});
 
 function AdminTable({ data }: AdminTableProps) {
   const toFlagEmoji = (countryCode?: string) => {
@@ -84,11 +92,11 @@ function AdminTable({ data }: AdminTableProps) {
     return parts || ua;
   };
 
-  const columns: ColumnDef<LogEntry>[] = [
+  const columns: ColumnDef<typeof features, ProcessedLogEntry, any>[] = [
     {
       accessorKey: "time",
       header: "time",
-      cell: ({ getValue }) => <TimeCell iso={getValue() as string} />,
+      cell: ({ cell }) => <TimeCell iso={cell.getValue() as string} />,
     },
     {
       accessorKey: "count",
@@ -97,8 +105,8 @@ function AdminTable({ data }: AdminTableProps) {
     {
       accessorKey: "geo",
       header: "geo",
-      cell: ({ getValue }) => {
-        const geo = getValue() as LogEntry["geo"];
+      cell: ({ cell }) => {
+        const geo = cell.getValue() as LogEntry["geo"];
         const countryCode = geo.country;
         const city = geo.city || "";
         const flag = toFlagEmoji(countryCode);
@@ -110,16 +118,16 @@ function AdminTable({ data }: AdminTableProps) {
     {
       accessorKey: "ua",
       header: "ua",
-      cell: ({ getValue }) => {
-        const ua = getValue() as string;
+      cell: ({ cell }) => {
+        const ua = cell.getValue() as string;
         return <span title={ua}>{truncate(summarizeUA(ua))}</span>;
       },
     },
     {
       accessorKey: "referrals",
       header: "referrals",
-      cell: ({ getValue }) => {
-        const refs = getValue() as string[] | undefined;
+      cell: ({ cell }) => {
+        const refs = cell.getValue() as string[] | undefined;
         const display = refs ? refs.join(", ") : "";
         return <span title={display}>{truncate(display)}</span>;
       },
@@ -127,8 +135,8 @@ function AdminTable({ data }: AdminTableProps) {
     {
       accessorKey: "clientId",
       header: "clientId",
-      cell: ({ getValue }) => {
-        const clientId = getValue() as string;
+      cell: ({ cell }) => {
+        const clientId = cell.getValue() as string;
         return (
           <Link href={`/admin/${clientId}` as Route}>
             <span title={clientId}>{truncate(clientId)}</span>
@@ -151,10 +159,10 @@ function AdminTable({ data }: AdminTableProps) {
     [data],
   );
 
-  const table = useReactTable({
+  const table = useTable({
+    features,
     data: processedData,
     columns,
-    getCoreRowModel: getCoreRowModel(),
   });
 
   return (
@@ -180,11 +188,9 @@ function AdminTable({ data }: AdminTableProps) {
           {table.getRowModel().rows.map((row) => (
             <tr
               key={row.id}
-              className={`border-b/50 ${
-                (row.original as ProcessedLogEntry).bgClass
-              }`}
+              className={`border-b/50 ${row.original.bgClass}`}
             >
-              {row.getVisibleCells().map((cell) => (
+              {row.getVisibleCells().map((cell: any) => (
                 <td
                   key={cell.id}
                   className={
