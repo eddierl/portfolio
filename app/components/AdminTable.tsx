@@ -1,7 +1,13 @@
 "use client";
 
-import { flexRender } from "@tanstack/react-table";
-import { useLegacyTable, type LegacyColumnDef } from "@tanstack/react-table/legacy";
+import type { ColumnDef } from "@tanstack/react-table";
+import {
+  columnVisibilityFeature,
+  coreRowModelsFeature,
+  flexRender,
+  tableFeatures,
+  useTable,
+} from "@tanstack/react-table";
 import type { Route } from "next";
 import Link from "next/link";
 import { useMemo } from "react";
@@ -21,6 +27,12 @@ type ProcessedLogEntry = LogEntry & { bgClass: string };
 interface AdminTableProps {
   data: LogEntry[];
 }
+
+// Create features once, statically (recommended by TanStack Table v9)
+const features = tableFeatures({
+  coreRowModelsFeature,
+  columnVisibilityFeature,
+});
 
 function AdminTable({ data }: AdminTableProps) {
   const toFlagEmoji = (countryCode?: string) => {
@@ -80,7 +92,7 @@ function AdminTable({ data }: AdminTableProps) {
     return parts || ua;
   };
 
-  const columns: LegacyColumnDef<ProcessedLogEntry>[] = [
+  const columns: ColumnDef<typeof features, ProcessedLogEntry, any>[] = [
     {
       accessorKey: "time",
       header: "time",
@@ -147,7 +159,8 @@ function AdminTable({ data }: AdminTableProps) {
     [data],
   );
 
-  const table = useLegacyTable({
+  const table = useTable({
+    features,
     data: processedData,
     columns,
   });
@@ -175,11 +188,9 @@ function AdminTable({ data }: AdminTableProps) {
           {table.getRowModel().rows.map((row) => (
             <tr
               key={row.id}
-              className={`border-b/50 ${
-                (row.original as ProcessedLogEntry).bgClass
-              }`}
+              className={`border-b/50 ${row.original.bgClass}`}
             >
-              {row.getVisibleCells().map((cell) => (
+              {row.getVisibleCells().map((cell: any) => (
                 <td
                   key={cell.id}
                   className={
