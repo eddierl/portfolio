@@ -3,17 +3,18 @@ export default function Page() {
     <section className="hero">
       <p className="eyebrow">Frontend-focused software engineer</p>
       <h1>
-        Hi, I&rsquo;m Eddie! <span className="inline-block animate-wave">👋</span>
+        <span className="inline-block animate-wave">👋</span>
+        Hi, I&rsquo;m Eddie!
       </h1>
-
       <div className="prose prose-neutral dark:prose-invert lede">
         <p>
-          I&rsquo;m a frontend-focused software engineer with over 9 years of
-          experience building scalable web and mobile applications. I specialize
-          in clean, maintainable code, functional programming principles, and
-          creating seamless user experiences. I enjoy turning complex problems
-          into elegant solutions using modern technologies like React,
-          TypeScript, and Node.js.
+          I build web apps that people actually enjoy using. TypeScript on the
+          front, Node.js on the back, and enough testing to sleep at night.
+        </p>
+        <p>
+          10 years in the industry. I&rsquo;ve shipped things for startups,
+          enterprises, and everything in between. I&rsquo;m good at listening,
+          fast at learning, and stubborn about quality.
         </p>
         <p>
           Let&rsquo;s build something great together.

@@ -52,7 +52,7 @@ function SocialLinks() {
 export default function Footer() {
   return (
     <small className="mt-16 block text-[var(--muted)] lg:mt-24">
-      <time>© {YEAR}</time>{" "}
+      <span className="text-[var(--accent)]">🥑</span> © {YEAR}{" "}
       <a
         className="no-underline text-[var(--text)] hover:text-[var(--accent)] transition-colors"
         href="/"

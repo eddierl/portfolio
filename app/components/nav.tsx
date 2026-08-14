@@ -31,7 +31,7 @@ export async function Navbar() {
           {authed ? (
             <Link
               href="/admin"
-              className="relative flex align-middle text-sm text-[var(--dim)] transition-all hover:text-[var(--accent)]"
+              className="relative flex align-middle text-base text-[var(--dim)] transition-all hover:text-[var(--accent)]"
             >
               Admin
             </Link>
@@ -41,7 +41,7 @@ export async function Navbar() {
             <Link
               key={path}
               href={path}
-              className="relative flex align-middle text-sm text-[var(--dim)] transition-all hover:text-[var(--accent)]"
+              className="relative flex align-middle text-base text-[var(--dim)] transition-all hover:text-[var(--accent)]"
               {...rest}
             >
               {name}
