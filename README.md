@@ -6,7 +6,7 @@
 
 > Frontend-focused software engineer with 9+ years of experience, currently looking for my next role.
 
-![Portfolio Screenshot](public/readme-screenshot.png)
+![Portfolio Screenshot](public/readme-screenshot-dark.png)
 
 ## About
 
