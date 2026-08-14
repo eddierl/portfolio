@@ -1,11 +1,7 @@
 "use client";
 
-import {
-  type ColumnDef,
-  flexRender,
-  getCoreRowModel,
-  useReactTable,
-} from "@tanstack/react-table";
+import { flexRender } from "@tanstack/react-table";
+import { useLegacyTable, type LegacyColumnDef } from "@tanstack/react-table/legacy";
 import type { Route } from "next";
 import Link from "next/link";
 import { useMemo } from "react";
@@ -84,11 +80,11 @@ function AdminTable({ data }: AdminTableProps) {
     return parts || ua;
   };
 
-  const columns: ColumnDef<LogEntry>[] = [
+  const columns: LegacyColumnDef<ProcessedLogEntry>[] = [
     {
       accessorKey: "time",
       header: "time",
-      cell: ({ getValue }) => <TimeCell iso={getValue() as string} />,
+      cell: ({ cell }) => <TimeCell iso={cell.getValue() as string} />,
     },
     {
       accessorKey: "count",
@@ -97,8 +93,8 @@ function AdminTable({ data }: AdminTableProps) {
     {
       accessorKey: "geo",
       header: "geo",
-      cell: ({ getValue }) => {
-        const geo = getValue() as LogEntry["geo"];
+      cell: ({ cell }) => {
+        const geo = cell.getValue() as LogEntry["geo"];
         const countryCode = geo.country;
         const city = geo.city || "";
         const flag = toFlagEmoji(countryCode);
@@ -110,16 +106,16 @@ function AdminTable({ data }: AdminTableProps) {
     {
       accessorKey: "ua",
       header: "ua",
-      cell: ({ getValue }) => {
-        const ua = getValue() as string;
+      cell: ({ cell }) => {
+        const ua = cell.getValue() as string;
         return <span title={ua}>{truncate(summarizeUA(ua))}</span>;
       },
     },
     {
       accessorKey: "referrals",
       header: "referrals",
-      cell: ({ getValue }) => {
-        const refs = getValue() as string[] | undefined;
+      cell: ({ cell }) => {
+        const refs = cell.getValue() as string[] | undefined;
         const display = refs ? refs.join(", ") : "";
         return <span title={display}>{truncate(display)}</span>;
       },
@@ -127,8 +123,8 @@ function AdminTable({ data }: AdminTableProps) {
     {
       accessorKey: "clientId",
       header: "clientId",
-      cell: ({ getValue }) => {
-        const clientId = getValue() as string;
+      cell: ({ cell }) => {
+        const clientId = cell.getValue() as string;
         return (
           <Link href={`/admin/${clientId}` as Route}>
             <span title={clientId}>{truncate(clientId)}</span>
@@ -151,10 +147,9 @@ function AdminTable({ data }: AdminTableProps) {
     [data],
   );
 
-  const table = useReactTable({
+  const table = useLegacyTable({
     data: processedData,
     columns,
-    getCoreRowModel: getCoreRowModel(),
   });
 
   return (
