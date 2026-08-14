@@ -2,7 +2,7 @@
 
 [![Live Site](https://img.shields.io/badge/live-erlich.dev-000?style=for-the-badge&logo=vercel)](https://www.erlich.dev)
 [![GitHub](https://img.shields.io/badge/GitHub-eddierl-181717?style=for-the-badge&logo=github)](https://github.com/eddierl)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-eddierl-0077B5?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/eddierl)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-eddierl-0077B5?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/eddie-erlich/)
 
 > Frontend-focused software engineer with 9+ years of experience, currently looking for my next role.
 
@@ -12,7 +12,7 @@
 
 This is my personal portfolio and blog, built with modern web technologies and hosted on Vercel. It showcases my work, skills, and writing — and serves as a living resume for anyone interested in working with me.
 
-**I'm actively looking for frontend / full-stack engineering roles.** If you'd like to chat, reach out via [email](mailto:eddie@erlich.dev) or [LinkedIn](https://www.linkedin.com/in/eddierl).
+**I'm actively looking for frontend / full-stack engineering roles.** If you'd like to chat, reach out via [email](mailto:eddie@erlich.dev) or [LinkedIn](https://www.linkedin.com/in/eddie-erlich/).
 
 ## Tech Stack
 
