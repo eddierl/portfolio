@@ -11,6 +11,6 @@ export const socialLinks = {
   // twitter: "https://x.com/eddielius",
   github: "https://github.com/eddierl",
   // instagram: "https://www.instagram.com/eddierl/",
-  linkedin: "https://www.linkedin.com/in/eddierl",
+  linkedin: "https://www.linkedin.com/in/eddie-erlich/",
   email: "mailto:eddie@erlich.dev",
 } as const;
