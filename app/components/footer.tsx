@@ -51,16 +51,8 @@ function SocialLinks() {
 
 export default function Footer() {
   return (
-    <small className="mt-16 block text-[var(--muted)] lg:mt-24">
-      <span className="text-[var(--accent)]">🥑</span> © {YEAR}{" "}
-      <a
-        className="no-underline text-[var(--text)] hover:text-[var(--accent)] transition-colors"
-        href="/"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        {metaData.title}
-      </a>
+    <small className="mt-16 block text-(--muted) lg:mt-24">
+      <span className="text-(--accent)">🥑</span> © {YEAR}{" "}
       <SocialLinks />
     </small>
   );

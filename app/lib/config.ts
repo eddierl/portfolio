@@ -4,7 +4,7 @@ export const metaData = {
   name: "Eddie",
   ogImage: "/logo.png",
   description:
-    "Eddie Erlich — frontend-focused software engineer with 9+ years of experience. I craft scalable web & mobile applications using React, TypeScript, Node.js and clean functional-programming techniques. Let’s build something great together.",
+    "Eddie Erlich — AI Engineer with 10 years of experience. I craft scalable web & mobile applications using React, TypeScript, Node.js and clean functional-programming techniques. Let’s build something great together.",
 };
 
 export const socialLinks = {

@@ -1,10 +1,9 @@
 export default function Page() {
   return (
     <section className="hero">
-      <p className="eyebrow">Frontend-focused software engineer</p>
+      <p className="eyebrow">AI Engineer</p>
       <h1>
-        <span className="inline-block animate-wave">👋</span>
-        Hi, I&rsquo;m Eddie!
+      Hi, I'm Eddie! <span className="inline-block animate-wave">👋</span>
       </h1>
       <div className="prose prose-neutral dark:prose-invert lede">
         <p>
