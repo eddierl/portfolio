@@ -1,58 +1,46 @@
-# Nextfolio
+# erlich.dev — Eddie Erlich's Portfolio
 
-A clean, fast, and lightweight portfolio template built with [Next.js](https://nextjs.org/), [Vercel](https://vercel.com/), and [Tailwind CSS](https://tailwindcss.com/).
+[![Live Site](https://img.shields.io/badge/live-erlich.dev-000?style=for-the-badge&logo=vercel)](https://www.erlich.dev)
+[![GitHub](https://img.shields.io/badge/GitHub-eddierl-181717?style=for-the-badge&logo=github)](https://github.com/eddierl)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-eddierl-0077B5?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/eddierl)
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2F1msirius%2FNextfolio)
+> Frontend-focused software engineer with 9+ years of experience, currently looking for my next role.
 
-## Technologies Used
+![Portfolio Screenshot](public/readme-screenshot.png)
 
-- Framework: [Next.js](https://nextjs.org/)
-- Styling: [Tailwind CSS](https://tailwindcss.com/)
-- Analytics: [Vercel Web Analytics](https://vercel.com/docs/speed-insights) and [Speed Insights](https://vercel.com/docs/speed-insights)
-- Deployment: [Vercel](https://vercel.com/)
+## About
+
+This is my personal portfolio and blog, built with modern web technologies and hosted on Vercel. It showcases my work, skills, and writing — and serves as a living resume for anyone interested in working with me.
+
+**I'm actively looking for frontend / full-stack engineering roles.** If you'd like to chat, reach out via [email](mailto:eddie@erlich.dev) or [LinkedIn](https://www.linkedin.com/in/eddierl).
+
+## Tech Stack
+
+- **Framework:** [Next.js 16](https://nextjs.org/) (App Router, Turbopack)
+- **Language:** TypeScript
+- **Styling:** [Tailwind CSS 4](https://tailwindcss.com/)
+- **Deployment:** [Vercel](https://vercel.com/)
+- **Analytics:** Vercel Web Analytics + Speed Insights
+- **Testing:** Playwright, Jest, Cypress
 
 ## Features
 
-- **[MDX](https://mdxjs.com/) Support**: Use Markdown with JSX components for blog posts.
-- **Light and Dark Mode Toggle**: Switch between themes for better readability.
-- **Dynamic [OG Images](https://vercel.com/docs/functions/og-image-generation)**: Auto-generate Open Graph images for sharing.
-- **SEO Optimization**: Enhance search visibility with sitemap, robots.txt, and JSON-LD schema.
-- **Dynamic Feed Generation**: Automatic dynamic [RSS](https://nextfolio-template.vercel.app/rss.xml), [Atom](https://nextfolio-template.vercel.app/atom.xml), and [JSON](https://nextfolio-template.vercel.app/feed.json) feeds.
-- **Performance Tracking**: Monitor web performance with [Vercel Web Analytics](https://vercel.com/docs/speed-insights) and [Speed Insights](https://vercel.com/docs/speed-insights).
-- **Interactive Embeds**: Easily embed interactive tweets and YouTube videos.
-- **Captions**: Add descriptive captions to photos, tweets, and videos.
-- **Image Grid**: Easily showcase image galleries or photos.
+- **Blog** — MDX-powered posts with rich content, code blocks, and interactive embeds
+- **Skills** — Categorized display of languages, frameworks, cloud, and tools
+- **Admin Dashboard** — Real-time visitor analytics (user agents, geolocation, referrals)
+- **Dynamic OG Images** — Auto-generated Open Graph images for social sharing
+- **SEO** — Sitemap, robots.txt, JSON-LD schema, RSS/Atom/JSON feeds
+- **Dark / Light Mode** — Theme toggle with persistence
 
-## Installation
+## Getting Started
 
-Nextfolio uses [pnpm](https://pnpm.io/installation) for dependency management, so ensure it is installed on your system.
-
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [pnpm](https://pnpm.io/installation) to bootstrap the example:
-
-```
-pnpm create next-app --example https://github.com/1msirius/Nextfolio my-portfolio
-```
-
-Start the development server:
-
-```
+```bash
+pnpm install
 pnpm dev
 ```
 
-The server will be running at [http://localhost:3000](http://localhost:3000).
+Open [http://localhost:3000](http://localhost:3000).
 
-## Configuration
+## License
 
-1. Update the site metadata and social links in `app/config.ts` to set up SEO, feeds, social links, and Open Graph settings.
-2. Update your routes in `app/sitemap.ts` for SEO optimization.
-3. Update your blog posts in the `/content` folder.
-
-For more information about configuration, follow the instructions in the [Getting Started](https://nextfolio-template.vercel.app/blog/getting-started#configuration) post.
-
-## Contributing
-
-Contributions are welcome! To get involved, just push your code to the repo. Whether you're enhancing existing features or adding new ones, your efforts are greatly appreciated!
-
-## Licence
-
-Nextfolio is open-source and released under the MIT License.
+MIT
