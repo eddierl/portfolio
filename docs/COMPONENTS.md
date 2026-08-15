@@ -6,7 +6,7 @@
 
 Renders the hero section with:
 1. Greeting heading with wave animation emoji
-2. Intro paragraph (`.lede`) with `<strong className="text-accent">` for emphasis
+2. Intro paragraph (`.lede`) — "Senior software engineer with 10+ years of experience, transitioning into AI-powered application development."
 3. `<Poem>` component for the poem content
 4. "Recent Posts" section showing the 2 most recent blog posts
 

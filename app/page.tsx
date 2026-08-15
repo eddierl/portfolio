@@ -25,9 +25,10 @@ export default function Page() {
         <span className="inline-block animate-wave">👋</span>
       </h1>
       <p className="lede mt-3">
-        Senior software engineer with 10+ years of shipping products for
-        startups and fast-moving teams. I care about clean code, reliable
-        software, and <strong className="text-accent">things that actually work</strong>.
+        Senior software engineer with 10+ years of experience,
+        transitioning into AI-powered application development. I care about
+        reliable software, and <strong className="text-accent">things that
+        actually work</strong>.
       </p>
       <Poem content={content} className="mb-10 mt-4" />
 
