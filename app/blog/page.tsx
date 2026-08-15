@@ -15,7 +15,8 @@ export default function BlogPosts() {
   return (
     <section>
       <UpdateLastSeen />
-      <div>
+      <h2 className="section-heading">Blog</h2>
+      <div className="space-y-4">
         {allBlogs
           .sort((a, b) => {
             if (
@@ -33,24 +34,24 @@ export default function BlogPosts() {
             return (
               <Link
                 key={post.slug}
-                className="mb-5 flex flex-col space-y-1 transition-opacity duration-200 hover:opacity-80"
                 href={`/blog/${post.slug}`}
+                className="card block"
               >
-                <div className="flex w-full flex-col items-start justify-between space-y-1 sm:flex-row sm:space-x-2 sm:space-y-0">
+                <div className="flex flex-col space-y-2 sm:flex-row sm:items-start sm:justify-between sm:space-x-4 sm:space-y-0">
                   <div className="flex flex-col space-y-1">
-                    <h2 className="text-black dark:text-white">
+                    <h3 className="font-medium text-lg text-[var(--color-text)]">
                       {post.metadata.title}
-                    </h2>
+                    </h3>
                     <div className="flex items-center gap-2">
-                      <span className="inline-flex items-center gap-1 rounded bg-neutral-100 px-2 py-1 text-xs dark:bg-neutral-800">
-                        <FiClock aria-hidden="true" />
-                        {calculateReadingTime(post.content)} min
+                      <span className="blog-meta">
+                        <FiClock className="size-3.5" aria-hidden="true" />
+                        {calculateReadingTime(post.content)} min read
                       </span>
-                      {isNew && <Badge label="New" />}
+                      {isNew && <span className="badge-new">New</span>}
                     </div>
                   </div>
 
-                  <p className="text-neutral-600 text-sm tabular-nums dark:text-neutral-400">
+                  <p className="blog-meta whitespace-nowrap tabular-nums">
                     {formatDate(post.metadata.publishedAt, false)}
                   </p>
                 </div>

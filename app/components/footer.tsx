@@ -20,7 +20,13 @@ function SocialLink({
   icon: IconType;
 }) {
   return (
-    <a href={href} target="_blank" rel="noopener noreferrer" {...props}>
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-[var(--color-dim)] transition-colors hover:text-[var(--color-accent)]"
+      {...props}
+    >
       <Icon />
     </a>
   );
@@ -28,7 +34,7 @@ function SocialLink({
 
 function SocialLinks() {
   return (
-    <div className="float-right flex gap-3.5 text-lg transition-opacity duration-300 *:hover:opacity-80">
+    <div className="float-right flex gap-3.5 text-lg *:hover:opacity-80">
       {(
         Object.entries(socialLinks) as Array<[keyof typeof socialLinks, string]>
       ).map(([type, link]) => (
@@ -39,42 +45,14 @@ function SocialLinks() {
           aria-label={type}
         />
       ))}
-      {/* <SocialLink href={socialLinks.twitter} icon={FaXTwitter} /> */}
-      {/* <SocialLink
-        href={socialLinks.github}
-        aria-label="github"
-        icon={FaGithub}
-      /> */}
-      {/* <SocialLink href={socialLinks.instagram} icon={FaInstagram} /> */}
-      {/* <SocialLink
-        href={socialLinks.linkedin}
-        aria-label="linkedin"
-        icon={FaLinkedinIn}
-      />
-      <SocialLink
-        href={socialLinks.email}
-        aria-label="email"
-        icon={TbMailFilled}
-      /> */}
-      {/* <a href="/rss.xml" target="_self">
-        <FaRss />
-      </a> */}
     </div>
   );
 }
 
 export default function Footer() {
   return (
-    <small className="mt-16 block text-[#1C1C1C] lg:mt-24 dark:text-[#D4D4D4]">
-      <time>© {YEAR}</time>{" "}
-      <a
-        className="no-underline"
-        href="/"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        {metaData.title}
-      </a>
+    <small className="mt-16 block text-(--color-muted) lg:mt-24">
+      <span className="text-(--color-accent)">🥑</span> © {YEAR}{" "}
       <SocialLinks />
     </small>
   );

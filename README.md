@@ -4,7 +4,7 @@
 [![GitHub](https://img.shields.io/badge/GitHub-eddierl-181717?style=for-the-badge&logo=github)](https://github.com/eddierl)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-eddierl-0077B5?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/eddie-erlich/)
 
-> Frontend-focused software engineer with 9+ years of experience, currently looking for my next role.
+> Frontend-focused software engineer with 10 years of experience, currently looking for my next role.
 
 ![Portfolio Screenshot](public/readme-screenshot-dark.png)
 
@@ -30,7 +30,7 @@ This is my personal portfolio and blog, built with modern web technologies and h
 - **Admin Dashboard** — Real-time visitor analytics (user agents, geolocation, referrals)
 - **Dynamic OG Images** — Auto-generated Open Graph images for social sharing
 - **SEO** — Sitemap, robots.txt, JSON-LD schema, RSS/Atom/JSON feeds
-- **Dark / Light Mode** — Theme toggle with persistence
+- **Dark / Light Mode** — Dark theme default with light mode support via `next-themes`
 
 ## Getting Started
 

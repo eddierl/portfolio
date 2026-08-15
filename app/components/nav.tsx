@@ -6,10 +6,11 @@ import { metaData } from "../lib/config";
 import { ThemeSwitch } from "./theme-switch";
 
 const navItems = {
+  "/": { name: "Home" },
   "/blog": { name: "Blog" },
   "/skills": { name: "Skills" },
   // "/photos": { name: "Photos" },
-  [CV_FILE_NAME as "/"]: {
+  [CV_FILE_NAME as "/blog/fake-post-just-to-make-a-link-to-my-cv"]: {
     name: "Resume",
   },
 };
@@ -20,7 +21,10 @@ export async function Navbar() {
     <nav className="mb-12 py-5 lg:mb-16">
       <div className="flex flex-col justify-between md:flex-row md:items-center">
         <div className="flex items-center">
-          <Link href="/" className="font-semibold text-3xl">
+          <Link
+            href="/"
+            className="font-semibold text-3xl tracking-tight text-[var(--color-text)]"
+          >
             {metaData.title}
           </Link>
         </div>
@@ -28,7 +32,7 @@ export async function Navbar() {
           {authed ? (
             <Link
               href="/admin"
-              className="relative flex align-middle transition-all hover:text-neutral-800 hover:underline dark:hover:text-neutral-200"
+              className="relative flex align-middle text-base text-[var(--color-dim)] transition-all hover:text-[var(--color-accent)]"
             >
               Admin
             </Link>
@@ -38,7 +42,7 @@ export async function Navbar() {
             <Link
               key={path}
               href={path}
-              className="relative flex align-middle transition-all hover:text-neutral-800 hover:underline dark:hover:text-neutral-200"
+              className="relative flex align-middle text-base text-[var(--color-dim)] transition-all hover:text-[var(--color-accent)]"
               {...rest}
             >
               {name}
