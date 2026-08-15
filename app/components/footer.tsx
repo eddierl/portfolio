@@ -24,7 +24,7 @@ function SocialLink({
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="text-[var(--dim)] transition-colors hover:text-[var(--accent)]"
+      className="text-[var(--color-dim)] transition-colors hover:text-[var(--color-accent)]"
       {...props}
     >
       <Icon />
@@ -51,8 +51,8 @@ function SocialLinks() {
 
 export default function Footer() {
   return (
-    <small className="mt-16 block text-(--muted) lg:mt-24">
-      <span className="text-(--accent)">🥑</span> © {YEAR}{" "}
+    <small className="mt-16 block text-(--color-muted) lg:mt-24">
+      <span className="text-(--color-accent)">🥑</span> © {YEAR}{" "}
       <SocialLinks />
     </small>
   );

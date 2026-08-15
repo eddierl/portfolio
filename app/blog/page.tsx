@@ -39,7 +39,7 @@ export default function BlogPosts() {
               >
                 <div className="flex flex-col space-y-2 sm:flex-row sm:items-start sm:justify-between sm:space-x-4 sm:space-y-0">
                   <div className="flex flex-col space-y-1">
-                    <h3 className="font-medium text-lg text-[var(--text)]">
+                    <h3 className="font-medium text-lg text-[var(--color-text)]">
                       {post.metadata.title}
                     </h3>
                     <div className="flex items-center gap-2">
