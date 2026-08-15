@@ -6,10 +6,11 @@ import { metaData } from "../lib/config";
 import { ThemeSwitch } from "./theme-switch";
 
 const navItems = {
+  "/": { name: "Home" },
   "/blog": { name: "Blog" },
   "/skills": { name: "Skills" },
   // "/photos": { name: "Photos" },
-  [CV_FILE_NAME as "/"]: {
+  [CV_FILE_NAME as "/blog/fake-post-just-to-make-a-link-to-my-cv"]: {
     name: "Resume",
   },
 };

@@ -1,24 +1,25 @@
+import path from "node:path";
+import { readMDXFile } from "./lib/posts";
+
+const HERO_PATH = path.join(process.cwd(), "content/hero.mdx");
+
 export default function Page() {
+  const { content } = readMDXFile(HERO_PATH);
   return (
     <section className="hero">
-      <p className="eyebrow">AI Engineer</p>
+      {/* <p className="eyebrow">Software Engineer</p> */}
       <h1>
-      Hi, I'm Eddie! <span className="inline-block animate-wave">👋</span>
+        Hi, I&apos;m Eddie!{" "}
+        <span className="inline-block animate-wave">👋</span>
       </h1>
-      <div className="prose prose-neutral dark:prose-invert lede">
-        <p>
-          I build web apps that people actually enjoy using. TypeScript on the
-          front, Node.js on the back, and enough testing to sleep at night.
-        </p>
-        <p>
-          10 years in the industry. I&rsquo;ve shipped things for startups,
-          enterprises, and everything in between. I&rsquo;m good at listening,
-          fast at learning, and stubborn about quality.
-        </p>
-        <p>
-          Let&rsquo;s build something great together.
-        </p>
+      <div className="prose prose-neutral dark:prose-invert">
+        <p className="text-sm italic">Here is a poem that I wrote:</p>
+        <pre className="mt-2 text-base italic leading-loose">
+          {content}
+        </pre>
       </div>
     </section>
   );
 }
+
+
