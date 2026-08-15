@@ -4,57 +4,58 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* ── Design tokens (inspired by wfoster.dev) ── */
-:root {
-  /* Light theme */
-  --ink: #ffffff;
-  --panel: #f5f5f5;
-  --border: #e5e7eb;
-  --text: #0a0a0a;
-  --dim: #525252;
-  --muted: #737373;
-  --accent: #5a9a52;
-  --accent-dim: #4a7c42;
-  --glow: #66bb6a;
-  --sh-class: #2d5e9d;
-  --sh-identifier: #354150;
-  --sh-sign: #8996a3;
-  --sh-string: #007f7a;
-  --sh-keyword: #e02518;
-  --sh-comment: #a19595;
-  --sh-jsxliterals: #6266d1;
-  --sh-property: #e25a1c;
-  --sh-entity: #e25a1c;
-  --popover: #ffffff;
-  --popover-foreground: #0a0a0a;
+/* ── Theme tokens (Tailwind v4) ── */
+@theme {
+  /* Core palette */
+  --color-ink: #ffffff;
+  --color-panel: #f5f5f5;
+  --color-border: #e5e7eb;
+  --color-text: #0a0a0a;
+  --color-dim: #525252;
+  --color-muted: #737373;
+
+  /* Accent (green) */
+  --color-accent: #5a9a52;
+  --color-accent-dim: #4a7c42;
+  --color-glow: #66bb6a;
+
+  /* Syntax highlighting */
+  --color-sh-class: #2d5e9d;
+  --color-sh-identifier: #354150;
+  --color-sh-sign: #8996a3;
+  --color-sh-string: #007f7a;
+  --color-sh-keyword: #e02518;
+  --color-sh-comment: #a19595;
+  --color-sh-jsxliterals: #6266d1;
+  --color-sh-property: #e25a1c;
+  --color-sh-entity: #e25a1c;
+
+  /* Popover / tooltip */
+  --color-popover: #ffffff;
+  --color-popover-foreground: #0a0a0a;
 }
 
+/* Dark mode overrides */
 .dark {
-  --ink: #0a0a0a;
-  --panel: #ffffff07;
-  --border: #ffffff1a;
-  --text: #e8efec;
-  --dim: #b3c2bd;
-  --muted: #8b9a95;
-  --accent: #8bc34a;
-  --accent-dim: #66bb6a;
-  --glow: #9ccc65;
-  --sh-class: #4c97f8;
-  --sh-identifier: white;
-  --sh-sign: #8996a3;
-  --sh-string: #0fa295;
-  --sh-keyword: #f47067;
-  --sh-comment: #a19595;
-  --sh-jsxliterals: #6266d1;
-  --sh-property: #e25a1c;
-  --sh-entity: #e25a1c;
-  --popover: #0a0a0a;
-  --popover-foreground: #fafafa;
-  --border: #262626;
+  --color-ink: #0a0a0a;
+  --color-panel: #ffffff07;
+  --color-border: #ffffff1a;
+  --color-text: #e8efec;
+  --color-dim: #b3c2bd;
+  --color-muted: #8b9a95;
+  --color-accent: #8bc34a;
+  --color-accent-dim: #66bb6a;
+  --color-glow: #9ccc65;
+  --color-sh-class: #4c97f8;
+  --color-sh-identifier: white;
+  --color-sh-string: #0fa295;
+  --color-sh-keyword: #f47067;
+  --color-popover: #0a0a0a;
+  --color-popover-foreground: #fafafa;
 }
 
 ::selection {
-  background-color: var(--accent);
+  background-color: var(--color-accent);
   color: #fefefe;
 }
 
@@ -71,7 +72,7 @@ body {
   inset: 0;
   background: radial-gradient(
     70% 50% at 80% -10%,
-    color-mix(in srgb, var(--glow) 18%, transparent) 0%,
+    color-mix(in srgb, var(--color-glow) 18%, transparent) 0%,
     transparent 60%
   );
   opacity: 0.6;
@@ -83,8 +84,8 @@ body {
   position: fixed;
   inset: 0;
   background-image:
-    linear-gradient(var(--border) 1px, transparent 1px),
-    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    linear-gradient(var(--color-border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-border) 1px, transparent 1px);
   background-size: 48px 48px;
   mask-image: radial-gradient(ellipse 70% 50% at 75% 0%, black 40%, transparent 80%);
   opacity: 0.4;
@@ -108,13 +109,11 @@ html {
   z-index: 1;
 }
 
-/* Theme toggle button */
-
 /* ── Eyebrow (small uppercase accent label) ── */
 .eyebrow {
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--color-accent);
   font-size: 0.75rem;
   font-weight: 600;
   margin-bottom: 12px;
@@ -130,29 +129,24 @@ html {
 }
 
 .hero .lede {
-  color: var(--dim);
+  color: var(--color-dim);
   max-width: 42ch;
   margin: 18px 0 0;
   font-size: clamp(1rem, 2.2vw, 1.2rem);
   line-height: 1.6;
 }
 
-.hero .lede .accent {
-  color: var(--accent);
-  font-weight: 500;
-}
-
 /* ── Card (skills, blog posts) ── */
 .card {
-  background: var(--panel);
-  border: 1px solid var(--border);
+  background: var(--color-panel);
+  border: 1px solid var(--color-border);
   border-radius: 12px;
   padding: 20px 24px;
   transition: border-color 0.2s, transform 0.2s;
 }
 
 .card:hover {
-  border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+  border-color: color-mix(in srgb, var(--color-accent) 40%, var(--color-border));
   transform: translateY(-2px);
 }
 
@@ -163,17 +157,17 @@ html {
   gap: 8px;
   padding: 6px 14px;
   border-radius: 999px;
-  background: var(--panel);
-  border: 1px solid var(--border);
+  background: var(--color-panel);
+  border: 1px solid var(--color-border);
   font-size: 0.875rem;
   transition: border-color 0.2s, transform 0.2s, background 0.2s;
   cursor: default;
 }
 
 .skill-chip:hover {
-  border-color: color-mix(in srgb, var(--accent) 50%, var(--border));
+  border-color: color-mix(in srgb, var(--color-accent) 50%, var(--color-border));
   transform: scale(1.05);
-  background: color-mix(in srgb, var(--accent) 8%, var(--panel));
+  background: color-mix(in srgb, var(--color-accent) 8%, var(--color-panel));
 }
 
 /* ── Section heading ── */
@@ -200,8 +194,8 @@ html {
   border-radius: 999px;
   font-size: 0.7rem;
   font-weight: 600;
-  background: color-mix(in srgb, var(--accent) 15%, transparent);
-  color: var(--accent);
+  background: color-mix(in srgb, var(--color-accent) 15%, transparent);
+  color: var(--color-accent);
 }
 
 /* ── Animations ── */
@@ -334,7 +328,7 @@ table {
 .title { text-wrap: balance; }
 
 .toaster {
-  --normal-bg: var(--popover);
-  --normal-text: var(--popover-foreground);
-  --normal-border: var(--border);
+  --normal-bg: var(--color-popover);
+  --normal-text: var(--color-popover-foreground);
+  --normal-border: var(--color-border);
 }
