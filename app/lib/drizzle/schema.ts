@@ -1,4 +1,4 @@
-import { integer, jsonb, pgTable, varchar, text } from "drizzle-orm/pg-core";
+import { bigint, integer, jsonb, pgTable, varchar, text } from "drizzle-orm/pg-core";
 
 export const logsTable = pgTable("logs", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
@@ -13,5 +13,5 @@ export const logsTable = pgTable("logs", {
 export const poemsTable = pgTable("poems", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   content: text().notNull(),
-  generatedAt: integer("generated_at").notNull(),
+  generatedAt: bigint("generated_at", { mode: "number" }).notNull(),
 });
