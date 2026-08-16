@@ -41,7 +41,7 @@ test.describe("Admin Page", () => {
     // 6. Table with columns is visible
     await expect(page.getByRole("table")).toBeVisible();
     await expect(page.getByText(/time/i)).toBeVisible();
-    await expect(page.getByText(/ua/i)).toBeVisible();
+    await expect(page.getByText(/^ua$/i)).toBeVisible();
     // await expect(page.getByText(/device/i)).toBeVisible();
     await expect(page.getByText(/geo/i)).toBeVisible();
     await expect(page.getByText(/clientId/i)).toBeVisible();
