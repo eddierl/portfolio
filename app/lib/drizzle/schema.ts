@@ -13,5 +13,5 @@ export const logsTable = pgTable("logs", {
 export const poemsTable = pgTable("poems", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   content: text().notNull(),
-  generatedAt: integer("generated_at", { mode: "number" }).notNull(),
+  generatedAt: integer("generated_at").notNull(),
 });

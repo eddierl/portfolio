@@ -19,9 +19,9 @@ export async function GET() {
     }
 
     return NextResponse.json({
-      id: poem[0].id,
-      content: poem[0].content,
-      generatedAt: poem[0].generatedAt,
+      id: poem[0]!.id,
+      content: poem[0]!.content,
+      generatedAt: poem[0]!.generatedAt,
     });
   } catch (error) {
     console.error("Failed to fetch poem:", error);

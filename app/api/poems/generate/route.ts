@@ -2,18 +2,18 @@ import { db } from "app/lib/drizzle";
 import { poemsTable } from "app/lib/drizzle/schema";
 import { NextResponse } from "next/server";
 
-const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 const GEMINI_MODEL = "gemini-2.0-flash";
 
-if (!GEMINI_API_KEY) {
-  throw new Error("GEMINI_API_KEY is not set in environment variables.");
-}
-
 async function generatePoemWithGemini(): Promise<string> {
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) {
+    throw new Error("GEMINI_API_KEY is not set.");
+  }
+
   const prompt = `Write an original, evocative poem (3-5 stanzas, 4-6 lines each). It should be about the passage of time, memory, or the quiet beauty of everyday life. Make it feel personal and poetic, not generic. Do not include a title. Return only the poem text.`;
 
   const response = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${GEMINI_API_KEY}`,
+    `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${apiKey}`,
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -47,10 +47,18 @@ export async function POST() {
     const content = await generatePoemWithGemini();
     const now = Math.floor(Date.now() / 1000);
 
-    const [poem] = await db
+    const result = await db
       .insert(poemsTable)
       .values({ content, generatedAt: now })
       .returning();
+
+    const poem = result[0];
+    if (!poem) {
+      return NextResponse.json(
+        { error: "Failed to save poem" },
+        { status: 500 },
+      );
+    }
 
     return NextResponse.json({ id: poem.id, generatedAt: poem.generatedAt });
   } catch (error) {
