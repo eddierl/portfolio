@@ -47,7 +47,7 @@ Homepage (user visits)
 
 ### `POST /api/poems/generate`
 
-Generates a new poem using Gemini 2.0 Flash and saves it to the database.
+Generates a new poem using Gemini 2.5 Flash and saves it to the database.
 
 **Response:** `{ id: number, generatedAt: number }`
 
@@ -69,7 +69,7 @@ CREATE TABLE "poems" (
 
 ## Free Tier Limits
 
-- **Gemini 2.0 Flash**: 1500 requests/day, 60 requests/minute (free, no credit card)
+- **Gemini 2.5 Flash**: 1500 requests/day, 60 requests/minute (free, no credit card)
 - **GitHub Actions**: 500 build minutes/month (free for public repos)
 - **Neon Postgres**: 512MB storage (free tier)
 
