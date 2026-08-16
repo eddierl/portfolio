@@ -10,7 +10,21 @@ async function generatePoemWithGemini(): Promise<string> {
     throw new Error("GEMINI_API_KEY is not set.");
   }
 
-  const prompt = `Write an original, evocative poem (3-5 stanzas, 4-6 lines each). It should be about the passage of time, memory, or the quiet beauty of everyday life. Make it feel personal and poetic, not generic. Do not include a title. Return only the poem text.`;
+  const prompt = `Write an original, rhyming poem (2-3 short stanzas, 3-4 lines each) based on this developer's CV. The poem should read like a personal, confident pitch — technical but approachable, not pretentious.
+
+Style rules:
+- Each stanza should be a self-contained "block" of 3-4 short lines
+- Use end rhymes (AABB or ABAB per stanza is fine)
+- Reference specific tech, tools, or achievements from the CV — name-drop languages, frameworks, metrics, or notable projects
+- Keep it grounded and real, like something you'd say at a conference or put on a portfolio
+- No titles, no fluff, no abstract metaphors about time or nature
+- Return ONLY the poem text, nothing else.
+
+Developer CV:
+Eddie Erlich — Senior Software Engineer, 10+ years
+Tech: TypeScript, React, Next.js, Node.js, React Native, AWS, GCP, GraphQL, Postgres, MongoDB, Playwright, Jest, Tailwind, Zod, Remix, NX, Turborepo
+Notable: Migrated AngularJS to React at Wix (1M+ users), built solar financing platform reducing lead-to-offer from 4 days to minutes, React Native app serving 7 US states with 35% engagement boost, migrated Cypress to Playwright (30% E2E speedup), 40% reduction in critical bugs via testing strategy at Autodesk, monorepo with NX at Venn. Full working rights in Australia.
+Make it sound like Eddie wrote it himself — confident, practical, with a touch of dry humor.`;
 
   const response = await fetch(
     `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${apiKey}`,
