@@ -24,7 +24,31 @@ Developer CV:
 Eddie Erlich — Senior Software Engineer, 10+ years
 Tech: TypeScript, React, Next.js, Node.js, React Native, AWS, GCP, GraphQL, Postgres, MongoDB, Playwright, Jest, Tailwind, Zod, Remix, NX, Turborepo
 Notable: Migrated AngularJS to React at Wix (1M+ users), built solar financing platform reducing lead-to-offer from 4 days to minutes, React Native app serving 7 US states with 35% engagement boost, migrated Cypress to Playwright (30% E2E speedup), 40% reduction in critical bugs via testing strategy at Autodesk, monorepo with NX at Venn. Full working rights in Australia.
-Make it sound like Eddie wrote it himself — confident, practical, with a touch of dry humor.`;
+Make it sound like Eddie wrote it himself — confident, practical, with a touch of dry humor.
+
+Good example:
+\`\`\`
+TypeScript on the front
+Node.js on the back
+Enough testing
+to sleep at 10pm.
+
+10 years of delivering
+things that actually work.
+
+I've built products for startups
+and teams that move fast.
+I listen well, learn deep
+and won't ship anything half-baked.\`\`\`
+
+Bad example:
+\`\`\`
+I'm Eddie, ten years deep in React, AWS, and Node,
+Writing clean migrations and production-ready code.
+I moved a million Wix users off of AngularJS,
+And cut solar
+\`\`\`
+`;
 
   const response = await fetch(
     `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${apiKey}`,
@@ -35,7 +59,7 @@ Make it sound like Eddie wrote it himself — confident, practical, with a touch
         contents: [{ parts: [{ text: prompt }] }],
         generationConfig: {
           temperature: 0.9,
-          maxOutputTokens: 1024,
+          maxOutputTokens: 4096,
         },
       }),
     },
@@ -47,6 +71,8 @@ Make it sound like Eddie wrote it himself — confident, practical, with a touch
   }
 
   const data = await response.json();
+
+  console.log(JSON.stringify(data,null,1))
 
   // Handle both old (generateContent) and new (Interactions API) response formats
   const candidate =
@@ -72,11 +98,11 @@ export async function POST() {
     const now = Math.floor(Date.now() / 1000);
 
     const result = await db
-      .insert(poemsTable)
+      ?.insert(poemsTable)
       .values({ content, generatedAt: now })
       .returning();
 
-    const poem = result[0];
+    const poem = result?.[0];
     if (!poem) {
       return NextResponse.json(
         { error: "Failed to save poem" },
