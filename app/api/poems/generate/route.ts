@@ -72,8 +72,6 @@ And cut solar
 
   const data = await response.json();
 
-  console.log(JSON.stringify(data,null,1))
-
   // Handle both old (generateContent) and new (Interactions API) response formats
   const candidate =
     data.candidates?.[0] ?? data.response?.candidates?.[0];
