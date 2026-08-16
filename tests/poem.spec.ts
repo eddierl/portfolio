@@ -2,12 +2,11 @@ import { expect, test } from "@playwright/test";
 
 const API_TODAY = "/api/poems/today";
 const API_GENERATE = "/api/poems/generate";
+if (!process.env.GEMINI_API_KEY) {
+  test.skip();
+}
 
 test.describe("Poem API: GET /today", () => {
-  if (!process.env.GEMINI_API_KEY) {
-    test.skip();
-  }
-
   test("returns 404 when no poem exists", async ({ page }) => {
     // Skip when GEMINI_API_KEY is set — poems will exist from prior generation
     if (process.env.GEMINI_API_KEY) {
