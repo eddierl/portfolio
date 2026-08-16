@@ -1,0 +1,35 @@
+name: Generate Daily Poem
+
+on:
+  schedule:
+    # Run daily at 00:00 UTC (midnight)
+    - cron: "0 0 * * *"
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate poem
+        run: |
+          MAX_RETRIES=3
+          RETRY_DELAY=10
+          for i in $(seq 1 $MAX_RETRIES); do
+            HTTP_CODE=$(curl -s -o /tmp/poem_resp -w "%{http_code}" \
+              -m 30 \
+              -X POST "${{ secrets.API_URL }}/api/poems/generate" \
+              -H "Content-Type: application/json")
+            RESPONSE=$(cat /tmp/poem_resp)
+            echo "Attempt $i — HTTP $HTTP_CODE"
+            echo "Response: $RESPONSE"
+            if [ "$HTTP_CODE" -eq 200 ]; then
+              echo "✅ Poem generated successfully"
+              exit 0
+            fi
+            if [ "$i" -lt "$MAX_RETRIES" ]; then
+              echo "Retrying in ${RETRY_DELAY}s..."
+              sleep $RETRY_DELAY
+            fi
+          done
+          echo "❌ Failed to generate poem after $MAX_RETRIES attempts"
+          exit 1

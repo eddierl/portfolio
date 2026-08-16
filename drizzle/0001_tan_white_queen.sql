@@ -1,0 +1,1 @@
+ALTER TABLE "poems" ALTER COLUMN "generated_at" SET DATA TYPE bigint;
