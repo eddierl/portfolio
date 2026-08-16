@@ -1,49 +1,31 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import type { ReactNode } from "react";
 
 type PoemProps = {
-  initialContent?: string;
   className?: string;
+  fallback?: ReactNode;
 };
 
-export function Poem({ initialContent, className }: PoemProps) {
-  const [poem, setPoem] = useState<string | null>(initialContent ?? null);
-  const [loading, setLoading] = useState(initialContent === undefined);
+export function Poem({ className, fallback }: PoemProps) {
+  const { data, isLoading } = useQuery({
+    queryKey: ["poem"],
+    queryFn: async () => {
+      const res = await fetch("/api/poems/today");
+      if (!res.ok) throw new Error("Failed to fetch poem");
+      return res.json() as Promise<{ content: string }>;
+    },
+    retry: false,
+  });
 
-  useEffect(() => {
-    if (initialContent !== undefined) return;
-
-    let cancelled = false;
-
-    fetch("/api/poems/today")
-      .then((res) => {
-        if (!res.ok) throw new Error("Failed to fetch poem");
-        return res.json();
-      })
-      .then((data) => {
-        if (!cancelled) {
-          setPoem(data.content);
-          setLoading(false);
-        }
-      })
-      .catch((error) => {
-        console.error("Poem fetch error:", error);
-        if (!cancelled) setLoading(false);
-      });
-
-    return () => {
-      cancelled = true;
-    };
-  }, [initialContent]);
-
-  const stanzas = poem?.split("\n\n") ?? [];
+  const stanzas = data?.content?.split("\n\n") ?? [];
 
   return (
     <div className={["space-y-3 text-[var(--color-dim)] italic", className].join(" ")}>
-      {loading ? (
+      {isLoading ? (
         <p className="animate-pulse text-center">Loading poem...</p>
-      ) : stanzas.length > 0 ? (
+      ) : data ? (
         stanzas.map((stanza, i) => (
           <div key={i}>
             {stanza.split("\n").map((line, j) => (
@@ -53,6 +35,8 @@ export function Poem({ initialContent, className }: PoemProps) {
             ))}
           </div>
         ))
+      ) : fallback ? (
+        fallback
       ) : (
         <p className="text-center">No poem available yet.</p>
       )}
