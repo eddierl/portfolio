@@ -1,31 +1,22 @@
-"use client";
-
-import { useQuery } from "@tanstack/react-query";
 import type { ReactNode } from "react";
+import { getLatestPoem } from "@/app/lib/poem";
 
 type PoemProps = {
   className?: string;
   fallback?: ReactNode;
 };
 
-export function Poem({ className, fallback }: PoemProps) {
-  const { data, isLoading } = useQuery({
-    queryKey: ["poem"],
-    queryFn: async () => {
-      const res = await fetch("/api/poems/today");
-      if (!res.ok) throw new Error("Failed to fetch poem");
-      return res.json() as Promise<{ content: string }>;
-    },
-    retry: false,
-  });
-
+export async function Poem({ className, fallback }: PoemProps) {
+  const data = await getLatestPoem();
   const stanzas = data?.content?.split("\n\n") ?? [];
 
   return (
-    <div className={["space-y-3 text-[var(--color-dim)] italic", className].join(" ")}>
-      {isLoading ? (
-        <p className="animate-pulse text-center">Loading poem...</p>
-      ) : data ? (
+    <div
+      className={["space-y-3 text-dim italic", className].join(
+        " ",
+      )}
+    >
+      {data ? (
         stanzas.map((stanza, i) => (
           <div key={i}>
             {stanza.split("\n").map((line, j) => (
