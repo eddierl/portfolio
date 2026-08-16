@@ -11,9 +11,9 @@ const Toaster = ({ ...props }: ToasterProps) => {
       toastOptions={{
         classNames: {
           toast:
-            "bg-[var(--normal-bg)] text-[var(--normal-text)] border border-[var(--normal-border)] shadow-sm",
+            "bg-(--normal-bg) text-(--normal-text) border border-(--normal-border) shadow-sm",
           actionButton:
-            "bg-[var(--normal-text)] text-[var(--normal-bg)] hover:opacity-90",
+            "bg-(--normal-text) text-(--normal-bg) hover:opacity-90",
         },
       }}
       {...props}

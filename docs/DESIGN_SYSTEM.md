@@ -61,11 +61,11 @@ In Tailwind arbitrary values, use the same full names:
 
 ```tsx
 // ✅ Correct
-className="text-[var(--color-text)]"
-className="bg-[var(--color-panel)]"
+className="text-(--color-text)"
+className="bg-panel"
 
 // ❌ Wrong
-className="text-[var(--text)]"
+className="text-(--text)"
 ```
 
 ## Custom CSS Classes

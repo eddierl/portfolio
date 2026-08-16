@@ -1,11 +1,6 @@
-import { Badge } from "app/components/badge";
 import { Poem } from "app/components/poem";
 import { UpdateLastSeen } from "app/components/update-last-seen";
-import {
-  calculateReadingTime,
-  formatDate,
-  getBlogPosts,
-} from "app/lib/posts";
+import { calculateReadingTime, formatDate, getBlogPosts } from "app/lib/posts";
 import dayjs from "dayjs";
 import Link from "next/link";
 import { FiClock } from "react-icons/fi";
@@ -20,11 +15,11 @@ export default function Page() {
         <span className="inline-block animate-wave">👋</span>
       </h1>
       <p className="lede mt-3">
-        Senior software engineer with 10+ years of experience,
-        transitioning into AI-powered application development. I care about <strong className="text-accent">things that
-        actually work</strong>.
+        Senior software engineer with 10+ years of experience, transitioning
+        into AI-powered application development. I care about{" "}
+        <strong className="text-accent">things that actually work</strong>.
       </p>
-      <Poem className="mb-10 mt-4" />
+      <Poem className="mt-4 mb-10" />
 
       {allBlogs.length > 0 && (
         <>
@@ -53,7 +48,7 @@ export default function Page() {
                   >
                     <div className="flex flex-col space-y-2 sm:flex-row sm:items-start sm:justify-between sm:space-x-4 sm:space-y-0">
                       <div className="flex flex-col space-y-1">
-                        <h3 className="font-medium text-lg text-[var(--color-text)]">
+                        <h3 className="font-medium text-text text-lg">
                           {post.metadata.title}
                         </h3>
                         <div className="flex items-center gap-2">

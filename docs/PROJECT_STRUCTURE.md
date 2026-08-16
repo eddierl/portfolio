@@ -67,6 +67,6 @@ portfolio/
 
 - **MDX content** lives in `content/`. Blog posts are parsed via `app/lib/posts.ts` which reads frontmatter (`title`, `publishedAt`, `isDraft`, `summary`, `tags`) and renders content through the MDX renderer in `app/components/mdx.tsx`.
 - **The hero section** (`content/hero.mdx`) is read on the server and rendered on the home page. It contains both the poem text and the intro paragraph.
-- **Tailwind v4** is used via `@theme` in `app/globals.css`. All design tokens are registered there and consumed via Tailwind utilities (e.g., `text-accent`, `bg-panel`) or arbitrary values (e.g., `text-[var(--color-text)]`).
+- **Tailwind v4** is used via `@theme` in `app/globals.css`. All design tokens are registered there and consumed via Tailwind utilities (e.g., `text-accent`, `bg-panel`) or arbitrary values (e.g., `text-(--color-text)`).
 - **Server actions** in `app/admin/actions.ts` handle authenticated operations.
 - **Static data** like skills is defined in `app/lib/skills.ts` as a TypeScript array.

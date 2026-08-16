@@ -72,9 +72,14 @@ export const cvContent = {
       title: "Senior Software Engineer",
       company: "Venn",
       dateRange: "JULY 2021 — MARCH 2023",
-      techStack: ["React Native", "AWS", "Microservices", "GraphQL","Postgres", "NX"].join(
-        ", ",
-      ),
+      techStack: [
+        "React Native",
+        "AWS",
+        "Microservices",
+        "GraphQL",
+        "Postgres",
+        "NX",
+      ].join(", "),
       achievements: [
         "Developed a React Native mobile app serving neighborhoods in 7 U.S. states, improving <b>engagement by 35%</b>.",
         "Maintained and scaled a distributed AWS microservices architecture <b> 10+ services</b>, including ownership of service design, inter-service communication (GraphQL/REST), and production reliability.",
