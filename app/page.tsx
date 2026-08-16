@@ -21,8 +21,7 @@ export default function Page() {
       </h1>
       <p className="lede mt-3">
         Senior software engineer with 10+ years of experience,
-        transitioning into AI-powered application development. I care about
-        reliable software, and <strong className="text-accent">things that
+        transitioning into AI-powered application development. I care about <strong className="text-accent">things that
         actually work</strong>.
       </p>
       <Poem className="mb-10 mt-4" />
