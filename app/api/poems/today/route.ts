@@ -8,12 +8,12 @@ export const revalidate = 3600;
 export async function GET() {
   try {
     const poem = await db
-      .select()
+      ?.select()
       .from(poemsTable)
       .orderBy(desc(poemsTable.generatedAt))
       .limit(1);
 
-    if (poem.length === 0) {
+    if (!poem || poem?.length === 0) {
       return NextResponse.json(
         { error: "No poem found. Generate one first." },
         { status: 404 },
@@ -21,9 +21,9 @@ export async function GET() {
     }
 
     return NextResponse.json({
-      id: poem[0]!.id,
-      content: poem[0]!.content,
-      generatedAt: poem[0]!.generatedAt,
+      id: poem[0]?.id,
+      content: poem[0]?.content,
+      generatedAt: poem[0]?.generatedAt,
     });
   } catch (error) {
     console.error("Failed to fetch poem:", error);
