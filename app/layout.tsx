@@ -10,8 +10,8 @@ import Script from "next/script";
 import Footer from "./components/footer";
 import { Navbar } from "./components/nav";
 import { ThemeProvider } from "./components/theme-switch";
-import { Providers } from "./providers";
 import { metaData } from "./lib/config";
+import { Providers } from "./providers";
 
 const mainFontFamily = Nunito({ subsets: ["latin"] });
 
@@ -95,23 +95,23 @@ export default function RootLayout({
         <div className="grid-bg" aria-hidden="true" />
 
         <Providers>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <main className="content-max mt-2 flex w-full min-w-0 flex-auto flex-col px-6 sm:px-4 md:mt-6 md:px-0">
-            <Navbar />
-            {children}
-            <Notifications isThereNewBlog={isThereNewBlog} />
-            <Footer />
-            {/** Umami Analytics */}
-            <Script
-              async
-              src="https://cloud.umami.is/script.js"
-              data-website-id={process.env.UMAMI_WEBSITE_ID}
-            />
-            <Analytics />
-            <SpeedInsights />
-          </main>
-        </ThemeProvider>
-      </Providers>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            <main className="content-max mt-2 flex w-full min-w-0 flex-auto flex-col px-6 sm:px-4 md:mt-6 md:px-0">
+              <Navbar />
+              {children}
+              <Notifications isThereNewBlog={isThereNewBlog} />
+              <Footer />
+              {/** Umami Analytics */}
+              <Script
+                async
+                src="https://cloud.umami.is/script.js"
+                data-website-id={process.env.UMAMI_WEBSITE_ID}
+              />
+              <Analytics />
+              <SpeedInsights />
+            </main>
+          </ThemeProvider>
+        </Providers>
       </body>
     </html>
   );
