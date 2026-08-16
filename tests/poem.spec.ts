@@ -5,6 +5,10 @@ const API_GENERATE = "/api/poems/generate";
 
 test.describe("Poem API: GET /today", () => {
   test("returns 404 when no poem exists", async ({ page }) => {
+    // Skip when GEMINI_API_KEY is set — poems will exist from prior generation
+    if (process.env.GEMINI_API_KEY) {
+      test.skip();
+    }
     const response = await page.request.get(API_TODAY);
     expect(response.status()).toBe(404);
     const body = await response.json();
@@ -94,6 +98,10 @@ test.describe("Poem Component: E2E", () => {
   test("shows 'No poem available yet' when no poem exists", async ({
     page,
   }) => {
+    // Skip when GEMINI_API_KEY is set — poems will exist from prior generation
+    if (process.env.GEMINI_API_KEY) {
+      test.skip();
+    }
     await page.goto("/");
     // Wait for the Poem component to render (React Query fetches async)
     await expect(
