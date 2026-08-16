@@ -1,4 +1,4 @@
-import { metaData, socialLinks } from "app/lib/config";
+import { socialLinks } from "app/lib/config";
 import type { IconType } from "react-icons";
 import { FaGithub, FaLinkedinIn } from "react-icons/fa6";
 import { TbMailFilled } from "react-icons/tb";
@@ -24,7 +24,7 @@ function SocialLink({
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="text-[var(--color-dim)] transition-colors hover:text-[var(--color-accent)]"
+      className="text-dim transition-colors hover:text-accent"
       {...props}
     >
       <Icon />
@@ -52,8 +52,7 @@ function SocialLinks() {
 export default function Footer() {
   return (
     <small className="mt-16 block text-(--color-muted) lg:mt-24">
-      <span className="text-(--color-accent)">🥑</span> © {YEAR}{" "}
-      <SocialLinks />
+      <span className="text-(--color-accent)">🥑</span> © {YEAR} <SocialLinks />
     </small>
   );
 }

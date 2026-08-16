@@ -15,7 +15,7 @@ type Poem = {
 
 export async function getLatestPoem(): Promise<Poem | null> {
   try {
-    const cachedResult = await redis.get("poem") satisfies Poem | null;
+    const cachedResult = (await redis.get("poem")) satisfies Poem | null;
 
     if (cachedResult) return cachedResult;
 

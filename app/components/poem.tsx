@@ -11,11 +11,7 @@ export async function Poem({ className, fallback }: PoemProps) {
   const stanzas = data?.content?.split("\n\n") ?? [];
 
   return (
-    <div
-      className={["space-y-3 text-dim italic", className].join(
-        " ",
-      )}
-    >
+    <div className={["space-y-3 text-dim italic", className].join(" ")}>
       {data ? (
         stanzas.map((stanza, i) => (
           <div key={i}>

@@ -186,10 +186,7 @@ function AdminTable({ data }: AdminTableProps) {
         </thead>
         <tbody>
           {table.getRowModel().rows.map((row) => (
-            <tr
-              key={row.id}
-              className={`border-b/50 ${row.original.bgClass}`}
-            >
+            <tr key={row.id} className={`border-b/50 ${row.original.bgClass}`}>
               {row.getVisibleCells().map((cell: any) => (
                 <td
                   key={cell.id}

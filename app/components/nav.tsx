@@ -23,7 +23,7 @@ export async function Navbar() {
         <div className="flex items-center">
           <Link
             href="/"
-            className="font-semibold text-3xl tracking-tight text-[var(--color-text)]"
+            className="font-semibold text-3xl text-text tracking-tight"
           >
             {metaData.title}
           </Link>
@@ -32,7 +32,7 @@ export async function Navbar() {
           {authed ? (
             <Link
               href="/admin"
-              className="relative flex align-middle text-base text-[var(--color-dim)] transition-all hover:text-[var(--color-accent)]"
+              className="relative flex align-middle text-dim text-base transition-all hover:text-accent"
             >
               Admin
             </Link>
@@ -42,7 +42,7 @@ export async function Navbar() {
             <Link
               key={path}
               href={path}
-              className="relative flex align-middle text-base text-[var(--color-dim)] transition-all hover:text-[var(--color-accent)]"
+              className="relative flex align-middle text-dim text-base transition-all hover:text-accent"
               {...rest}
             >
               {name}

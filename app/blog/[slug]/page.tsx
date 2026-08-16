@@ -96,7 +96,9 @@ export default async function Blog({
         }}
       />
       <div className="card">
-        <h1 className="title mb-3 font-medium text-2xl">{post.metadata.title}</h1>
+        <h1 className="title mb-3 font-medium text-2xl">
+          {post.metadata.title}
+        </h1>
         <div className="mb-6 flex items-center gap-2 text-neutral-500 text-sm dark:text-neutral-400">
           <span>{formatDate(post.metadata.publishedAt)}</span>
           <span>•</span>
@@ -106,8 +108,8 @@ export default async function Blog({
           </span>
         </div>
         <article className="prose prose-quoteless prose-neutral dark:prose-invert">
-        <CustomMDX source={post.content} />
-      </article>
+          <CustomMDX source={post.content} />
+        </article>
       </div>
     </section>
   );

@@ -73,15 +73,13 @@ And cut solar
   const data = await response.json();
 
   // Handle both old (generateContent) and new (Interactions API) response formats
-  const candidate =
-    data.candidates?.[0] ?? data.response?.candidates?.[0];
+  const candidate = data.candidates?.[0] ?? data.response?.candidates?.[0];
 
   if (!candidate) {
     throw new Error("Gemini returned no candidates.");
   }
 
-  const text =
-    candidate.content?.parts?.[0]?.text ?? candidate.output;
+  const text = candidate.content?.parts?.[0]?.text ?? candidate.output;
 
   if (!text) {
     throw new Error("Gemini returned no poem text.");
