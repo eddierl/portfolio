@@ -47,7 +47,7 @@ Homepage (user visits)
 
 ### `POST /api/poems/generate`
 
-Generates a new poem using Gemini 3.5 Flash (Interactions API) and saves it to the database.
+Generates a new poem using Gemini 3.5 Flash (Interactions API) and saves it to the database. The poem is a 2-3 stanza rhyming piece based on the developer's CV, referencing specific tech, metrics, and projects.
 
 **Response:** `{ id: number, generatedAt: number }`
 
