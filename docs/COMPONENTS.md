@@ -41,7 +41,7 @@ Renders poem content with stanza-aware layout.
 4. Accepts `className` prop for outer margin control
 
 **Styling:**
-- `text-[var(--color-dim)]` — muted, dark text
+- `text-dim` — muted, dark text
 - `italic` — italic font style
 - `space-y-3` — 12px gap between stanzas
 
@@ -61,7 +61,7 @@ Renders:
 - Avocado emoji copyright line
 - Social links (GitHub, LinkedIn, Email) as icons
 
-**Note:** Uses Tailwind v4 shorthand syntax `text-(--color-muted)` which is the recommended way to reference theme tokens in utility classes.
+**Note:** Uses Tailwind v4 shorthand syntax `text-muted` which is the recommended way to reference theme tokens in utility classes.
 
 ### `app/components/badge.tsx`
 

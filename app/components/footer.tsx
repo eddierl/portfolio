@@ -51,8 +51,8 @@ function SocialLinks() {
 
 export default function Footer() {
   return (
-    <small className="mt-16 block text-(--color-muted) lg:mt-24">
-      <span className="text-(--color-accent)">🥑</span> © {YEAR} <SocialLinks />
+    <small className="mt-16 block text-muted lg:mt-24">
+      <span className="text-accent">🥑</span> © {YEAR} <SocialLinks />
     </small>
   );
 }
