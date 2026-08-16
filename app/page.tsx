@@ -1,4 +1,3 @@
-import path from "node:path";
 import { Badge } from "app/components/badge";
 import { Poem } from "app/components/poem";
 import { UpdateLastSeen } from "app/components/update-last-seen";
@@ -6,16 +5,12 @@ import {
   calculateReadingTime,
   formatDate,
   getBlogPosts,
-  readMDXFile,
 } from "app/lib/posts";
 import dayjs from "dayjs";
 import Link from "next/link";
 import { FiClock } from "react-icons/fi";
 
-const HERO_PATH = path.join(process.cwd(), "content/hero.mdx");
-
 export default function Page() {
-  const { content } = readMDXFile(HERO_PATH);
   const allBlogs = getBlogPosts().slice(0, 2);
 
   return (
@@ -30,7 +25,7 @@ export default function Page() {
         reliable software, and <strong className="text-accent">things that
         actually work</strong>.
       </p>
-      <Poem content={content} className="mb-10 mt-4" />
+      <Poem className="mb-10 mt-4" />
 
       {allBlogs.length > 0 && (
         <>
