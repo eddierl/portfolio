@@ -2,7 +2,7 @@ import { db } from "app/lib/drizzle";
 import { poemsTable } from "app/lib/drizzle/schema";
 import { NextResponse } from "next/server";
 
-const GEMINI_MODEL = "gemini-2.0-flash";
+const GEMINI_MODEL = "gemini-3.5-flash";
 
 async function generatePoemWithGemini(): Promise<string> {
   const apiKey = process.env.GEMINI_API_KEY;
@@ -33,7 +33,17 @@ async function generatePoemWithGemini(): Promise<string> {
   }
 
   const data = await response.json();
-  const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+
+  // Handle both old (generateContent) and new (Interactions API) response formats
+  const candidate =
+    data.candidates?.[0] ?? data.response?.candidates?.[0];
+
+  if (!candidate) {
+    throw new Error("Gemini returned no candidates.");
+  }
+
+  const text =
+    candidate.content?.parts?.[0]?.text ?? candidate.output;
 
   if (!text) {
     throw new Error("Gemini returned no poem text.");
