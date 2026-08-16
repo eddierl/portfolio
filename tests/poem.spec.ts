@@ -4,6 +4,10 @@ const API_TODAY = "/api/poems/today";
 const API_GENERATE = "/api/poems/generate";
 
 test.describe("Poem API: GET /today", () => {
+  if (!process.env.GEMINI_API_KEY) {
+    test.skip();
+  }
+
   test("returns 404 when no poem exists", async ({ page }) => {
     // Skip when GEMINI_API_KEY is set — poems will exist from prior generation
     if (process.env.GEMINI_API_KEY) {
@@ -54,7 +58,9 @@ test.describe("Poem API: GET /today", () => {
 
     // 4. Verify the generated poem is the most recent (its timestamp >= what we just created)
     // We can't compare IDs because the DB may contain pre-existing poems with the same second-level timestamp.
-    expect(todayBody.generatedAt).toBeGreaterThanOrEqual(generateBody.generatedAt);
+    expect(todayBody.generatedAt).toBeGreaterThanOrEqual(
+      generateBody.generatedAt,
+    );
   });
 });
 
@@ -104,9 +110,9 @@ test.describe("Poem Component: E2E", () => {
     }
     await page.goto("/");
     // Wait for the Poem component to render (React Query fetches async)
-    await expect(
-      page.getByText("No poem available yet."),
-    ).toBeVisible({ timeout: 10000 });
+    await expect(page.getByText("No poem available yet.")).toBeVisible({
+      timeout: 10000,
+    });
   });
 
   test("displays poem content after generation", async ({ page }) => {
@@ -126,18 +132,20 @@ test.describe("Poem Component: E2E", () => {
 
     // 3. Wait for the poem to render (React Query + loading state)
     // The component shows "Loading poem..." while fetching, then the poem text
-    await expect(page.locator("div.space-y-3.text-\\[var\\(--color-dim\\)\\].italic")).toBeVisible({
+    await expect(
+      page.locator("div.space-y-3.text-\\[var\\(--color-dim\\)\\].italic"),
+    ).toBeVisible({
       timeout: 15000,
     });
 
     // 4. Verify the poem content is visible (not the loading or "no poem" message)
-    await expect(
-      page.getByText("No poem available yet."),
-    ).not.toBeVisible();
+    await expect(page.getByText("No poem available yet.")).not.toBeVisible();
     await expect(page.getByText("Loading poem...")).not.toBeVisible();
 
     // 5. Verify stanza structure (poem has multiple lines grouped in divs)
-    const stanzas = page.locator("div.space-y-3.text-\\[var\\(--color-dim\\)\\].italic > div");
+    const stanzas = page.locator(
+      "div.space-y-3.text-\\[var\\(--color-dim\\)\\].italic > div",
+    );
     const stanzaCount = await stanzas.count();
     expect(stanzaCount).toBeGreaterThan(0);
   });
