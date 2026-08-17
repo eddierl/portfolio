@@ -1,0 +1,145 @@
+---
+title: "🤖 How I Redesigned My Portfolio With AI"
+publishedAt: "2026-08-17"
+summary: "Moving to Australia, learning to code with AI agents running locally on my Mac, and rebuilding my portfolio from scratch — all powered by LM Studio Bionic."
+tags: "AI, LM Studio, Bionic, portfolio, Qwen, Gemini, Next.js"
+---
+
+AI landed on my Mac a year ago. The same time when I landed — for the first time — in Australia.
+
+Career-wise, I came without any expectations. Moving to a new country, a new land, far from anywhere, was quite a challenge. Mixing that with AI — which is changing so many career paths these days and will continue to change them for the next few years — could really devastate you.
+
+I'm a survivor. I'm trying to adapt to the changes and upgrade my skills to stay relevant to the things I love doing.
+
+## From Vibe Coding to AI Agents
+
+I've been using AI with different providers, starting with vibe coding, then asking coding questions, and finally coding with an AI agent. I used different model providers like Codex, Claude, and Gemini — all of which cost money, which makes it tough when you're starting fresh in a new country.
+
+A few weeks ago, I decided to try something else. Something that would run locally, on my localhost.
+
+There's no place like home, right?
+
+I researched how I could use different models on my Mac. I was at a meetup in Perth the other day and remembered someone talking about LM Studio. I said to myself: *"Why not? Let's try it out."*
+
+Quickly, I discovered they released a new tool called **Bionic**. They wrote:
+
+> *"Agentic power. At your fingertips."*
+
+What does *"agentic"* mean?
+
+> Agentic — having the power or autonomy to act independently to reach a specific goal. Instead of waiting for step-by-step commands, an agentic person or system makes plans, solves problems, and takes action on its own.
+
+I want that power.
+
+## Choosing the Right Model
+
+I started by looking at models. There were a lot of models in the store — different sizes, shapes, reasoning capabilities, and purposes. I was looking for an agent to code with me, so I did some research.
+
+I settled on **Qwen**, and more specifically, `Qwen3.5 9B - 4bit`. It fit my machine. It was nice.
+
+But I wanted to push the limits. I tried `Qwen3.6 27B`. My machine started sweating. Making fan noises. I was sure it wouldn't last like that.
+
+Lastly, I found `Qwen3.6 35B A3B` — which supports a 35B dataset but only uses 3B as the active dataset. Much more reasonable.
+
+<Image
+  src="/qwen-model-list.png"
+  alt="LM Studio model list showing Qwen3.5 9B, Qwen3.6 27B, and Qwen3.6 35B A3B"
+  width={800}
+  height={500}
+/>
+
+## PR #230: Redesigning My Portfolio
+
+So I started a conversation with Bionic, which finally led me to [PR #230](https://github.com/eddierl/portfolio/pull/230) — where I redesigned my portfolio.
+
+I think it's still minimal, but with a bit more accent. I branded it with an avocado shape and colors, and I think it looks better now.
+
+<Image
+  src="/readme-screenshot-dark.png"
+  alt="Portfolio at first"
+  width={800}
+  height={1000}
+/>
+
+
+<Image
+  src="/screenshot-v2-dark.png"
+  alt="Redesigned portfolio homepage in dark mode, featuring the AI-generated poem"
+  width={800}
+  height={1000}
+/>
+
+## PR #231: AI-Generated Content — A Poem About Me
+
+Next task: adding AI as content.
+
+Same story, using Bionic. I started a chat about adding a poetic AI touch. As a cheap bastard, I asked if there are any free AI models I could use. Qwen suggested Gemini. Great! I already knew about it. But querying it from code? Let's see how we can do that.
+
+Qwen told me to use Gemini Flask 2.0. Sounded legit, right? I know that Flask is for quick chats, less reasoning, and it should work fast. I tried it up and got an error. Version 2.0 is deprecated.
+
+No worries. I told Qwen, and he changed the link to Gemini Flask 2.5. I tried it again and got a new error. Version 2.5 is deprecated. Come on... Do they deprecate versions every week?
+
+I went to their homepage and saw that the latest version is already 3.7. Wow. OK, I told the news to Qwen and asked him to find the latest model that is offered for free. He found it — version 3.5 Flash. He changed the response body, I tried it, and it worked.
+
+### Tuning the Prompt
+
+Now I had to modify the response. First, it needed to understand the prompt. I asked Qwen to generate a prompt for me. Here's how my latest version looks:
+
+```ts
+const prompt = `
+Write an original, 
+rhyming poem (2-3 short stanzas, 3-4 lines each) 
+based on this developer's CV. 
+The poem should read like a personal,
+confident pitch — technical but approachable, 
+not pretentious.
+`
+```
+
+When I queried it again, the poem ended almost after one verse. What could it be? **Tokens!**
+
+I looked at the limit Qwen had set, and it was 1024. I tried to extend the max output tokens to 4096 and verified it still falls under the free usage terms. Now I got a proper rhyme — a 3-verse poem about myself.
+
+That's [PR #231](https://github.com/eddierl/portfolio/pull/231).
+
+## PR #233: Server-Side Poem Fetching
+
+Lastly, [PR #233](https://github.com/eddierl/portfolio/pull/233).
+
+Qwen decided to use a client-side query to get the poem. But I wanted it to show no loading state on the screen. I tried to cache the response, but here's the problem: caching the response is on the client side. So my app had to show a hydrated version — meaning no caching, and only when it renders React on the client side was it able to get the content from localhost.
+
+I had to find another method. In this PR, I changed the page to query the poem straight from the database, so it renders server-side immediately.
+
+### Adding Redis for Speed
+
+I noticed that fetching this document from the DB took about 150ms. I ran through a thought: *how do I make it faster, because why not?*
+
+So I added a Redis server to cache the response from the DB. Now I'm getting the page in **85ms**. Awesome!
+
+Before Redis:
+
+<Image
+  src="/redis-cache-before.png"
+  alt="Network tab showing 155ms response time before Redis caching"
+  width={800}
+  height={200}
+/>
+
+After Redis:
+
+<Image
+  src="/redis-cache-after.png"
+  alt="Network tab showing 85ms response time after Redis caching"
+  width={800}
+  height={200}
+/>
+
+## Wearing Two Hats
+
+I wear both a product hat and a tech hat. I enjoyed both of them. I can do it today thanks to AI. I can think of more items and I don't have to worry about implementations.
+
+That's just another proof to myself — but also to you.
+
+---
+
+*P.S. I know you can't comment here yet, but send me a message on LinkedIn... ;)*
