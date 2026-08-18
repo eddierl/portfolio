@@ -14,7 +14,9 @@ test.describe("Homepage: Recent Posts", () => {
           new Date(b.metadata.publishedAt).getTime() -
           new Date(a.metadata.publishedAt).getTime(),
       )
-      .slice(0, 2);
+      .slice(0, 2)
+      // Cast to ensure metadata is fully typed (filters guarantee all fields present)
+      .map((p) => ({ ...p, metadata: p.metadata as Required<typeof p.metadata> }));
 
     await page.goto("/");
 
