@@ -31,6 +31,7 @@ test.describe("Homepage: Recent Posts", () => {
     const postLinks = page.locator("section.hero a.card.block");
     const postTitles = await postLinks.allTextContents();
 
+    expect(postTitles.length).toBe(2);
     expect(postTitles[0]).toBe(expectedPosts[0].metadata.title);
     expect(postTitles[1]).toBe(expectedPosts[1].metadata.title);
   });
