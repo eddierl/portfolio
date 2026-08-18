@@ -77,11 +77,19 @@ const YouTubeWithCaption = ({
 );
 function Code({
   children,
+  className,
   ...props
 }: PropsWithChildren<Record<string, never>>) {
   const codeHTML = highlight(children as string);
-  // biome-ignore lint/security/noDangerouslySetInnerHtml: this component is for printing code on the screen
-  return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />;
+
+  return (
+    <code
+      // biome-ignore lint/security/noDangerouslySetInnerHtml: this component is for printing code on the screen
+      dangerouslySetInnerHTML={{ __html: codeHTML }}
+      className={[className, "sh-theme"].join(" ")}
+      {...props}
+    />
+  );
 }
 
 function Table({ data }: { data: { headers: string[]; rows: string[][] } }) {

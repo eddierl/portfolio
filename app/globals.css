@@ -20,15 +20,15 @@
   --color-glow: #66bb6a;
 
   /* Syntax highlighting */
-  --color-sh-class: #2d5e9d;
-  --color-sh-identifier: #354150;
-  --color-sh-sign: #8996a3;
-  --color-sh-string: #007f7a;
-  --color-sh-keyword: #e02518;
-  --color-sh-comment: #a19595;
-  --color-sh-jsxliterals: #6266d1;
-  --color-sh-property: #e25a1c;
-  --color-sh-entity: #e25a1c;
+  --color-sh-class: var(--color-violet-500);
+  --color-sh-identifier: var(--color-text);
+  --color-sh-sign: var(--color-slate-400);
+  --color-sh-property: var(--color-blue-500);
+  --color-sh-entity: var(--color-teal-500);
+  --color-sh-jsxliterals: var(--color-fuchsia-400);
+  --color-sh-string: var(--color-emerald-600);
+  --color-sh-keyword: var(--color-rose-400);
+  --color-sh-comment: var(--color-stone-400);
 
   /* Popover / tooltip */
   --color-popover: #ffffff;
@@ -46,14 +46,32 @@
   --color-accent: #8bc34a;
   --color-accent-dim: #66bb6a;
   --color-glow: #9ccc65;
-  --color-sh-class: #4c97f8;
-  --color-sh-identifier: white;
-  --color-sh-string: #0fa295;
-  --color-sh-keyword: #f47067;
   --color-popover: #0a0a0a;
   --color-popover-foreground: #fafafa;
 }
 
+@layer components {
+  .sh-theme {
+    --sh-class: var(--color-sh-class);
+    --sh-identifier: var(--color-sh-identifier);
+    --sh-sign: var(--color-sh-sign);
+    --sh-property: var(--color-sh-property);
+    --sh-entity: var(--color-sh-entity);
+    --sh-jsxliterals: var(--color-sh-jsxliterals);
+    --sh-string: var(--color-sh-string);
+    --sh-keyword: var(--color-sh-keyword);
+    --sh-comment: var(--color-sh-comment);
+  }
+
+  .sh-theme .sh__token--keyword,
+  .sh-theme .sh__token--class {
+    @apply font-semibold;
+  }
+
+  .sh-theme .sh__token--comment {
+    @apply italic opacity-80;
+  }
+}
 ::selection {
   background-color: var(--color-accent);
   color: #fefefe;
