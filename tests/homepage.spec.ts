@@ -1,5 +1,10 @@
 import { expect, test } from "@playwright/test";
 import { getBlogPosts } from "../app/lib/posts";
+import type { Metadata } from "../app/lib/posts";
+
+type Post = ReturnType<typeof getBlogPosts>[number] & {
+  metadata: Metadata;
+};
 
 test.describe("Homepage: Recent Posts", () => {
   test("shows the 2 most recent posts, sorted by date descending", async ({
@@ -8,15 +13,14 @@ test.describe("Homepage: Recent Posts", () => {
     const allPosts = getBlogPosts();
 
     // The expected 2 most recent posts (sorted by publishedAt desc)
-    const expectedPosts = [...allPosts]
+    const expectedPosts: Post[] = [...allPosts]
       .sort(
         (a, b) =>
           new Date(b.metadata.publishedAt).getTime() -
           new Date(a.metadata.publishedAt).getTime(),
       )
       .slice(0, 2)
-      // Cast to ensure metadata is fully typed (filters guarantee all fields present)
-      .map((p) => ({ ...p, metadata: p.metadata as Required<typeof p.metadata> }));
+      .map((p) => ({ ...p, metadata: p.metadata as Metadata }));
 
     await page.goto("/");
 
@@ -33,7 +37,6 @@ test.describe("Homepage: Recent Posts", () => {
     const postLinks = page.locator("section.hero a.card.block");
     const postTitles = await postLinks.allTextContents();
 
-    expect(postTitles.length).toBe(2);
     expect(postTitles).toEqual([
       expectedPosts[0].metadata.title,
       expectedPosts[1].metadata.title,
