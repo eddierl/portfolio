@@ -134,6 +134,189 @@ After Redis:
   height={200}
 />
 
+## Under the Hood
+
+Here's where the rubber meets the road. Let me pull back the curtain on the actual code powering this thing.
+
+> **Note:** All code snippets below are simplified excerpts for the blog — they are not copy-paste ready. The actual implementation varies slightly.
+
+### The Database Schema
+
+The poems table is simple — `id`, `content`, and `generatedAt`. But there's one clever detail: I used `bigint` for the timestamp, not `integer`.
+
+```ts
+export const poemsTable = pgTable("poems", {
+  id: integer().primaryKey().generatedAlwaysAsIdentity(),
+  content: text().notNull(),
+  generatedAt: bigint("generated_at", { mode: "number" }).notNull(),
+});
+```
+
+Why? Because PostgreSQL's `integer` type overflows on January 19, 2038 — the infamous [Year 2038 problem](https://en.wikipedia.org/wiki/Year_2038_problem). I'm building this for the long haul. Using `bigint` with `{ mode: "number" }` lets me store timestamps as JS numbers safely, well past 2038.
+
+### The Full Gemini Prompt
+
+The prompt is where the magic happens. It's not just "write a poem about me." It's a carefully crafted instruction with examples:
+
+```ts
+const prompt = `
+Write an original, rhyming poem (2-3 short stanzas, 
+3-4 lines each) based on this developer's CV. 
+The poem should read like a personal, confident pitch — 
+technical but approachable, not pretentious.
+
+Style rules:
+- Each stanza should be a self-contained "block" of 3-4 short lines
+- Use end rhymes (AABB or ABAB per stanza is fine)
+- Reference specific tech, tools, or achievements from the CV
+- Keep it grounded and real, like something you'd say at a conference
+- No titles, no fluff, no abstract metaphors about time or nature
+- Return ONLY the poem text, nothing else.
+
+Developer CV: [pasted here]
+Make it sound like Eddie wrote it himself — confident, 
+practical, with a touch of dry humor.
+
+Good example:
+\`\`\`
+TypeScript on the front
+Node.js on the back
+Enough testing
+to sleep at 10pm.
+
+10 years of delivering
+things that actually work.
+\`\`\`
+
+Bad example:
+\`\`\`
+I'm Eddie, ten years deep in React, AWS, and Node,
+Writing clean migrations and production-ready code.
+\`\`\`
+`;
+```
+
+(The CV paste above is truncated for brevity — the full prompt includes the complete resume details. The full prompt is available [on GitHub](https://github.com/eddierl/portfolio/blob/main/app/api/poems/generate/route.ts).)
+
+Key insights:
+- **Examples matter.** The "good" vs "bad" examples steer the AI toward the format I want — short stanzas, not prose.
+- **Temperature of 0.9** gives it creative freedom while the examples keep it on track.
+- **`maxOutputTokens: 4096`** was the key to getting multi-verse poems instead of truncated single verses.
+
+### The Caching Layer
+
+The poem fetches from the database take about 150ms. With Redis, they drop to 85ms. The caching pattern is elegant — it's "fire-and-forget":
+
+```ts
+export async function getLatestPoem(): Promise<Poem | null> {
+  try {
+    const cachedResult = await redis.get("poem");
+    if (cachedResult) return cachedResult;
+
+    const result = await db
+      .select()
+      .from(poemsTable)
+      .orderBy(desc(poemsTable.generatedAt))
+      .limit(1);
+
+    const poem = result ?? [];
+    if (poem.length === 0) return null;
+
+    const data = {
+      id: poem[0]?.id,
+      content: poem[0]?.content,
+      generatedAt: poem[0]?.generatedAt,
+    };
+
+    // Cache for 24 hours; fire-and-forget since a failed write
+    // only means the next request re-reads from the DB.
+    await redis.set("poem", data, { ex: 60 * 60 * 24 }).catch(() => {});
+
+    return data;
+  } catch (error) {
+    Sentry.captureException(error);
+    return null;
+  }
+}
+```
+
+The `.catch(() => {})` on the `redis.set` call is intentional. If Redis is down, the next request just re-reads from the database. No broken UX, no errors to the user. The poem is stale at most 24 hours. That's acceptable.
+
+### The Daily Cron Job
+
+A poem is generated every night at midnight UTC by GitHub Actions:
+
+```yaml
+name: Generate Daily Poem
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate poem
+        run: |
+          MAX_RETRIES=3
+          RETRY_DELAY=10
+          for i in $(seq 1 $MAX_RETRIES); do
+            HTTP_CODE=$(curl -s -o /tmp/poem_resp -w "%{http_code}" \
+              -m 30 \
+              -X POST "${{ secrets.API_URL }}/api/poems/generate" \
+              -H "Content-Type: application/json")
+            RESPONSE=$(cat /tmp/poem_resp)
+            echo "Attempt $i — HTTP $HTTP_CODE"
+            if [ "$HTTP_CODE" -eq 200 ]; then
+              echo "✅ Poem generated successfully"
+              exit 0
+            fi
+            if [ "$i" -lt "$MAX_RETRIES" ]; then
+              echo "Retrying in ${RETRY_DELAY}s..."
+              sleep $RETRY_DELAY
+            fi
+          done
+          echo "❌ Failed after $MAX_RETRIES attempts"
+          exit 1
+```
+
+Three retries with 10-second delays. If it fails all three times, the workflow fails and I get a GitHub notification. But more importantly, the existing poem stays on the page — the user never sees a broken state.
+
+### The Poem Component
+
+The poem renders as a server component, parsing the content by splitting on double newlines (stanzas) and single newlines (lines):
+
+```tsx
+export async function Poem({ className, fallback }: PoemProps) {
+  const data = await getLatestPoem();
+  const stanzas = data?.content?.split("\n\n") ?? [];
+
+  return (
+    <div className={["space-y-3 text-dim italic", className].join(" ")}>
+      {data ? (
+        stanzas.map((stanza, i) => (
+          <div key={i}>
+            {stanza.split("\n").map((line, j) => (
+              <p key={j} className="leading-relaxed">
+                {line}
+              </p>
+            ))}
+          </div>
+        ))
+      ) : fallback ? (
+        fallback
+      ) : (
+        <p className="text-center">No poem available yet.</p>
+      )}
+    </div>
+  );
+}
+```
+
+No client-side state, no loading spinners, no flicker. The poem is rendered server-side on every request, with Redis handling the speed.
+
 ## Wearing Two Hats
 
 I wear both a product hat and a tech hat. I enjoyed both of them. I can do it today thanks to AI. I can think of more items and I don't have to worry about implementations.
@@ -142,4 +325,4 @@ That's just another proof to myself — but also to you.
 
 ---
 
-*P.S. I know you can't comment here yet, but send me a message on LinkedIn... ;)*
+*P.S. I know you can't comment here yet, but [send me a message on LinkedIn](https://www.linkedin.com/in/eddie-erlich/) ... ;)*
