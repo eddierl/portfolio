@@ -1,12 +1,28 @@
 import { UpdateLastSeen } from "app/components/update-last-seen";
-import { calculateReadingTime, formatDate, getBlogPosts } from "app/lib/posts";
-import dayjs from "dayjs";
-import Link from "next/link";
-import { FiClock } from "react-icons/fi";
-export const metadata = {
-  title: "Blog",
-  description: "erlich.dev Blog",
-};
+import { metaData } from "app/lib/config";
+import { getBlogPosts, getTags } from "app/lib/posts";
+import type { Metadata } from "next";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const posts = getBlogPosts();
+  const recent = posts
+    .sort(
+      (a, b) =>
+        new Date(b.metadata.publishedAt).getTime() -
+        new Date(a.metadata.publishedAt).getTime(),
+    )
+    .slice(0, 5);
+  const title = "Blog";
+  const description =
+    recent.length > 0
+      ? `${recent.length} articles on ${metaData.name}'s blog — ${recent[0]?.metadata.title} and more.`
+      : `Articles and tutorials by ${metaData.name}.`;
+  return {
+    title,
+    description,
+    alternates: { canonical: `${metaData.baseUrl}/blog` },
+  };
+}
 
 export default function BlogPosts() {
   const allBlogs = getBlogPosts();

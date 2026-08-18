@@ -2,8 +2,14 @@ import { Poem } from "app/components/poem";
 import { UpdateLastSeen } from "app/components/update-last-seen";
 import { calculateReadingTime, formatDate, getBlogPosts } from "app/lib/posts";
 import dayjs from "dayjs";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { FiClock } from "react-icons/fi";
+import { metaData } from "./lib/config";
+
+export const metadata: Metadata = {
+  alternates: { canonical: metaData.baseUrl },
+};
 
 export default function Page() {
   const allBlogs = getBlogPosts()
@@ -27,6 +33,26 @@ export default function Page() {
         <strong className="text-accent">things that actually work</strong>.
       </p>
       <Poem className="mt-4 mb-10" />
+
+      <script
+        type="application/ld+json"
+        suppressHydrationWarning
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: I guess this is need for application/ld+json
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            name: metaData.name,
+            url: metaData.baseUrl,
+            description: metaData.description,
+            potentialAction: {
+              "@type": "SearchAction",
+              target: `${metaData.baseUrl}/blog?query={search_term}`,
+              "query-input": "required name=search_term",
+            },
+          }),
+        }}
+      />
 
       {allBlogs.length > 0 && (
         <>

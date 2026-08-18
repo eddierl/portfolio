@@ -69,6 +69,12 @@ export function getBlogPosts() {
     .filter(isPublished);
 }
 
+export function getTags(): string[] {
+  const allTags = getBlogPosts().flatMap((post) => post.tags);
+  return [...new Set(allTags)].sort();
+}
+
+
 export function calculateReadingTime(content: string): number {
   // Remove markdown syntax and HTML tags
   const cleanContent = content
