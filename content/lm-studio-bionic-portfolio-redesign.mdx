@@ -81,26 +81,9 @@ No worries. I told Qwen, and he changed the link to Gemini Flask 2.5. I tried it
 
 I went to their homepage and saw that the latest version is already 3.7. Wow. OK, I told the news to Qwen and asked him to find the latest model that is offered for free. He found it — version 3.5 Flash. He changed the response body, I tried it, and it worked.
 
-### Tuning the Prompt
+Now I had to modify the response. First, it needed to understand the prompt. I asked Qwen to generate a prompt for me — the result is [PR #231](https://github.com/eddierl/portfolio/pull/231).
 
-Now I had to modify the response. First, it needed to understand the prompt. I asked Qwen to generate a prompt for me. Here's how my latest version looks:
-
-```ts
-const prompt = `
-Write an original, 
-rhyming poem (2-3 short stanzas, 3-4 lines each) 
-based on this developer's CV. 
-The poem should read like a personal,
-confident pitch — technical but approachable, 
-not pretentious.
-`
-```
-
-When I queried it again, the poem ended almost after one verse. What could it be? **Tokens!**
-
-I looked at the limit Qwen had set, and it was 1024. I tried to extend the max output tokens to 4096 and verified it still falls under the free usage terms. Now I got a proper rhyme — a 3-verse poem about myself.
-
-That's [PR #231](https://github.com/eddierl/portfolio/pull/231).
+The full prompt, with examples and style rules, lives in ["Under the Hood"](#the-full-gemini-prompt) below. The key insight: Qwen's default max output was 1024 tokens, which truncated the poem after one verse. I bumped it to 4096 and verified it still falls under Gemini's free usage terms. That's when I got a proper 3-verse poem.
 
 ## PR #233: Server-Side Poem Fetching
 
@@ -201,7 +184,7 @@ Writing clean migrations and production-ready code.
 Key insights:
 - **Examples matter.** The "good" vs "bad" examples steer the AI toward the format I want — short stanzas, not prose.
 - **Temperature of 0.9** gives it creative freedom while the examples keep it on track.
-- **`maxOutputTokens: 4096`** was the key to getting multi-verse poems instead of truncated single verses.
+- **`maxOutputTokens: 4096`** was the key to getting multi-verse poems instead of truncated single verses. (Qwen's default of 1024 was cutting the poem off after one verse.)
 
 ### The Caching Layer
 
@@ -319,7 +302,9 @@ No client-side state, no loading spinners, no flicker. The poem is rendered serv
 
 ## Wearing Two Hats
 
-I wear both a product hat and a tech hat. I enjoyed both of them. I can do it today thanks to AI. I can think of more items and I don't have to worry about implementations.
+I wear both a product hat and a tech hat. As a product person, I think about what the user sees — the poem, the design, the experience. As a tech person, I think about how it works — Redis caching, server-side rendering, cron jobs.
+
+AI lets me switch between both without context-switching fatigue. I used to need a designer for the visual side and a backend engineer for the infra. Now I can prototype both in the same conversation.
 
 That's just another proof to myself — but also to you.
 
