@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { negate } from "es-toolkit";
 
-type Metadata = {
+export type Metadata = {
   title: string;
   publishedAt: string;
   isDraft: boolean;
