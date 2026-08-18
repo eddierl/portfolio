@@ -32,7 +32,9 @@ test.describe("Homepage: Recent Posts", () => {
     const postTitles = await postLinks.allTextContents();
 
     expect(postTitles.length).toBe(2);
-    expect(postTitles[0]).toBe(expectedPosts[0].metadata.title);
-    expect(postTitles[1]).toBe(expectedPosts[1].metadata.title);
+    expect(postTitles).toEqual([
+      expectedPosts[0].metadata.title,
+      expectedPosts[1].metadata.title,
+    ]);
   });
 });
