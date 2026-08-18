@@ -6,7 +6,14 @@ import Link from "next/link";
 import { FiClock } from "react-icons/fi";
 
 export default function Page() {
-  const allBlogs = getBlogPosts().slice(0, 2);
+  const allBlogs = getBlogPosts()
+    .sort((a, b) => {
+      if (new Date(a.metadata.publishedAt) > new Date(b.metadata.publishedAt)) {
+        return -1;
+      }
+      return 1;
+    })
+    .slice(0, 2);
 
   return (
     <section className="hero">
@@ -26,17 +33,7 @@ export default function Page() {
           <UpdateLastSeen />
           <h2 className="section-heading mt-10">Recent Posts</h2>
           <div className="space-y-4">
-            {allBlogs
-              .sort((a, b) => {
-                if (
-                  new Date(a.metadata.publishedAt) >
-                  new Date(b.metadata.publishedAt)
-                ) {
-                  return -1;
-                }
-                return 1;
-              })
-              .map((post) => {
+            {allBlogs.map((post) => {
                 const postDate = dayjs(post.metadata.publishedAt);
                 const isNew = postDate.isAfter(dayjs().subtract(1, "week"));
 
