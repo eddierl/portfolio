@@ -1,10 +1,13 @@
 import { expect, test } from "@playwright/test";
-import { getBlogPosts } from "../app/lib/posts";
-import type { Metadata } from "../app/lib/posts";
+import { getBlogPosts, type Metadata } from "../app/lib/posts";
 
 type Post = ReturnType<typeof getBlogPosts>[number] & {
   metadata: Metadata;
 };
+
+function getTitles(posts: Post[]): string[] {
+  return posts.map((p) => p.metadata.title);
+}
 
 test.describe("Homepage: Recent Posts", () => {
   test("shows the 2 most recent posts, sorted by date descending", async ({
@@ -37,9 +40,6 @@ test.describe("Homepage: Recent Posts", () => {
     const postLinks = page.locator("section.hero a.card.block");
     const postTitles = await postLinks.allTextContents();
 
-    expect(postTitles).toEqual([
-      expectedPosts[0].metadata.title,
-      expectedPosts[1].metadata.title,
-    ]);
+    expect(postTitles).toEqual(getTitles(expectedPosts));
   });
 });
