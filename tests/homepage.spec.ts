@@ -41,8 +41,8 @@ test.describe("Homepage: Recent Posts", () => {
     }
 
     // Verify the posts are ordered newest first
-    const postLinks = page.locator("section.hero a.card.block");
-    const postTitles = await postLinks.allTextContents();
+    const postHeadings = page.locator("section.hero h3.font-medium");
+    const postTitles = await postHeadings.allTextContents();
 
     expect(postTitles).toEqual(getTitles(expectedPosts));
   });
