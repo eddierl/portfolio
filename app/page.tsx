@@ -1,10 +1,11 @@
 import { Poem } from "app/components/poem";
 import { UpdateLastSeen } from "app/components/update-last-seen";
-import { calculateReadingTime, formatDate, getBlogPosts } from "app/lib/posts";
+import { calculateReadingTime, formatDate } from "app/lib/date-utils";
 import dayjs from "dayjs";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { FiClock } from "react-icons/fi";
+import { getBlogPosts } from "@/app/lib/posts";
 import { metaData } from "./lib/config";
 
 export const metadata: Metadata = {
