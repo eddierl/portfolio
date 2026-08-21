@@ -21,7 +21,7 @@
     "@tanstack/react-table": "^9.1.2",
     "@upstash/redis": "^1.38.2",
     "@vercel/analytics": "^2.0.1",
-    "@vercel/functions": "^3.9.2",
+    "@vercel/functions": "^3.9.3",
     "@vercel/speed-insights": "^2.0.0",
     "dayjs": "^1.11.21",
     "dotenv": "^17.4.2",
