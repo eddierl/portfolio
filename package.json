@@ -44,7 +44,7 @@
     "remark-gfm": "^4.0.1",
     "sharp": "^0.35.3",
     "sonner": "^2.0.8",
-    "sugar-high": "^2.0.0",
+    "sugar-high": "^2.0.1",
     "usehooks-ts": "^3.1.1"
   },
   "devDependencies": {
