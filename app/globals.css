@@ -4,6 +4,11 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* Global cursor for interactive elements */
+button {
+  cursor: pointer;
+}
+
 /* ── Theme tokens (Tailwind v4) ── */
 @theme {
   /* Core palette */

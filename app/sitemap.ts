@@ -8,18 +8,36 @@ const BaseUrl = metaData.baseUrl;
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const blogs = getBlogPosts().map((post) => ({
     url: `${BaseUrl}/blog/${post.slug}`,
-    lastModified: post.metadata.publishedAt,
+    lastModified: post.metadata.publishedAt ?? new Date().toISOString(),
   }));
 
+  const now = new Date().toISOString().split("T")[0];
   const routes = [
-    "/",
-    "/blog",
-    CV_FILE_NAME,
-    //  "projects", "photos"
-  ].map((route) => ({
-    url: `${BaseUrl}${route}`,
-    lastModified: new Date().toISOString().split("T")[0],
-  }));
+    {
+      url: `${BaseUrl}/`,
+      lastModified: now,
+      changeFrequency: "weekly" as const,
+      priority: 1,
+    },
+    {
+      url: `${BaseUrl}/blog`,
+      lastModified: now,
+      changeFrequency: "weekly" as const,
+      priority: 0.9,
+    },
+    {
+      url: `${BaseUrl}/blog/tags`,
+      lastModified: now,
+      changeFrequency: "weekly" as const,
+      priority: 0.7,
+    },
+    {
+      url: `${BaseUrl}/${CV_FILE_NAME}`,
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: 0.5,
+    },
+  ];
 
   return [...routes, ...blogs];
 }

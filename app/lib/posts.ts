@@ -2,14 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { negate } from "es-toolkit";
 
-export type Metadata = {
-  title: string;
-  publishedAt: string;
-  isDraft: boolean;
-  summary: string;
-  tags: string;
-  image?: string;
-};
+import type { BlogPost, Metadata } from "./post-types";
 
 function parseFrontmatter(fileContent: string) {
   const frontmatterRegex = /---\s*([\s\S]*?)\s*---/;
@@ -33,7 +26,17 @@ function parseFrontmatter(fileContent: string) {
       String(value).toLowerCase() === "false" ? false : value;
   });
 
+  // Default tags to empty string for posts missing the frontmatter key
+  if (!metadata.tags) metadata.tags = "";
   return { metadata: metadata as Metadata, content };
+}
+
+function parseTags(tagsString: string | undefined): string[] {
+  if (!tagsString) return [];
+  return tagsString
+    .split(",")
+    .map((t) => t.trim())
+    .filter((t) => t.length > 0);
 }
 
 function getMDXFiles(dir: string) {
@@ -45,16 +48,18 @@ export function readMDXFile(filePath: string) {
   return parseFrontmatter(rawContent);
 }
 
-function getMDXData(dir: string) {
+function getMDXData(dir: string): BlogPost[] {
   const mdxFiles = getMDXFiles(dir);
   return mdxFiles.map((file) => {
     const { metadata, content } = readMDXFile(path.join(dir, file));
     const slug = path.basename(file, path.extname(file));
+    const tags = parseTags(metadata.tags);
 
     return {
       metadata,
       slug,
       content,
+      tags,
     };
   });
 }
@@ -69,64 +74,19 @@ export function getBlogPosts() {
     .filter(isPublished);
 }
 
-export function calculateReadingTime(content: string): number {
-  // Remove markdown syntax and HTML tags
-  const cleanContent = content
-    .replace(/```[\s\S]*?```/g, "") // Remove code blocks
-    .replace(/`[^`]*`/g, "") // Remove inline code
-    .replace(/!\[.*?\]\(.*?\)/g, "") // Remove images
-    .replace(/\[.*?\]\(.*?\)/g, "") // Remove links
-    .replace(/#{1,6}\s/g, "") // Remove headers
-    .replace(/\*\*.*?\*\*/g, "") // Remove bold
-    .replace(/\*.*?\*/g, "") // Remove italic
-    .replace(/^\s*[-*+]\s/gm, "") // Remove list markers
-    .replace(/^\s*\d+\.\s/gm, "") // Remove numbered list markers
-    .replace(/<[^>]*>/g, "") // Remove HTML tags
-    .replace(/\s+/g, " ") // Normalize whitespace
-    .trim();
-
-  // Average reading speed: 200-250 words per minute
-  // Using 225 as a middle ground
-  const wordsPerMinute = 175;
-  const wordCount = cleanContent
-    .split(" ")
-    .filter((word) => word.length > 0).length;
-
-  return Math.ceil(wordCount / wordsPerMinute);
+export function getTags(): string[] {
+  const allTags = getBlogPosts().flatMap((post) => post.tags);
+  return [...new Set(allTags)].sort();
 }
 
-export function formatDate(date: string, includeRelative = false) {
-  const currentDate = new Date();
-  if (!date.includes("T")) {
-    date = `${date}T00:00:00`;
-  }
-  const targetDate = new Date(date);
+export function getPostsByTag(tag: string) {
+  return getBlogPosts().filter((post) =>
+    post.tags.some((t) => t.toLowerCase() === tag.toLowerCase()),
+  );
+}
 
-  const yearsAgo = currentDate.getFullYear() - targetDate.getFullYear();
-  const monthsAgo = currentDate.getMonth() - targetDate.getMonth();
-  const daysAgo = currentDate.getDate() - targetDate.getDate();
-
-  let formattedDate = "";
-
-  if (yearsAgo > 0) {
-    formattedDate = `${yearsAgo}y ago`;
-  } else if (monthsAgo > 0) {
-    formattedDate = `${monthsAgo}mo ago`;
-  } else if (daysAgo > 0) {
-    formattedDate = `${daysAgo}d ago`;
-  } else {
-    formattedDate = "Today";
-  }
-
-  const fullDate = targetDate.toLocaleString("en-us", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-  });
-
-  if (!includeRelative) {
-    return fullDate;
-  }
-
-  return `${fullDate} (${formattedDate})`;
+export function getTagCount(tag: string): number {
+  return getBlogPosts().filter((post) =>
+    post.tags.some((t) => t.toLowerCase() === tag.toLowerCase()),
+  ).length;
 }

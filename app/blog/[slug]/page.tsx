@@ -1,9 +1,11 @@
 import { CustomMDX } from "app/components/mdx";
+import { TagBadge } from "app/components/tag-badge";
 import { metaData } from "app/lib/config";
-import { calculateReadingTime, formatDate, getBlogPosts } from "app/lib/posts";
+import { getBlogPosts } from "app/lib/posts";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { FiClock } from "react-icons/fi";
+import { calculateReadingTime, formatDate } from "@/app/lib/date-utils";
 
 export async function generateStaticParams() {
   const posts = getBlogPosts();
@@ -29,6 +31,7 @@ export async function generateMetadata({
     publishedAt: publishedTime,
     summary: description,
     image,
+    tags,
   } = post.metadata;
   const ogImage = image
     ? image
@@ -37,6 +40,8 @@ export async function generateMetadata({
   return {
     title,
     description,
+    keywords: tags,
+    alternates: { canonical: `${metaData.baseUrl}/blog/${post.slug}` },
     openGraph: {
       title,
       description,
@@ -48,6 +53,7 @@ export async function generateMetadata({
           url: ogImage,
         },
       ],
+      tags: tags,
     },
     twitter: {
       card: "summary_large_image",
@@ -92,6 +98,7 @@ export default async function Blog({
               "@type": "Person",
               name: metaData.name,
             },
+            keywords: post.tags.join(", "),
           }),
         }}
       />
@@ -99,7 +106,7 @@ export default async function Blog({
         <h1 className="title mb-3 font-medium text-2xl">
           {post.metadata.title}
         </h1>
-        <div className="mb-6 flex items-center gap-2 text-neutral-500 text-sm dark:text-neutral-400">
+        <div className="mb-4 flex flex-wrap items-center gap-2 text-neutral-500 text-sm dark:text-neutral-400">
           <span>{formatDate(post.metadata.publishedAt)}</span>
           <span>•</span>
           <span className="inline-flex items-center gap-1">
@@ -107,6 +114,17 @@ export default async function Blog({
             {calculateReadingTime(post.content)} min read
           </span>
         </div>
+        {post.tags.length > 0 && (
+          <div className="flex flex-wrap gap-2 mb-6">
+            {post.tags.map((tag) => (
+              <TagBadge
+                key={tag}
+                tag={tag}
+                href={`/blog/tags?tag=${encodeURIComponent(tag)}`}
+              />
+            ))}
+          </div>
+        )}
         <article className="prose prose-quoteless prose-neutral dark:prose-invert">
           <CustomMDX source={post.content} />
         </article>
