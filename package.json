@@ -16,7 +16,7 @@
     "@neondatabase/serverless": "^1.1.0",
     "@react-pdf/renderer": "^4.6.1",
     "@sentry/nextjs": "^10.63.0",
-    "@supabase/supabase-js": "^2.110.2",
+    "@supabase/supabase-js": "^2.112.4",
     "@svgr/webpack": "^8.1.0",
     "@tanstack/react-table": "^9.1.2",
     "@upstash/redis": "^1.38.2",
