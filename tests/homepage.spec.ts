@@ -1,11 +1,8 @@
 import { expect, test } from "@playwright/test";
-import { getBlogPosts, type Metadata } from "../app/lib/posts";
+import type { BlogPost } from "@/app/lib/post-types";
+import { getBlogPosts } from "../app/lib/posts";
 
-type Post = ReturnType<typeof getBlogPosts>[number] & {
-  metadata: Metadata;
-};
-
-function getTitles(posts: Post[]): string[] {
+function getTitles(posts: BlogPost[]): string[] {
   return posts.map((p) => p.metadata.title);
 }
 
@@ -16,14 +13,14 @@ test.describe("Homepage: Recent Posts", () => {
     const allPosts = getBlogPosts();
 
     // The expected 2 most recent posts (sorted by publishedAt desc)
-    const expectedPosts: Post[] = [...allPosts]
+    const expectedPosts = [...allPosts]
       .sort(
         (a, b) =>
           new Date(b.metadata.publishedAt).getTime() -
           new Date(a.metadata.publishedAt).getTime(),
       )
       .slice(0, 2)
-      .map((p) => ({ ...p, metadata: p.metadata as Metadata }));
+      .map((p) => ({ ...p, metadata: p.metadata }));
 
     await page.goto("/");
 
@@ -35,7 +32,7 @@ test.describe("Homepage: Recent Posts", () => {
     // Verify both expected posts are rendered
     for (const post of expectedPosts) {
       await expect(
-        page.getByRole("heading", { name: post.metadata.title }),
+        page.getByRole("heading", { name: post.metadata.title?.toString() }),
       ).toBeVisible();
       await expect(page.locator(`a[href="/blog/${post.slug}"]`)).toBeVisible();
     }
