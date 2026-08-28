@@ -3,7 +3,7 @@ import { skillGroups } from "../lib/skills";
 export default function SkillGroups() {
   return (
     <section className="mt-10">
-      <h2 className="section-heading">Skills</h2>
+      <h1 className="section-heading">Skills</h1>
       <div className="space-y-8">
         {skillGroups.map((group) => (
           <div key={group.category}>

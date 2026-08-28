@@ -79,7 +79,8 @@ export default async function TagsPage({ searchParams }: TagsPageProps) {
   const allTags = getTags();
 
   if (tag) {
-    const posts = getPostsByTag(decodeURIComponent(tag));
+    const decodedTag = decodeURIComponent(tag);
+    const posts = getPostsByTag(decodedTag);
     if (posts.length === 0) {
       notFound();
     }
@@ -93,6 +94,38 @@ export default async function TagsPage({ searchParams }: TagsPageProps) {
 
     return (
       <section>
+        <script
+          type="application/ld+json"
+          suppressHydrationWarning
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: I guess this is need for application/ld+json
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "CollectionPage",
+              name: `Posts tagged: ${decodedTag}`,
+              description: `Blog posts tagged with ${decodedTag}.`,
+              url: `${metaData.baseUrl}/blog/tags?tag=${encodeURIComponent(decodedTag)}`,
+              about: {
+                "@type": "DefinedTerm",
+                name: decodedTag,
+                inDefinedTermSet: {
+                  "@type": "DefinedTermSet",
+                  name: "Blog Tags",
+                  url: `${metaData.baseUrl}/blog/tags`,
+                },
+              },
+              mainEntity: {
+                "@type": "ItemList",
+                itemListElement: sortedPosts.map((post, index) => ({
+                  "@type": "ListItem",
+                  position: index + 1,
+                  name: post.metadata.title,
+                  url: `${metaData.baseUrl}/blog/${post.slug}`,
+                })),
+              },
+            }),
+          }}
+        />
         <div className="mb-6">
           <Link
             href="/blog"
@@ -100,9 +133,9 @@ export default async function TagsPage({ searchParams }: TagsPageProps) {
           >
             ← Back to all posts
           </Link>
-          <h2 className="section-heading">
-            Posts tagged: <TagBadge tag={decodeURIComponent(tag)} size="md" />
-          </h2>
+          <h1 className="section-heading">
+            Posts tagged: <TagBadge tag={decodedTag} size="md" />
+          </h1>
         </div>
         <div className="space-y-4">
           {sortedPosts.map((post) => (
@@ -140,7 +173,7 @@ export default async function TagsPage({ searchParams }: TagsPageProps) {
           }),
         }}
       />
-      <h2 className="section-heading">Blog Tags</h2>
+      <h1 className="section-heading">Blog Tags</h1>
       <p className="text-muted-foreground mb-6">
         Browse all blog posts organized by tag.
       </p>
