@@ -2,7 +2,7 @@ import { skillGroups } from "../lib/skills";
 
 export default function SkillGroups() {
   return (
-    <section className="mt-10">
+    <section>
       <h1 className="section-heading">Skills</h1>
       <div className="space-y-8">
         {skillGroups.map((group) => (
