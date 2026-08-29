@@ -56,7 +56,7 @@ export default function BlogPosts() {
         }}
       />
       <div className="mb-6">
-        <h2 className="section-heading">Blog</h2>
+        <h1 className="section-heading">Blog</h1>
       </div>
 
       <BlogFilter
