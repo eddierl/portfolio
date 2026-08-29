@@ -16,7 +16,12 @@ export function proxy(request: NextRequest) {
   const isPdf = url.pathname.endsWith(".pdf");
 
   // Redirect old resume PDF to new one
-  if (url.pathname === "/Eddie_Erlich_Resume.pdf") {
+  if (
+    [
+      "/Eddie_Erlich_Resume.pdf",
+      "Edward_Erlich_-_Senior_Software_Engineer_CV.pdf",
+    ].includes(url.pathname)
+  ) {
     return NextResponse.redirect(new URL(CV_FILE_NAME, request.url), {
       status: 308,
     });
