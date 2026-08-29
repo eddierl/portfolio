@@ -19,7 +19,7 @@ export function proxy(request: NextRequest) {
   if (
     [
       "/Eddie_Erlich_Resume.pdf",
-      "Edward_Erlich_-_Senior_Software_Engineer_CV.pdf",
+      "/Edward_Erlich_-_Senior_Software_Engineer_CV.pdf",
     ].includes(url.pathname)
   ) {
     return NextResponse.redirect(new URL(CV_FILE_NAME, request.url), {
