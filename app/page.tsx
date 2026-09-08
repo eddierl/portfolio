@@ -31,7 +31,10 @@ export default function Page() {
       <p className="lede mt-3">
         Senior software engineer with 10+ years of experience, transitioning
         into AI-powered application development. I care about{" "}
-        <strong className="text-accent">things that actually work</strong>.
+        <strong className="text-accent whitespace-nowrap">
+          things that actually work
+        </strong>
+        .
       </p>
       <Poem className="mt-4 mb-10" />
 
