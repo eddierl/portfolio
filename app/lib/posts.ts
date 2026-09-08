@@ -35,7 +35,7 @@ function parseTags(tagsString: string | undefined): string[] {
   if (!tagsString) return [];
   return tagsString
     .split(",")
-    .map((t) => t.trim())
+    .flatMap((t) => t.trim().toLowerCase().split(/\s+/))
     .filter((t) => t.length > 0);
 }
 
