@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { skillGroups } from "../lib/skills";
 
 export default function SkillGroups() {
@@ -11,10 +12,10 @@ export default function SkillGroups() {
               {group.category}
             </h3>
             <div className="flex flex-wrap gap-2.5">
-              {group.skills.map(({ name, Icon, className }) => (
+              {group.skills.map(({ name, icon: Icon, className }) => (
                 <span key={name} className="skill-chip">
                   <span className={["size-5", className].join(" ")}>
-                    <Icon />
+                    <Image src={Icon} alt={name} />
                   </span>
                   <span>{name}</span>
                 </span>
