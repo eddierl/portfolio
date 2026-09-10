@@ -104,6 +104,9 @@ importers:
       sugar-high:
         specifier: ^2.1.0
         version: 2.1.0
+      turbopack-inline-svg-loader:
+        specifier: ^1.0.3
+        version: 1.0.3
       usehooks-ts:
         specifier: ^3.1.1
         version: 3.1.1(react@19.2.8)
@@ -2571,6 +2574,11 @@ packages:
     resolution: {integrity: sha512-1dhVQZXhcHje7798IVM+xoo/1ZdVfzOMIc8/rgVSijRK38EDqOJoGula9N/8ZI5RD8QTxNQtK/Gozpr+qUqRRA==}
     engines: {node: '>=20.0.0'}
 
+  image-size@2.0.2:
+    resolution: {integrity: sha512-IRqXKlaXwgSMAMtpNzZa1ZAe8m+Sa1770Dhk8VkSsP9LS+iHD62Zd8FQKs8fbPiagBE7BzoFX23cxFnwshpV6w==}
+    engines: {node: '>=16.x'}
+    hasBin: true
+
   immediate@3.0.6:
     resolution: {integrity: sha512-XXOFtyqDjNDAQxVfYxuF7g9Il/IbWmmlQg2MYKOH8ExIT1qg6xc4zyS3HaEEATgs1btfzxq15ciUiY7gjSXRGQ==}
 
@@ -3488,6 +3496,9 @@ packages:
     resolution: {integrity: sha512-mdoNxBC/cSQObGGVQ5Bpn5i+yv7j68gk3Nfm3wFjcJg3Z0Mix9jzAFfP12prmm5eVGmDKtp0yyArrs0Q+8gZHg==}
     engines: {node: '>=18.0.0'}
     hasBin: true
+
+  turbopack-inline-svg-loader@1.0.3:
+    resolution: {integrity: sha512-mW1DupAuwbJIg8n70Tr9ncXnEmF0mcNXzqmrUC9DtxeBNz8dqtUn1KoyfLRjvw0bBZEZnqG8QGCwpmvv4XOi4w==}
 
   twitch-video-element@0.1.6:
     resolution: {integrity: sha512-X7l8gy+DEFKJ/EztUwaVnAYwQN9fUJxPkOVJj2sE62sGvGU4DNLyvmOsmVulM+8Plc5dMg6hYIMNRAPaH+39Uw==}
@@ -5823,7 +5834,7 @@ snapshots:
 
   iceberg-js@0.8.1: {}
 
-  immediate@3.0.6: {}
+  image-size@2.0.2: {}
 
   import-in-the-middle@3.4.0:
     dependencies:
@@ -7021,6 +7032,12 @@ snapshots:
       esbuild: 0.28.0
     optionalDependencies:
       fsevents: 2.3.3
+
+  turbopack-inline-svg-loader@1.0.3:
+    dependencies:
+      image-size: 2.0.2
+      mini-svg-data-uri: 1.4.4
+      svgo: 4.1.0
 
   twitch-video-element@0.1.6: {}
 
