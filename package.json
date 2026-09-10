@@ -17,7 +17,6 @@
     "@react-pdf/renderer": "^4.9.0",
     "@sentry/nextjs": "^10.73.0",
     "@supabase/supabase-js": "^2.112.4",
-    "@svgr/webpack": "^8.1.0",
     "@tanstack/react-table": "^9.2.4",
     "@upstash/redis": "^1.38.3",
     "@vercel/analytics": "^2.0.1",
@@ -45,6 +44,7 @@
     "sharp": "^0.35.4",
     "sonner": "^2.0.8",
     "sugar-high": "^2.1.0",
+    "turbopack-inline-svg-loader": "^1.0.3",
     "usehooks-ts": "^3.1.1"
   },
   "devDependencies": {
