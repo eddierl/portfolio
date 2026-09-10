@@ -6,10 +6,12 @@ module.exports = function (content: string) {
 
   const optimized = optimize(content);
   const src = svgToMiniDataURI(optimized.data);
+  const bounds = content.match(/\sviewBox=['"](.+?)\1/i)?.[1] || "0 0 128 128";
+  const [, , width, height] = bounds.split(/\s+/);
   const result = {
     src,
-    width: 128,
-    height: 128,
+    width,
+    height,
   };
 
   return `export default ${JSON.stringify(result)};`;
