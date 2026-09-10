@@ -44,7 +44,6 @@
     "sharp": "^0.35.4",
     "sonner": "^2.0.8",
     "sugar-high": "^2.1.0",
-    "turbopack-inline-svg-loader": "^1.0.3",
     "usehooks-ts": "^3.1.1"
   },
   "devDependencies": {
@@ -58,6 +57,8 @@
     "@types/react-dom": "^19.2.5",
     "autoprefixer": "^10.5.4",
     "drizzle-kit": "^0.31.10",
+    "mini-svg-data-uri": "^1.4.4",
+    "svgo": "^4.1.0",
     "tailwindcss": "^4.3.3",
     "type-fest": "^5.9.0",
     "typescript": "^6.0.3"
