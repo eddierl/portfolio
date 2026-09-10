@@ -6,7 +6,9 @@ module.exports = function (content: string) {
 
   const optimized = optimize(content);
   const src = svgToMiniDataURI(optimized.data);
-  const bounds = content.match(/\sviewBox=['"](.+?)\1/i)?.[1] || "0 0 128 128";
+  const bounds =
+    content.match(/\sviewBox=(['"])(.+?)\1/i)?.[2] || "0 0 128 128";
+  console.log({ bounds });
   const [, , width, height] = bounds.split(/\s+/);
   const result = {
     src,
