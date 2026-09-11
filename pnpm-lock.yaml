@@ -102,8 +102,8 @@ importers:
         specifier: ^2.0.8
         version: 2.0.8(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       sugar-high:
-        specifier: ^2.1.0
-        version: 2.1.0
+        specifier: ^2.3.1
+        version: 2.3.1
       turbopack-inline-svg-loader:
         specifier: ^1.0.3
         version: 1.0.3
@@ -3431,8 +3431,8 @@ packages:
       babel-plugin-macros:
         optional: true
 
-  sugar-high@2.1.0:
-    resolution: {integrity: sha512-UP9B10ys/PsTnAMjTEcfhPAeQ5AOrcczfo1LxGfLzH3d/vOH/G3ITyj8J3/covfuh1ZFjWAHYh6EuwdPA6ecUA==}
+  sugar-high@2.3.1:
+    resolution: {integrity: sha512-LwFbTGo9j3qYLnId35kkKufYdSil0jsmiac27MM6jTT5V62rmVM4r65XpSaiB9CSKqZUNCIrL64HZkGhVEDu9g==}
 
   super-media-element@1.4.2:
     resolution: {integrity: sha512-9pP/CVNp4NF2MNlRzLwQkjiTgKKe9WYXrLh9+8QokWmMxz+zt2mf1utkWLco26IuA3AfVcTb//qtlTIjY3VHxA==}
@@ -6974,7 +6974,7 @@ snapshots:
     optionalDependencies:
       '@babel/core': 7.29.7(supports-color@8.1.1)
 
-  sugar-high@2.1.0: {}
+  sugar-high@2.3.1: {}
 
   super-media-element@1.4.2: {}
 
