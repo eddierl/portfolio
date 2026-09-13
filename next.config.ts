@@ -14,7 +14,7 @@ const nextConfig: NextConfig = {
           path: /.*icons\/.+\.svg$/i,
           content: /^[\s\S]{0,10000}$/, // <-- Inline SVGs smaller than ~10Kb (since Next.js
         },
-        loaders: ["turbopack-inline-svg-loader"],
+        loaders: ["./loaders/svg-loader.ts"],
         as: "*.js",
       },
     },
