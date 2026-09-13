@@ -1,4 +1,3 @@
-import * as Sentry from "@sentry/nextjs";
 import { Redis } from "@upstash/redis";
 import { desc } from "drizzle-orm";
 import { db } from "@/app/lib/drizzle";
@@ -40,7 +39,7 @@ export async function getLatestPoem(): Promise<Poem | null> {
 
     return data;
   } catch (error) {
-    Sentry.captureException(error);
+    console.error(error);
     return null;
   }
 }
