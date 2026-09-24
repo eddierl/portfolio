@@ -65,9 +65,13 @@ export async function logout() {
 }
 
 export async function refreshAdminCookie() {
-  const token = await generateTokens({ role: "admin" });
-  return setTokenCookies(token);
+  if (await isAuthenticated()) {
+    const token = await generateTokens({ role: "admin" });
+    return setTokenCookies(token);
+  }
+  console.warn("Failed to refresh the token in the cookie.");
 }
+
 
 export async function isAuthenticated(): Promise<boolean> {
   const cookieStore = await cookies();
