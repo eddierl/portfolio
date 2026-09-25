@@ -23,7 +23,7 @@
     "@vercel/speed-insights": "^2.0.0",
     "dayjs": "^1.11.23",
     "dotenv": "^18.0.2",
-    "drizzle-orm": "^0.45.2",
+    "drizzle-orm": "^0.45.3",
     "es-toolkit": "^1.52.0",
     "feed": "^6.0.0",
     "graphql": "^17.0.2",
