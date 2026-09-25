@@ -59,7 +59,7 @@
     "mini-svg-data-uri": "^1.4.4",
     "svgo": "^4.1.0",
     "tailwindcss": "^4.3.3",
-    "type-fest": "^5.9.0",
+    "type-fest": "^5.10.0",
     "typescript": "^6.0.3"
   }
 }
