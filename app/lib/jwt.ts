@@ -2,7 +2,11 @@ import jwt from "jsonwebtoken";
 
 export const JWT_SECRET = process.env.JWT_SECRET ?? "fallback-secret";
 
-export async function generateTokens(user: { role: "admin" }) {
+export type Token = {
+  role: "admin";
+};
+
+export async function generateTokens(user: Token) {
   const accessToken = jwt.sign(user, JWT_SECRET, {
     expiresIn: "7d",
   });
