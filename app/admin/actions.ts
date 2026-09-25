@@ -1,9 +1,9 @@
 "use server";
 
 import { generateTokens, verify } from "app/lib/jwt";
-
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { ACCESS_TOKEN_COOKIE_NAME } from "@/app/constants";
 
 type CookieOptions = {
   httpOnly: boolean;
@@ -13,7 +13,6 @@ type CookieOptions = {
   maxAge: number;
 };
 
-const ACCESS_TOKEN_COOKIE_NAME = "access-token";
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD ?? "admin123";
 
 function getCookieOptions(overrides?: Partial<CookieOptions>) {
@@ -65,8 +64,11 @@ export async function logout() {
 }
 
 export async function refreshAdminCookie() {
-  const token = await generateTokens({ role: "admin" });
-  return setTokenCookies(token);
+  if (await isAuthenticated()) {
+    const token = await generateTokens({ role: "admin" });
+    return setTokenCookies(token);
+  }
+  console.warn("Failed to refresh the token in the cookie.");
 }
 
 export async function isAuthenticated(): Promise<boolean> {
