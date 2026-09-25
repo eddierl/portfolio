@@ -1,0 +1,49 @@
+---
+title: "Optimization"
+publishedAt: "2026-09-11"
+summary: "fsdfsd"
+tags: "coffee, Australia, journey, food, culture"
+---
+
+Optimization
+
+Have you seen my skills? You can take a look in here https://erlich.dev/skills
+
+These is part of my latests skills I got. Each skills is categorized and each of them has a brand icon. For example, Next.js <img/>.
+
+I once did an optimization to the SVG won't be downloaded after the document. They would be inlined inside the documented with `Data URI`. The cost would be a bit heavier html file, you can take a look in here at it weight
+<Image
+  src="/skills-inline-svg.png"
+  alt="49Kb"
+/>
+
+
+Then I saw there is a security issue with one of libraries `@svgr/webpack`. So I decided to change it, I changed it to <a href="https://github.com/vitalets/turbopack-inline-svg-loader">turbopack-inline-svg-loader</a>. Alghout this library is very small, literly 10 lines of code, it also introduced a security issue.
+
+So I investiagte into it, it's using 3 librraries.
+The first one `svgo` is there to optimize the `svg` minified it(need to replace this text)
+The second one is `mini-svg-data-uri` to convert it into a data uri
+The third one, called `image-size` is it's to get the size of the image, any image.
+
+Once I added this project to my repo, I saw there is a new threat on github. Coming from `image-size`.
+
+After a quick investigation, I found out this library is to get a size of any image. But I only need it for svg. So what I did? I dig into the code.
+
+It was pretty easy to find the SVG related code, and as I assumed that was literally getting the text from the `viewBox` attribute.
+
+So that's what I did, and guess what? It work!
+
+I found this great article https://kurtextrem.de/posts/svg-in-js#performance-vs-time-to-load-to-inline-or-not-to-inline
+
+I had thought of converting all this icons to a sprite, but I rather have a simple solution.
+
+
+The doc now weights 
+<Image
+  src="/skills-download-svg.png"
+  alt="12.6Kb"
+/>
+
+So what have I achieved?
+1) No security treats in my project due to SVG.
+2) Better understand of how turborepo loaded works.
