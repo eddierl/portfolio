@@ -55,7 +55,7 @@
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.2.7",
     "autoprefixer": "^10.6.0",
-    "drizzle-kit": "^0.31.10",
+    "drizzle-kit": "^0.31.11",
     "mini-svg-data-uri": "^1.4.4",
     "svgo": "^4.1.0",
     "tailwindcss": "^4.3.3",
