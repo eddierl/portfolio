@@ -37,12 +37,7 @@ export const cvContent = {
     email: "eddie@erlich.dev",
   },
   profile: `Senior Software Engineer with <b>over 10 years</b> of experience designing and delivering scalable web and mobile applications. Demonstrates strong expertise in TypeScript and React, with a solid foundation in testing practices and cloud-native development on <b>AWS</b>, including services such as Lambda, SQS, SNS, S3, ECS, and CloudFront. Proven track record in leading system migrations, optimizing performance, and accelerating development through <b>AI-assisted tools</b> and workflows, including <b>Gemini, Claude, RooCode, Codex, and MCP-based</b> approaches. Holds full working rights in Australia.`,
-  education: [
-    {
-      degree: "B.Sc. in Computer Science, Ben Gurion University",
-      dateRange: "OCTOBER 2012 — MARCH 2016",
-    },
-  ],
+
   employment: [
     {
       title: "Senior Software Engineer",
@@ -63,9 +58,9 @@ export const cvContent = {
         "Designed and maintained backend APIs (Node.js) including JWT-based authentication and authorization.",
         "Built asynchronous workflows with BullMQ (Redis) for email processing, handling <b>~1,500 emails weekly</b> while offloading non-critical tasks from the main server.",
         "Implemented server-side data validation with Zod, improving API reliability and reducing invalid requests.",
-        "Migrated test suites from Cypress to Playwright, enhancing E2E <b>performance by 30%</b>.",
+        "Migrated test suites from Cypress to Playwright, enhancing <b>performance by 30%</b>.",
         "Championed Tailwind adoption for improved UI consistency across the project.",
-        "Integrated GCP services for secure data storage and scaling.",
+        // "Integrated GCP services for secure data storage and scaling.",
       ],
     },
     {
@@ -105,7 +100,7 @@ export const cvContent = {
       techStack: ["Angular", "React", "TypeScript"].join(", "),
       achievements: [
         "Acted as technical lead in the Wix Inbox team (<b>1M+ users</b>), guiding a team through a large-scale migration from AngularJS to React.",
-        "Delivered a ReasonML workshop for <b>100+ engineers</b>, fostering adoption of modern functional programming techniques.",
+        // "Delivered a ReasonML workshop for <b>100+ engineers</b>, fostering adoption of modern functional programming techniques.",
         "Contributed to internal design systems and open-source libraries, accelerating company-wide development.",
       ],
     },
@@ -116,6 +111,11 @@ export const cvContent = {
     phone: "0461 467 018",
     email: "eddie@erlich.dev",
   },
+  education: [
+    "B.Sc. in Computer Science",
+    "Ben Gurion University",
+    "OCT 2012 — MARCH 2016",
+  ],
   links: [
     {
       label: "linkedin.com/in/eddie-erlich",
@@ -148,4 +148,5 @@ export const cvContent = {
     "Turborepo",
   ],
   languages: ["English (Fluent)", "Hebrew (Native)"],
+  references: ["Available on request"],
 };

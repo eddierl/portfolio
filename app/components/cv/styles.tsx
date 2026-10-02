@@ -6,16 +6,26 @@ export const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     backgroundColor: cvStyles.colors.white,
+    // Top margin for the page. The wrapping engine keeps the page's style on
+    // continuation pages, so this also gives page 2+ a top margin (otherwise
+    // continued content sits flush against the top edge).
+    paddingTop: cvStyles.spacing.pageMargin,
   },
   leftColumn: {
     flex: 1,
     padding: cvStyles.spacing.pageMargin,
+    // The page already provides the top margin, so drop the column's own top
+    // padding to avoid doubling it on page 1.
+    paddingTop: 0,
   },
   rightColumn: {
     width: cvStyles.spacing.sidebarWidth,
     backgroundColor: cvStyles.colors.darkSidebar,
     padding: cvStyles.spacing.pageMargin,
-    paddingTop: 72,
+    // Net top offset stays 72 (24 from the page + 48 here) so the sidebar
+    // content lands in the same spot as before the page padding was added.
+    marginTop: -1 * cvStyles.spacing.pageMargin * 2,
+    paddingTop: cvStyles.spacing.pageMargin * 4,
     color: cvStyles.colors.white,
   },
   // Header
@@ -112,9 +122,7 @@ export const styles = StyleSheet.create({
     fontWeight: 400,
   },
   // Bullets
-  bulletList: {
-    marginBottom: cvStyles.spacing.jobGap,
-  },
+  bulletList: {},
   bulletContainer: {
     display: "flex",
     flexDirection: "row",
