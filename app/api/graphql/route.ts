@@ -10,13 +10,16 @@ import {
   ne,
   sql,
 } from "drizzle-orm";
+import { GraphQLError } from "graphql";
 import { createSchema, createYoga } from "graphql-yoga";
+import { ACCESS_TOKEN_COOKIE_NAME } from "@/app/constants";
+import { type Token, verify } from "@/app/lib/jwt";
 
 interface NextContext {
   params: Promise<Record<string, string>>;
 }
 
-const { handleRequest } = createYoga<NextContext>({
+const { handleRequest } = createYoga<NextContext & { currentUser?: Token }>({
   schema: createSchema({
     typeDefs: /* GraphQL */ `
       type Query {
@@ -66,8 +69,12 @@ const { handleRequest } = createYoga<NextContext>({
           console.log({ parent, args, ctx });
           return null;
         },
-        logByClientId: async (_parent, args, _ctx) => {
+        logByClientId: async (_parent, args, ctx) => {
           const { skip = 0, take = 10 } = args;
+          if (!ctx.currentUser)
+            throw new GraphQLError("Not authorized", {
+              extensions: { code: "FORBIDDEN" },
+            });
 
           try {
             const columns = getTableColumns(logsTable);
@@ -101,9 +108,13 @@ const { handleRequest } = createYoga<NextContext>({
             throw new Error("failed");
           }
         },
-        log: async (_parent, args, _ctx) => {
+        log: async (_parent, args, ctx) => {
           const { skip = 0, take = 10, clientId = null } = args;
 
+          if (!ctx.currentUser)
+            throw new GraphQLError("Not authorized", {
+              extensions: { code: "FORBIDDEN" },
+            });
           const columns = getTableColumns(logsTable);
           const logs = await db
             ?.select(columns)
@@ -127,6 +138,16 @@ const { handleRequest } = createYoga<NextContext>({
   // While using Next.js file convention for routing, we need to configure Yoga to use the correct endpoint
   graphqlEndpoint: "/api/graphql",
 
+  context: (initialContext) => {
+    try {
+      const accessToken =
+        initialContext.request.headers.get(ACCESS_TOKEN_COOKIE_NAME) || "";
+      const currentUser = verify(accessToken);
+      return { ...initialContext, currentUser };
+    } catch {
+      return initialContext;
+    }
+  },
   // Yoga needs to know how to create a valid Next response
   fetchAPI: { Response },
 });

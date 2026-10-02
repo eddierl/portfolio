@@ -23,7 +23,9 @@ export default async function AdminPage({
   if (!authed) return <Login error={error} login={login} />;
 
   const clientId = (await params).clientId;
-  const { data, error: apolloError } = await createApolloClient().query<{
+  const { data, error: apolloError } = await (
+    await createApolloClient()
+  ).query<{
     log: { ua: string; count: number; clientId: string }[];
   }>({
     query: gql`
