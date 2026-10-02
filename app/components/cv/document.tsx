@@ -73,22 +73,11 @@ export function CVDocument() {
             </Text>
           </View>
 
-          {/* Education Section */}
-          <View>
-            <Text style={styles.sectionHeader}>Education</Text>
-            {cvContent.education.map((edu, index) => (
-              <View key={index} style={styles.jobEntry}>
-                <Text style={styles.jobTitle}>{edu.degree}</Text>
-                <Text style={styles.jobDateRange}>{edu.dateRange}</Text>
-              </View>
-            ))}
-          </View>
-
           {/* Employment History Section */}
           <View>
             <Text style={styles.sectionHeader}>Employment History</Text>
             {cvContent.employment.map((job, index) => (
-              <View key={index} wrap={false} style={styles.jobEntry}>
+              <View key={index} style={styles.jobEntry}>
                 <Text style={styles.jobTitle}>
                   {job.title}, {job.company}
                 </Text>
@@ -115,40 +104,45 @@ export function CVDocument() {
         <View style={styles.rightColumn}>
           {Object.entries(cvContent)
             .filter(([header]) =>
-              ["details", "links", "skills", "languages"].includes(header),
+              [
+                "details",
+                "education",
+                "links",
+                "skills",
+                "languages",
+                "references",
+              ].includes(header),
             )
             .map(([header, content]) => {
               return (
                 <View key={header}>
                   <Text style={styles.sidebarSectionHeader}>{header}</Text>
-                  {Array.isArray(content) ? (
-                    content.map((c) =>
-                      typeof c === "object" && c !== null && "url" in c ? (
-                        <Link
-                          key={header + c.label}
-                          src={c.url}
-                          style={styles.linkText}
-                        >
-                          {c.label}
-                        </Link>
-                      ) : (
-                        <Text
-                          key={header + String(c)}
-                          style={styles.detailsText}
-                        >
-                          {String(c)}
-                        </Text>
-                      ),
-                    )
-                  ) : Object.values(content) ? (
-                    Object.values(content).map((c) => (
-                      <Text key={String(c)} style={styles.detailsText}>
-                        {String(c)}
-                      </Text>
-                    ))
-                  ) : (
-                    <Text style={styles.detailsText}>fds</Text>
-                  )}
+                  {Array.isArray(content)
+                    ? content.map((c) =>
+                        typeof c === "object" && c !== null && "url" in c ? (
+                          <Link
+                            key={header + c.label}
+                            src={c.url}
+                            style={styles.linkText}
+                          >
+                            {c.label}
+                          </Link>
+                        ) : (
+                          <Text
+                            key={header + String(c)}
+                            style={styles.detailsText}
+                          >
+                            {String(c)}
+                          </Text>
+                        ),
+                      )
+                    : Object.values(content)
+                      ? Object.values(content).map((c) => (
+                          <Text key={String(c)} style={styles.detailsText}>
+                            {String(c)}
+                          </Text>
+                        ))
+                      : null}
                 </View>
               );
             })}
