@@ -147,7 +147,8 @@ const { handleRequest } = createYoga<NextContext & { currentUser?: Token }>({
         "";
       const currentUser = verify(accessToken);
       return { ...initialContext, currentUser };
-    } catch {
+    } catch (e) {
+      console.warn("Failed to get context", e);
       return initialContext;
     }
   },
