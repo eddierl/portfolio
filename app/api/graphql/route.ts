@@ -12,6 +12,7 @@ import {
 } from "drizzle-orm";
 import { GraphQLError } from "graphql";
 import { createSchema, createYoga } from "graphql-yoga";
+import { cookies } from "next/headers";
 import { ACCESS_TOKEN_COOKIE_NAME } from "@/app/constants";
 import { type Token, verify } from "@/app/lib/jwt";
 
@@ -138,13 +139,16 @@ const { handleRequest } = createYoga<NextContext & { currentUser?: Token }>({
   // While using Next.js file convention for routing, we need to configure Yoga to use the correct endpoint
   graphqlEndpoint: "/api/graphql",
 
-  context: (initialContext) => {
+  context: async (initialContext) => {
     try {
       const accessToken =
-        initialContext.request.headers.get(ACCESS_TOKEN_COOKIE_NAME) || "";
+        initialContext.request.headers.get(ACCESS_TOKEN_COOKIE_NAME) ||
+        (await cookies()).get(ACCESS_TOKEN_COOKIE_NAME)?.value ||
+        "";
       const currentUser = verify(accessToken);
       return { ...initialContext, currentUser };
-    } catch {
+    } catch (e) {
+      console.warn("Failed to get context", e);
       return initialContext;
     }
   },
