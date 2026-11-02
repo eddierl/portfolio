@@ -1,5 +1,4 @@
 import { db } from "app/lib/drizzle";
-import { logsTable } from "app/lib/drizzle/schema";
 import {
   and,
   count,
@@ -15,10 +14,15 @@ import { createSchema, createYoga } from "graphql-yoga";
 import { cookies } from "next/headers";
 import { ACCESS_TOKEN_COOKIE_NAME } from "@/app/constants";
 import { type Token, verify } from "@/app/lib/jwt";
+import { createLogRepository } from "@/app/lib/repository/log-repository";
 
 interface NextContext {
   params: Promise<Record<string, string>>;
 }
+
+// ─── Repository (deep module) — single source for all log queries ─────────────
+
+const logRepo = createLogRepository(db);
 
 const { handleRequest } = createYoga<NextContext & { currentUser?: Token }>({
   schema: createSchema({
@@ -77,37 +81,14 @@ const { handleRequest } = createYoga<NextContext & { currentUser?: Token }>({
               extensions: { code: "FORBIDDEN" },
             });
 
-          try {
-            const columns = getTableColumns(logsTable);
-            const logs = await db
-              ?.select({
-                clientId: columns.clientId,
-                geo: columns.geo,
-                ua: columns.ua,
-                count: count(logsTable.id),
-                time: max(logsTable.time),
-                referrals: sql`array_agg(${logsTable.referrer})`,
-              })
-              .from(logsTable)
-              .where(
-                and(
-                  ne(
-                    logsTable.clientId,
-                    "c2b6d823-85c4-4687-a255-a9908861c014",
-                  ),
-                  sql`${logsTable.geo}->>'country' is not null`,
-                ),
-              )
-              .groupBy(logsTable.clientId, logsTable.geo, logsTable.ua)
-              .limit(take)
-              .offset(skip)
-              .orderBy(desc(max(logsTable.time)));
-
-            return logs;
-          } catch (error) {
-            console.error("error", error);
-            throw new Error("failed");
+          const result = logRepo.findLogs({ take, skip, aggregate: true });
+          if (!result.ok) {
+            console.error("logByClientId error", result.error);
+            throw new GraphQLError("Database error", {
+              extensions: { code: "INTERNAL_SERVER_ERROR" },
+            });
           }
+          return result.value;
         },
         log: async (_parent, args, ctx) => {
           const { skip = 0, take = 10, clientId = null } = args;
@@ -116,22 +97,15 @@ const { handleRequest } = createYoga<NextContext & { currentUser?: Token }>({
             throw new GraphQLError("Not authorized", {
               extensions: { code: "FORBIDDEN" },
             });
-          const columns = getTableColumns(logsTable);
-          const logs = await db
-            ?.select(columns)
-            .from(logsTable)
-            .where(
-              and(
-                ne(logsTable.clientId, "c2b6d823-85c4-4687-a255-a9908861c014"),
-                sql`${logsTable.geo}->>'country' is not null`,
-                ...(clientId ? [eq(logsTable.clientId, clientId)] : []),
-              ),
-            )
-            .limit(take)
-            .offset(skip)
-            .orderBy(desc(logsTable.time));
 
-          return logs;
+          const result = logRepo.findLogs({ take, skip, clientId });
+          if (!result.ok) {
+            console.error("log query error", result.error);
+            throw new GraphQLError("Database error", {
+              extensions: { code: "INTERNAL_SERVER_ERROR" },
+            });
+          }
+          return result.value;
         },
       },
     },
