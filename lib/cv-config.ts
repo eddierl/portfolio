@@ -22,7 +22,7 @@ export const cvStyles = {
   },
   spacing: {
     pageMargin: 24,
-    sidebarWidth: 200,
+    sidebarWidth: 160,
     sectionGap: 3,
     jobGap: 4,
     bulletIndent: 10,
@@ -54,13 +54,10 @@ export const cvContent = {
         "Tailwind",
       ].join(", "),
       achievements: [
-        "Delivered a financing platform for solar installers, an intuitive and efficient solar system design tool that reduced lead-to-offer time from <b>4 days to minutes</b>.",
-        "Designed and maintained backend APIs (Node.js) including JWT-based authentication and authorization.",
-        "Built asynchronous workflows with BullMQ (Redis) for email processing, handling <b>~1,500 emails weekly</b> while offloading non-critical tasks from the main server.",
-        "Implemented server-side data validation with Zod, improving API reliability and reducing invalid requests.",
-        "Migrated test suites from Cypress to Playwright, enhancing <b>performance by 30%</b>.",
-        "Championed Tailwind adoption for improved UI consistency across the project.",
-        // "Integrated GCP services for secure data storage and scaling.",
+        "Built a solar financing platform that transformed a 4-day manual quoting process into an automated single-screen application, reducing turnaround time to <b>minutes</b>.",
+        "Migrated E2E testing from Cypress to Playwright, improving test execution performance by <b>30%</b> and enhancing CI/CD reliability.",
+        "Implemented Tailwind CSS across the codebase, standardizing styling and significantly improving developer experience (DevEx).",
+        "Managed GCP integration and optimized CI/CD pipelines to streamline deployment workflows and improve release frequency.",
       ],
     },
     {
@@ -76,10 +73,9 @@ export const cvContent = {
         "NX",
       ].join(", "),
       achievements: [
-        "Developed a React Native mobile app serving neighborhoods in 7 U.S. states, improving <b>engagement by 35%</b>.",
-        "Maintained and scaled a distributed AWS microservices architecture <b> 10+ services</b>, including ownership of service design, inter-service communication (GraphQL/REST), and production reliability.",
-        "Set up a monorepo with NX, reducing build complexity and developer onboarding.",
-        "Contributed to a Remix-based back office platform.",
+        "Led development of a React Native mobile application deployed across 7 U.S. states, increasing user engagement by <b>35%</b>.",
+        "Migrated the codebase to an NX monorepo architecture, reducing onboarding time for new engineers and optimizing build processes.",
+        "Maintained and optimized a distributed system of <b>10+ microservices</b>, ensuring high availability and system reliability.",
       ],
     },
     {
@@ -88,9 +84,9 @@ export const cvContent = {
       dateRange: "APRIL 2019 — JULY 2021",
       techStack: ["TypeScript", "Design Systems", "Jest", "Cypress"].join(", "),
       achievements: [
-        "Maintained a TypeScript-based design library used by <b>20+ global teams</b>.",
-        "Spearheaded the creation and rollout of comprehensive unit testing strategy using Jest and Cypress, resulting in a <b>40% reduction</b> in critical bugs post-release.",
-        "Migrated <b>100+ UI components</b> to a modern, scalable architecture.",
+        "Maintained a core TypeScript design system used by <b>20+ global engineering teams</b>, ensuring backward compatibility and stability.",
+        "Implemented a comprehensive testing strategy using Jest and Cypress, reducing critical production bugs by <b>40%</b>.",
+        "Led the migration of <b>100+ legacy UI components</b> to a modern, scalable architecture, improving maintainability and performance.",
       ],
     },
     {
@@ -99,9 +95,9 @@ export const cvContent = {
       dateRange: "DECEMBER 2015 — APRIL 2019",
       techStack: ["Angular", "React", "TypeScript"].join(", "),
       achievements: [
-        "Acted as technical lead in the Wix Inbox team (<b>1M+ users</b>), guiding a team through a large-scale migration from AngularJS to React.",
-        // "Delivered a ReasonML workshop for <b>100+ engineers</b>, fostering adoption of modern functional programming techniques.",
-        "Contributed to internal design systems and open-source libraries, accelerating company-wide development.",
+        "Technical Lead for the Wix Inbox team (<b>1M+ users</b>), guiding the migration from AngularJS to React.",
+        // "Delivered internal workshops on ReasonML to 100+ engineers, promoting adoption of functional programming patterns.",
+        "Contributed to internal design systems and open-source libraries, accelerating company-wide development efforts.",
       ],
     },
   ],
