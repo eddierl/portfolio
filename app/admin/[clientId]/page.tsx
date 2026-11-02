@@ -1,5 +1,6 @@
 import { gql } from "@apollo/client";
-import { isAuthenticated, login, logout } from "app/admin/actions";
+import { verifyToken } from "app/lib/admin-auth";
+import { login, logout } from "app/admin/actions";
 import RefreshCookie from "app/admin/refresh-cookie";
 import { Login } from "app/components/Login/login";
 import TimeCell from "app/components/time-cell";
@@ -16,7 +17,7 @@ export default async function AdminPage({
   searchParams?: Promise<Record<string, string>>;
   params: Promise<Record<string, string>>;
 }) {
-  const authed = await isAuthenticated();
+  const authed = await verifyToken();
 
   const error = (await searchParams)?.error ? "Invalid password" : "";
 
