@@ -1,7 +1,8 @@
 import { typedEntries } from "app/lib/types";
+import { verifyToken } from "app/lib/admin-auth";
 import Link from "next/link";
 import { CV_FILE_NAME } from "@/lib/constants";
-import { isAuthenticated } from "../admin/actions";
+
 import { metaData } from "../lib/config";
 import { ThemeSwitch } from "./theme-switch";
 
@@ -16,7 +17,7 @@ const navItems = {
 };
 
 export async function Navbar() {
-  const authed = await isAuthenticated();
+  const authed = await verifyToken();
   return (
     <nav className="mb-12 py-5 lg:mb-16">
       <div className="flex flex-col justify-between md:flex-row md:items-center">

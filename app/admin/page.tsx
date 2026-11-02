@@ -1,9 +1,10 @@
 import { gql } from "@apollo/client";
 import { Login } from "app/components/Login/login";
 import createApolloClient from "app/lib/apollo-client";
+import { verifyToken } from "app/lib/admin-auth";
 import Link from "next/link";
 import AdminTable from "../components/AdminTable";
-import { isAuthenticated, login, logout } from "./actions";
+import { login, logout } from "./actions";
 import RefreshCookie from "./refresh-cookie";
 
 export const dynamic = "force-dynamic";
@@ -13,7 +14,7 @@ export default async function AdminPage({
 }: {
   searchParams?: Promise<Record<string, string>>;
 }) {
-  const authed = await isAuthenticated();
+  const authed = await verifyToken();
 
   const params = (await searchParams) ?? {};
   const error = params?.error ? "Invalid password" : "";

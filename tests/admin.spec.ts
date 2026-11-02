@@ -28,10 +28,10 @@ test.describe("Admin Page", () => {
   test("shows admin table after successful login", async ({ page }) => {
     // 1. Navigate to /admin
     await page.goto("/admin");
-    // 2. Enter the correct admin password
+    // 2. Enter the correct admin password (from env, set by test .env file)
     await page
       .getByPlaceholder("Enter admin password")
-      .fill(process.env.ADMIN_PASSWORD || "admin123");
+      .fill(process.env.ADMIN_PASSWORD!);
     // 3. Click the Login button
     await page.getByRole("button", { name: /login/i }).click();
     // 4. Admin dashboard is displayed
@@ -52,7 +52,7 @@ test.describe("Admin Page", () => {
     await page.goto("/admin");
     await page
       .getByPlaceholder("Enter admin password")
-      .fill(process.env.ADMIN_PASSWORD || "admin123");
+      .fill(process.env.ADMIN_PASSWORD!);
     await page.getByRole("button", { name: /login/i }).click();
     // 2. Click the Logout button
     await page.getByRole("button", { name: /logout/i }).click();
