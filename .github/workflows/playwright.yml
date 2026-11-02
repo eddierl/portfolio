@@ -54,7 +54,6 @@ jobs:
         run: npx playwright test
         env:
           CI: true
-          ADMIN_PASSWORD: admin123
 
       - name: Upload Playwright report
         if: always()
