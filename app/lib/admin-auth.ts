@@ -16,19 +16,10 @@ export type AuthError =
 
 type Result<T> = { ok: true; value: T } | { ok: false; error: AuthError };
 
-// ─── Module-level constant: ensure ADMIN_PASSWORD is configured ───────────────
+// ─── Lazy password resolver — throws only when authenticate() is called ──────
 
-const ADMIN_PASSWORD = getAdminPassword();
-
-function getAdminPassword(): string {
-  const password = process.env.ADMIN_PASSWORD;
-  if (!password) {
-    throw new Error(
-      "ADMIN_PASSWORD environment variable is not set. " +
-        "Set it in your .env.local for development or in production.",
-    );
-  }
-  return password;
+function getAdminPassword(): string | undefined {
+  return process.env.ADMIN_PASSWORD;
 }
 
 // ─── Public interface (4 focused functions) ──────────────────────────────────
@@ -41,7 +32,19 @@ function getAdminPassword(): string {
 export async function authenticate(
   password: string,
 ): Promise<Result<Token>> {
-  if (password !== ADMIN_PASSWORD) {
+  const configuredPassword = getAdminPassword();
+  if (!configuredPassword) {
+    return {
+      ok: false,
+      error: {
+        kind: "CONFIG_ERROR",
+        message:
+          "ADMIN_PASSWORD environment variable is not set. " +
+          "Configure it in your hosting environment.",
+      },
+    };
+  }
+  if (password !== configuredPassword) {
     return {
       ok: false,
       error: { kind: "INVALID_PASSWORD" },
