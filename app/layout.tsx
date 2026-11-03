@@ -2,7 +2,7 @@ import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Notifications } from "app/components/notifications";
-import { getBlogPosts } from "app/lib/posts";
+import { getPosts } from "app/lib/blog";
 import dayjs from "dayjs";
 import type { Metadata } from "next";
 import { Nunito } from "next/font/google";
@@ -52,12 +52,12 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const allBlogs = getBlogPosts();
+  const allBlogs = await getPosts();
   const aWeekAgo = dayjs().subtract(1, "week");
   const isThereNewBlog = allBlogs.some((blog) =>
     dayjs(blog.metadata.publishedAt).isAfter(aWeekAgo),

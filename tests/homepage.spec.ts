@@ -1,17 +1,17 @@
 import { expect, test } from "@playwright/test";
 import type { BlogPost } from "@/app/lib/post-types";
-import { getBlogPosts } from "../app/lib/posts";
+import { getPosts } from "../app/lib/blog";
 
 function getTitles(posts: BlogPost[]): string[] {
   return posts.map((p) => p.metadata.title);
 }
 
+const allPosts = await getPosts();
+
 test.describe("Homepage: Recent Posts", () => {
   test("shows the 2 most recent posts, sorted by date descending", async ({
     page,
   }) => {
-    const allPosts = getBlogPosts();
-
     // The expected 2 most recent posts (sorted by publishedAt desc)
     const expectedPosts = [...allPosts]
       .sort(

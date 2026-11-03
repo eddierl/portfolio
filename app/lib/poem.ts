@@ -1,10 +1,7 @@
-import { Redis } from "@upstash/redis";
 import { desc } from "drizzle-orm";
 import { db } from "@/app/lib/drizzle";
 import { poemsTable } from "@/app/lib/drizzle/schema";
-
-// Initialize Redis
-const redis = Redis.fromEnv();
+import { redis } from "./redis";
 
 type Poem = {
   id?: number;

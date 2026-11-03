@@ -5,15 +5,15 @@ import dayjs from "dayjs";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { FiClock } from "react-icons/fi";
-import { getBlogPosts } from "@/app/lib/posts";
+import { getPosts } from "@/app/lib/blog";
 import { metaData } from "./lib/config";
 
 export const metadata: Metadata = {
   alternates: { canonical: metaData.baseUrl },
 };
 
-export default function Page() {
-  const allBlogs = getBlogPosts()
+export default async function Page() {
+  const allBlogs = (await getPosts())
     .sort((a, b) => {
       if (new Date(a.metadata.publishedAt) > new Date(b.metadata.publishedAt)) {
         return -1;

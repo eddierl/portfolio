@@ -1,5 +1,5 @@
 import { TagBadge } from "app/components/tag-badge";
-import { getPostsByTag, getTagCount, getTags } from "app/lib/posts";
+import { getPosts, getPostsByTag, getTagCount, getTags } from "app/lib/blog";
 import dayjs from "dayjs";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -76,11 +76,11 @@ function TagPostCard({ post }: { post: BlogPost }) {
 
 export default async function TagsPage({ searchParams }: TagsPageProps) {
   const { tag } = await searchParams;
-  const allTags = getTags();
+  const allTags = await getTags();
 
   if (tag) {
     const decodedTag = decodeURIComponent(tag);
-    const posts = getPostsByTag(decodedTag);
+    const posts = await getPostsByTag(decodedTag);
     if (posts.length === 0) {
       notFound();
     }
@@ -178,20 +178,25 @@ export default async function TagsPage({ searchParams }: TagsPageProps) {
         Browse all blog posts organized by tag.
       </p>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {allTags.map((t) => (
-          <Link
-            key={t}
-            href={`/blog/tags?tag=${encodeURIComponent(t)}`}
-            className="card block hover:shadow-md transition-shadow"
-          >
-            <div className="flex items-center justify-between">
-              <TagBadge tag={t} size="md" />
-              <span className="text-muted-foreground text-sm">
-                {getTagCount(t)} post{getTagCount(t) !== 1 ? "s" : ""}
-              </span>
-            </div>
-          </Link>
-        ))}
+        {await Promise.all(
+          allTags.map(async (t) => {
+            const count = await getTagCount(t);
+            return (
+              <Link
+                key={t}
+                href={`/blog/tags?tag=${encodeURIComponent(t)}`}
+                className="card block hover:shadow-md transition-shadow"
+              >
+                <div className="flex items-center justify-between">
+                  <TagBadge tag={t} size="md" />
+                  <span className="text-muted-foreground text-sm">
+                    {count} post{count !== 1 ? "s" : ""}
+                  </span>
+                </div>
+              </Link>
+            );
+          }),
+        )}
       </div>
     </section>
   );
