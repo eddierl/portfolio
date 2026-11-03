@@ -2,11 +2,11 @@ import { BlogFilter } from "app/components/blog-filter";
 import { BlogPostCard } from "app/components/blog-post-card";
 import { UpdateLastSeen } from "app/components/update-last-seen";
 import { metaData } from "app/lib/config";
-import { getBlogPosts, getTags } from "app/lib/posts";
+import { getPosts, getTags } from "app/lib/blog";
 import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const posts = getBlogPosts();
+  const posts = await getPosts();
   const recent = posts
     .sort(
       (a, b) =>
@@ -26,9 +26,10 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default function BlogPosts() {
-  const allTags = getTags();
-  const allBlogs = getBlogPosts();
+export default async function BlogPosts() {
+  const allTags = await getTags();
+  const allBlogs = await getPosts();
+  const recentPosts = (await getPosts()).slice(0, 10);
 
   return (
     <section>
@@ -44,14 +45,12 @@ export default function BlogPosts() {
             name: "Blog",
             description: `Articles and tutorials by ${metaData.name}.`,
             url: metaData.baseUrl,
-            blogPost: getBlogPosts()
-              .slice(0, 10)
-              .map((post) => ({
-                "@type": "BlogPosting",
-                headline: post.metadata.title,
-                datePublished: post.metadata.publishedAt,
-                url: `${metaData.baseUrl}/blog/${post.slug}`,
-              })),
+            blogPost: recentPosts.map((post) => ({
+              "@type": "BlogPosting",
+              headline: post.metadata.title,
+              datePublished: post.metadata.publishedAt,
+              url: `${metaData.baseUrl}/blog/${post.slug}`,
+            })),
           }),
         }}
       />

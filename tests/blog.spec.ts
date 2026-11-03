@@ -1,7 +1,7 @@
 import { test as base, expect } from "@playwright/test";
-import { getBlogPosts } from "../app/lib/posts";
+import { getPosts } from "../app/lib/blog";
 
-type Blog = ReturnType<typeof getBlogPosts>[number];
+type Blog = Awaited<ReturnType<typeof getPosts>>[number];
 
 // 1. Extend the base test with a 'blog' fixture
 interface BlogFixtures {
@@ -12,7 +12,7 @@ const test = base.extend<BlogFixtures>({
   blog: [null as unknown as Blog, { option: true }],
 });
 
-const blogs = getBlogPosts();
+const blogs = await getPosts();
 
 // 2. Use an iterator (forEach) to define the tests
 test.describe(`Blog Posts Integration`, () => {

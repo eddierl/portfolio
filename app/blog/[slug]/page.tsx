@@ -1,14 +1,14 @@
 import { CustomMDX } from "app/components/mdx";
 import { TagBadge } from "app/components/tag-badge";
 import { metaData } from "app/lib/config";
-import { getBlogPosts } from "app/lib/posts";
+import { getPosts } from "app/lib/blog";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { FiClock } from "react-icons/fi";
 import { calculateReadingTime, formatDate } from "@/app/lib/date-utils";
 
 export async function generateStaticParams() {
-  const posts = getBlogPosts();
+  const posts = await getPosts();
 
   return posts.map((post) => ({
     slug: post.slug,
@@ -21,7 +21,8 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata | undefined> {
   const { slug } = await params;
-  const post = getBlogPosts().find((post) => post.slug === slug);
+  const posts = await getPosts();
+  const post = posts.find((p) => p.slug === slug);
   if (!post) {
     return;
   }
@@ -70,7 +71,8 @@ export default async function Blog({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const post = getBlogPosts().find((post) => post.slug === slug);
+  const posts = await getPosts();
+  const post = posts.find((p) => p.slug === slug);
 
   if (!post) {
     notFound();

@@ -1,12 +1,12 @@
 import type { MetadataRoute } from "next";
 import { CV_FILE_NAME } from "@/lib/constants";
 import { metaData } from "./lib/config";
-import { getBlogPosts } from "./lib/posts";
+import { getPosts } from "./lib/blog";
 
 const BaseUrl = metaData.baseUrl;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const blogs = getBlogPosts().map((post) => ({
+  const blogs = (await getPosts()).map((post) => ({
     url: `${BaseUrl}/blog/${post.slug}`,
     lastModified: post.metadata.publishedAt ?? new Date().toISOString(),
   })) satisfies MetadataRoute.Sitemap;
