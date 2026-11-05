@@ -12,6 +12,11 @@
     "lint:fix": "biome check --write --unsafe .",
     "test": "playwright test"
   },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx,mjs,cjs}": [
+      "biome check --staged --no-errors-on-unmatched --files-ignore-unknown=true"
+    ]
+  },
   "packageManager": "pnpm@12.8.1",
   "dependencies": {
     "@apollo/client": "^4.3.5",
@@ -58,6 +63,8 @@
     "@types/react-dom": "^19.3.0",
     "autoprefixer": "^10.6.2",
     "drizzle-kit": "^0.31.11",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.6.0",
     "mini-svg-data-uri": "^1.4.4",
     "svgo": "^4.1.0",
     "tailwindcss": "^4.3.3",
