@@ -37,7 +37,6 @@ export default async function Page() {
         </strong>
         .
       </p>
-
       {/* Featured Projects */}
       <h2 className="section-heading mt-10">Featured Projects</h2>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
