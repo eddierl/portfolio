@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { CV_FILE_NAME } from "@/lib/constants";
-import { metaData } from "./lib/config";
 import { getPosts } from "./lib/blog";
+import { metaData } from "./lib/config";
 
 const BaseUrl = metaData.baseUrl;
 

@@ -1,7 +1,11 @@
 "use server";
 
+import {
+  authenticate,
+  createSession,
+  destroySession,
+} from "app/lib/admin-auth";
 import { redirect } from "next/navigation";
-import { authenticate, createSession, destroySession } from "app/lib/admin-auth";
 
 /**
  * Server action for the login form.

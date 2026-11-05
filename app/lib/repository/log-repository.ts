@@ -1,4 +1,13 @@
-import { and, count, desc, eq, getTableColumns, max, ne, sql } from "drizzle-orm";
+import {
+  and,
+  count,
+  desc,
+  eq,
+  getTableColumns,
+  max,
+  ne,
+  sql,
+} from "drizzle-orm";
 
 import { logsTable } from "@/app/lib/drizzle/schema";
 
@@ -55,8 +64,7 @@ export interface LogAggregatedResult {
 
 // ─── Constants (business rule, not a caller concern) ──────────────────────────
 
-const EXCLUDED_CLIENT_ID =
-  "c2b6d823-85c4-4687-a255-a9908861c014";
+const EXCLUDED_CLIENT_ID = "c2b6d823-85c4-4687-a255-a9908861c014";
 
 // ─── Repository module ───────────────────────────────────────────────────────
 
@@ -69,9 +77,7 @@ const EXCLUDED_CLIENT_ID =
  * @param db — Neon HTTP client (may be undefined in dev).
  * @returns An object with `findLogs`, the sole method of this module.
  */
-export function createLogRepository(
-  db: typeof import("app/lib/drizzle").db,
-) {
+export function createLogRepository(db: typeof import("app/lib/drizzle").db) {
   return {
     /**
      * Query logs with optional aggregation.
@@ -86,8 +92,15 @@ export function createLogRepository(
      * @param params — Query parameters.
      * @returns Result wrapping the query results.
      */
-    findLogs(params: LogQueryParams): Result<LogResult[] | LogAggregatedResult[]> {
-      const { take = 10, skip = 0, clientId = null, aggregate = false } = params;
+    findLogs(
+      params: LogQueryParams,
+    ): Result<LogResult[] | LogAggregatedResult[]> {
+      const {
+        take = 10,
+        skip = 0,
+        clientId = null,
+        aggregate = false,
+      } = params;
 
       // If db is undefined (no DB URL in dev), return empty arrays silently.
       if (!db) {
@@ -142,8 +155,7 @@ export function createLogRepository(
       } catch (error) {
         return {
           ok: false,
-          error:
-            error instanceof Error ? error : new Error(String(error)),
+          error: error instanceof Error ? error : new Error(String(error)),
         };
       }
     },

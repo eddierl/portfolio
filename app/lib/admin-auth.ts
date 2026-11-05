@@ -1,8 +1,8 @@
 "use server";
 
-import { cookies } from "next/headers";
 import type { Token } from "app/lib/jwt";
 import { generateTokens, verify } from "app/lib/jwt";
+import { cookies } from "next/headers";
 import { ACCESS_TOKEN_COOKIE_NAME } from "@/app/constants";
 
 // ─── AuthError (exported for consumers to pattern-match) ─────────────────────
@@ -38,9 +38,7 @@ function getAdminPassword(): string {
  *
  * Returns Result<Token> — no side effects (no redirect, no cookie manipulation).
  */
-export async function authenticate(
-  password: string,
-): Promise<Result<Token>> {
+export async function authenticate(password: string): Promise<Result<Token>> {
   if (password !== ADMIN_PASSWORD) {
     return {
       ok: false,

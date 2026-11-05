@@ -1,7 +1,7 @@
 import { CustomMDX } from "app/components/mdx";
 import { TagBadge } from "app/components/tag-badge";
-import { metaData } from "app/lib/config";
 import { getPosts } from "app/lib/blog";
+import { metaData } from "app/lib/config";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { FiClock } from "react-icons/fi";
