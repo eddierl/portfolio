@@ -1,7 +1,7 @@
-const { optimize } = require("svgo");
-const svgToMiniDataURI = require("mini-svg-data-uri");
+import { optimize } from "svgo";
+import svgToMiniDataURI from "mini-svg-data-uri";
 
-module.exports = function (content: string) {
+export default function (content: string) {
   (this as { cacheable?: () => void }).cacheable?.();
 
   const optimized = optimize(content);
