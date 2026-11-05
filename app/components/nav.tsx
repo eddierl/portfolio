@@ -1,5 +1,5 @@
-import { typedEntries } from "app/lib/types";
 import { verifyToken } from "app/lib/admin-auth";
+import { typedEntries } from "app/lib/types";
 import Link from "next/link";
 import { CV_FILE_NAME } from "@/lib/constants";
 

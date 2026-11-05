@@ -1,12 +1,11 @@
 import { describe, expect, it, vi } from "vitest";
 
-import type { LogAggregatedResult, LogQueryParams, LogResult } from "./log-repository";
+import type { LogAggregatedResult, LogResult } from "./log-repository";
 import { createLogRepository } from "./log-repository";
 
 // ─── Mock data ───────────────────────────────────────────────────────────────
 
-const EXCLUDED_CLIENT_ID =
-  "c2b6d823-85c4-4687-a255-a9908861c014";
+const EXCLUDED_CLIENT_ID = "c2b6d823-85c4-4687-a255-a9908861c014";
 
 const mockLogs = [
   {
@@ -97,8 +96,8 @@ describe("createLogRepository", () => {
     });
 
     it("returns normal logs excluding the hardcoded clientId and null geo", () => {
-      const validLogs = mockLogs.filter(l =>
-        l.clientId !== EXCLUDED_CLIENT_ID && l.geo !== null
+      const validLogs = mockLogs.filter(
+        (l) => l.clientId !== EXCLUDED_CLIENT_ID && l.geo !== null,
       );
       const mockDb = createMockDb(validLogs);
 
@@ -108,14 +107,15 @@ describe("createLogRepository", () => {
       expect(result.ok).toBe(true);
       const values = (result as { ok: true; value: LogResult[] }).value;
       expect(values).toHaveLength(3); // excluded clientId + null geo filtered out
-      expect(values.map(v => v.clientId)).not.toContain(EXCLUDED_CLIENT_ID);
+      expect(values.map((v) => v.clientId)).not.toContain(EXCLUDED_CLIENT_ID);
     });
 
     it("filters by clientId when provided", () => {
-      const validLogs = mockLogs.filter(l =>
-        l.clientId !== EXCLUDED_CLIENT_ID &&
-        l.geo !== null &&
-        l.clientId === "abc-123"
+      const validLogs = mockLogs.filter(
+        (l) =>
+          l.clientId !== EXCLUDED_CLIENT_ID &&
+          l.geo !== null &&
+          l.clientId === "abc-123",
       );
       const mockDb = createMockDb(validLogs);
 
@@ -125,17 +125,18 @@ describe("createLogRepository", () => {
       expect(result.ok).toBe(true);
       const values = (result as { ok: true; value: LogResult[] }).value;
       expect(values).toHaveLength(2);
-      expect(values.every(v => v.clientId === "abc-123")).toBe(true);
+      expect(values.every((v) => v.clientId === "abc-123")).toBe(true);
     });
 
     it("returns aggregated results with count and referrals", () => {
-      const validLogs = mockLogs.filter(l =>
-        l.clientId !== EXCLUDED_CLIENT_ID && l.geo !== null
+      const validLogs = mockLogs.filter(
+        (l) => l.clientId !== EXCLUDED_CLIENT_ID && l.geo !== null,
       );
 
       const aggregated = validLogs.reduce<LogAggregatedResult[]>((acc, log) => {
-        const existing = acc.find(e =>
-          e.clientId === log.clientId && e.geo?.country === log.geo?.country
+        const existing = acc.find(
+          (e) =>
+            e.clientId === log.clientId && e.geo?.country === log.geo?.country,
         );
         if (existing) {
           existing.count += 1;
@@ -162,14 +163,15 @@ describe("createLogRepository", () => {
       const result = repo.findLogs({ aggregate: true });
 
       expect(result.ok).toBe(true);
-      const values = (result as { ok: true; value: LogAggregatedResult[] }).value;
+      const values = (result as { ok: true; value: LogAggregatedResult[] })
+        .value;
       expect(values).toHaveLength(2); // 2 distinct clientId+geo combos
-      expect(values.every(v => "count" in v && "referrals" in v)).toBe(true);
+      expect(values.every((v) => "count" in v && "referrals" in v)).toBe(true);
     });
 
     it("respects take and skip pagination", () => {
-      const validLogs = mockLogs.filter(l =>
-        l.clientId !== EXCLUDED_CLIENT_ID && l.geo !== null
+      const validLogs = mockLogs.filter(
+        (l) => l.clientId !== EXCLUDED_CLIENT_ID && l.geo !== null,
       );
       const mockDb = createMockDb(validLogs.slice(0, 3));
 
@@ -192,13 +194,13 @@ describe("createLogRepository", () => {
 
       expect(result.ok).toBe(false);
       expect((result as { ok: false; error: Error }).error.message).toBe(
-        "connection refused"
+        "connection refused",
       );
     });
 
     it("excludes the hardcoded clientId even when explicitly queried", () => {
-      const validLogs = mockLogs.filter(l =>
-        l.clientId !== EXCLUDED_CLIENT_ID && l.geo !== null
+      const validLogs = mockLogs.filter(
+        (l) => l.clientId !== EXCLUDED_CLIENT_ID && l.geo !== null,
       );
       const mockDb = createMockDb(validLogs);
 
@@ -208,7 +210,7 @@ describe("createLogRepository", () => {
       expect(result.ok).toBe(true);
       const values = (result as { ok: true; value: LogResult[] }).value;
       expect(values).toHaveLength(3);
-      expect(values.every(v => v.clientId !== EXCLUDED_CLIENT_ID)).toBe(true);
+      expect(values.every((v) => v.clientId !== EXCLUDED_CLIENT_ID)).toBe(true);
     });
 
     it("returns empty array when all results are filtered (only excluded + null geo)", () => {

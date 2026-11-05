@@ -1,8 +1,8 @@
 import { BlogFilter } from "app/components/blog-filter";
 import { BlogPostCard } from "app/components/blog-post-card";
 import { UpdateLastSeen } from "app/components/update-last-seen";
-import { metaData } from "app/lib/config";
 import { getPosts, getTags } from "app/lib/blog";
+import { metaData } from "app/lib/config";
 import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
