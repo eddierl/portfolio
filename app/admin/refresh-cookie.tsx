@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useTransition } from "react";
 import { refreshSession } from "app/lib/admin-auth";
+import { useEffect, useTransition } from "react";
 
 export default function RefreshCookie() {
   const [, startTransition] = useTransition();

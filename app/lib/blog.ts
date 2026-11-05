@@ -1,9 +1,8 @@
-import { readFileSync, readdirSync } from "node:fs";
-import { join, extname, basename } from "node:path";
+import { readdirSync, readFileSync } from "node:fs";
+import { basename, extname, join } from "node:path";
 import { negate } from "es-toolkit";
-
-import { redis } from "./redis";
 import type { BlogPost, Metadata } from "./post-types";
+import { redis } from "./redis";
 
 // --- Internal helpers (same as posts.ts) ---
 
@@ -89,7 +88,9 @@ export async function getPosts(): Promise<BlogPost[]> {
     const posts = getPostsFromDisk();
 
     // Fire-and-forget cache write; failure just means next request re-reads.
-    await redis.set("blog:posts", posts, { ex: CACHE_TTL_SECONDS }).catch(() => {});
+    await redis
+      .set("blog:posts", posts, { ex: CACHE_TTL_SECONDS })
+      .catch(() => {});
 
     return posts;
   } catch {
@@ -107,7 +108,9 @@ export async function getTags(): Promise<string[]> {
     const allTags = posts.flatMap((post) => post.tags);
     const tags = [...new Set(allTags)].sort();
 
-    await redis.set("blog:tags", tags, { ex: CACHE_TTL_SECONDS }).catch(() => {});
+    await redis
+      .set("blog:tags", tags, { ex: CACHE_TTL_SECONDS })
+      .catch(() => {});
 
     return tags;
   } catch {

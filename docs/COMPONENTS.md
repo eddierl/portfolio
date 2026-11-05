@@ -105,5 +105,5 @@ publishedAt: 2024-01-15
 isDraft: false
 summary: Brief description
 tags: tag1, tag2
-image: /path/to/image.png  # optional
+image: /path/to/image.png # optional
 ```

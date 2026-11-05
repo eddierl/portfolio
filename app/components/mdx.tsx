@@ -142,6 +142,7 @@ function slugify(str: string) {
 }
 
 function createHeading(level: number) {
+  // biome-ignore lint/correctness/noComponentHookFactories: MDX heading factory pattern
   const Heading = ({ children }: PropsWithChildren<Record<string, never>>) => {
     const slug = slugify(children as string);
     return React.createElement(

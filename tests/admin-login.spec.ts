@@ -6,10 +6,7 @@ test("admin login and view records", async ({ page }) => {
   await page.goto("/admin");
 
   // Fill password (from env, set by test .env file)
-  await page.fill(
-    'input[name="password"]',
-    process.env.ADMIN_PASSWORD!,
-  );
+  await page.fill('input[name="password"]', process.env.ADMIN_PASSWORD!);
 
   // Submit form
   await page.click('button[type="submit"]');

@@ -67,13 +67,11 @@ Key features include MDX support, light/dark mode toggle, dynamic OG image gener
 ## Examples of Common Patterns
 
 - **Adding a New Component**:
-
   1. Create the component in `components/`.
   2. Use Tailwind CSS for styling.
   3. Export the component and import it where needed.
 
 - **Adding a Blog Post**:
-
   1. Write the post in MDX format and save it in `content/`.
   2. Ensure the frontmatter includes `title`, `date`, and `description`.
 

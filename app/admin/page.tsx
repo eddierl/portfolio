@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 import { Login } from "app/components/Login/login";
-import createApolloClient from "app/lib/apollo-client";
 import { verifyToken } from "app/lib/admin-auth";
+import createApolloClient from "app/lib/apollo-client";
 import Link from "next/link";
 import AdminTable from "../components/AdminTable";
 import { login, logout } from "./actions";

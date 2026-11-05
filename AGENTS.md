@@ -28,6 +28,13 @@ This is a Next.js application built with React Server Components, Tailwind CSS, 
 
 - **Run all tests:** `pnpm test`
 
+## Repository Guardrails
+
+- **Pre-commit hooks:** Husky + lint-staged automatically format and lint staged files before each commit
+- **CI pipeline:** GitHub Actions runs `lint-build` (lint + build) on all triggers; `test` only on main pushes
+- **Branch protection:** No lint or build errors can reach `main` — CI blocks merges
+- **Local development:** Run `pnpm lint` and `pnpm build` locally before pushing
+
 ## Key Directories
 
 - `app/`: Contains the App Router routes and page components.
