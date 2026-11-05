@@ -37,19 +37,6 @@ export default async function Page() {
         </strong>
         .
       </p>
-      {/* Featured Projects */}
-      <h2 className="section-heading mt-10">Featured Projects</h2>
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        <Link href="/projects" className="card block">
-          <div className="p-4">
-            <h3 className="font-medium text-lg">View All Projects →</h3>
-            <p className="mt-1 text-sm text-dim">
-              Tic-Tac-Toe · Portfolio · DocFlow
-            </p>
-          </div>
-        </Link>
-      </div>
-
       {/* Writing */}
       {technicalPosts.length > 0 && (
         <>

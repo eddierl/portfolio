@@ -20,12 +20,12 @@ export function ProjectCard({
   return (
     <div className="card overflow-hidden">
       {imageUrl && (
-        <div className="relative h-48 w-full">
+        <div className="relative flex h-48 w-full items-center justify-center bg-panel">
           <Image
             src={imageUrl}
             alt={`${title} screenshot`}
             fill
-            className="object-cover"
+            className="object-contain p-4"
             sizes="(max-width: 768px) 100vw, 33vw"
           />
         </div>
