@@ -1,8 +1,11 @@
-const { optimize } = require("svgo");
-const svgToMiniDataURI = require("mini-svg-data-uri");
+import svgToMiniDataURI from "mini-svg-data-uri";
+import { optimize } from "svgo";
 
-module.exports = function (content: string) {
-  (this as { cacheable?: () => void }).cacheable?.();
+export default function loader(
+  this: { cacheable?: () => void },
+  content: string,
+) {
+  this.cacheable?.();
 
   const optimized = optimize(content);
   const src = svgToMiniDataURI(optimized.data);
@@ -16,4 +19,4 @@ module.exports = function (content: string) {
   };
 
   return `export default ${JSON.stringify(result)};`;
-};
+}
