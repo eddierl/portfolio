@@ -1,5 +1,5 @@
-import { optimize } from "svgo";
 import svgToMiniDataURI from "mini-svg-data-uri";
+import { optimize } from "svgo";
 
 export default function (content: string) {
   (this as { cacheable?: () => void }).cacheable?.();
