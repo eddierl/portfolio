@@ -10,6 +10,23 @@ type Poem = {
 };
 
 export async function getLatestPoem(): Promise<Poem | null> {
+  if (!redis) {
+    const result = await db
+      ?.select()
+      .from(poemsTable)
+      .orderBy(desc(poemsTable.generatedAt))
+      .limit(1);
+
+    const poem = result ?? [];
+    if (poem.length === 0) return null;
+
+    return {
+      id: poem[0]?.id,
+      content: poem[0]?.content,
+      generatedAt: poem[0]?.generatedAt,
+    };
+  }
+
   try {
     const cachedResult = (await redis.get("poem")) satisfies Poem | null;
 
@@ -30,8 +47,6 @@ export async function getLatestPoem(): Promise<Poem | null> {
       generatedAt: poem[0]?.generatedAt,
     };
 
-    // Cache for 24 hours; fire-and-forget since a failed write
-    // only means the next request re-reads from the DB.
     await redis.set("poem", data, { ex: 60 * 60 * 24 }).catch(() => {});
 
     return data;

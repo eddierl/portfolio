@@ -1,71 +1,87 @@
-import { Poem } from "app/components/poem";
 import { UpdateLastSeen } from "app/components/update-last-seen";
-import { calculateReadingTime, formatDate } from "app/lib/date-utils";
-import dayjs from "dayjs";
+import { socialLinks } from "app/lib/config";
+import { formatDate } from "app/lib/date-utils";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { FiClock } from "react-icons/fi";
-import { getPosts } from "@/app/lib/blog";
-import { metaData } from "./lib/config";
+import { getPostsMetadata } from "@/app/lib/blog";
 
 export const metadata: Metadata = {
-  alternates: { canonical: metaData.baseUrl },
+  alternates: { canonical: "https://www.erlich.dev" },
 };
 
 export default async function Page() {
-  const allBlogs = (await getPosts())
-    .sort((a, b) => {
-      if (new Date(a.metadata.publishedAt) > new Date(b.metadata.publishedAt)) {
-        return -1;
-      }
-      return 1;
-    })
+  const technicalPosts = (await getPostsMetadata())
+    .sort(
+      (a, b) =>
+        new Date(b.metadata.publishedAt).getTime() -
+        new Date(a.metadata.publishedAt).getTime(),
+    )
     .slice(0, 2);
 
   return (
     <section className="hero">
-      <h1 className="mb-6">
+      {/* Hero */}
+      <h1 className="mb-3">
         Hi, I&apos;m Eddie!{" "}
         <span className="inline-block animate-wave">👋</span>
       </h1>
-      <p className="lede mt-3">
-        Senior software engineer with 10+ years of experience, transitioning
-        into AI-powered application development. I care about{" "}
+      <p className="mb-1 text-lg text-dim">
+        Senior Frontend Engineer · 10+ years
+      </p>
+      <p className="lede">
+        I build scalable web &amp; mobile applications with React, TypeScript,
+        Next.js, and clean functional programming. I care about{" "}
         <strong className="text-accent whitespace-nowrap">
           things that actually work
         </strong>
         .
       </p>
-      <Poem className="mt-4 mb-10" />
 
-      <script
-        type="application/ld+json"
-        suppressHydrationWarning
-        // biome-ignore lint/security/noDangerouslySetInnerHtml: I guess this is need for application/ld+json
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "WebSite",
-            name: metaData.name,
-            url: metaData.baseUrl,
-            description: metaData.description,
-            potentialAction: {
-              "@type": "SearchAction",
-              target: `${metaData.baseUrl}/blog?query={search_term}`,
-              "query-input": "required name=search_term",
-            },
-          }),
-        }}
-      />
+      <div className="mt-4 flex gap-4">
+        <a
+          href={socialLinks.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-sm text-accent underline"
+        >
+          GitHub
+        </a>
+        <a
+          href={socialLinks.linkedin}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-sm text-accent underline"
+        >
+          LinkedIn
+        </a>
+        <a href={socialLinks.email} className="text-sm text-accent underline">
+          Email
+        </a>
+      </div>
 
-      {allBlogs.length > 0 && (
+      {/* Featured Projects */}
+      <h2 className="section-heading mt-10">Featured Projects</h2>
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <Link href="/projects" className="card block">
+          <div className="p-4">
+            <h3 className="font-medium text-lg">View All Projects →</h3>
+            <p className="mt-1 text-sm text-dim">
+              Tic-Tac-Toe · Portfolio · DocFlow
+            </p>
+          </div>
+        </Link>
+      </div>
+
+      {/* Writing */}
+      {technicalPosts.length > 0 && (
         <>
           <UpdateLastSeen />
-          <h2 className="section-heading mt-10">Recent Posts</h2>
+          <h2 className="section-heading mt-10">Writing</h2>
           <div className="space-y-4">
-            {allBlogs.map((post) => {
-              const postDate = dayjs(post.metadata.publishedAt);
-              const isNew = postDate.isAfter(dayjs().subtract(1, "week"));
+            {technicalPosts.map((post) => {
+              const postDate = new Date(post.metadata.publishedAt);
+              const isNew =
+                postDate > new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
 
               return (
                 <Link
@@ -73,23 +89,18 @@ export default async function Page() {
                   href={`/blog/${post.slug}`}
                   className="card block"
                 >
-                  <div className="flex flex-col space-y-2 sm:flex-row sm:items-start sm:justify-between sm:space-x-4 sm:space-y-0">
+                  <div className="flex flex-col space-y-2">
                     <div className="flex flex-col space-y-1">
                       <h3 className="font-medium text-text text-lg">
                         {post.metadata.title}
                       </h3>
                       <div className="flex items-center gap-2">
                         <span className="blog-meta">
-                          <FiClock className="size-3.5" aria-hidden="true" />
-                          {calculateReadingTime(post.content)} min read
+                          {formatDate(post.metadata.publishedAt, false)}
                         </span>
                         {isNew && <span className="badge-new">New</span>}
                       </div>
                     </div>
-
-                    <p className="blog-meta whitespace-nowrap tabular-nums">
-                      {formatDate(post.metadata.publishedAt, false)}
-                    </p>
                   </div>
                 </Link>
               );

@@ -8,7 +8,8 @@ import { ThemeSwitch } from "./theme-switch";
 
 const navItems = {
   "/": { name: "Home" },
-  "/blog": { name: "Blog" },
+  "/projects": { name: "Projects" },
+  "/blog": { name: "Writing" },
   "/skills": { name: "Skills" },
   // "/photos": { name: "Photos" },
   [CV_FILE_NAME as "/blog/fake-post-just-to-make-a-link-to-my-cv"]: {

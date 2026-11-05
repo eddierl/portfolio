@@ -138,6 +138,14 @@ html {
   z-index: 1;
 }
 
+.content-wide {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  position: relative;
+  z-index: 1;
+}
+
 /* ── Eyebrow (small uppercase accent label) ── */
 .eyebrow {
   letter-spacing: 0.25em;

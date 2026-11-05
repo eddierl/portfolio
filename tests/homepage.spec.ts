@@ -1,18 +1,13 @@
 import { expect, test } from "@playwright/test";
-import type { BlogPost } from "@/app/lib/post-types";
 import { getPosts } from "../app/lib/blog";
-
-function getTitles(posts: BlogPost[]): string[] {
-  return posts.map((p) => p.metadata.title);
-}
 
 const allPosts = await getPosts();
 
-test.describe("Homepage: Recent Posts", () => {
-  test("shows the 2 most recent posts, sorted by date descending", async ({
+test.describe("Homepage: Writing", () => {
+  test("shows the 2 most recent technical posts, sorted by date descending", async ({
     page,
   }) => {
-    // The expected 2 most recent posts (sorted by publishedAt desc)
+    // The expected 2 most recent technical posts (sorted by publishedAt desc)
     const expectedPosts = [...allPosts]
       .sort(
         (a, b) =>
@@ -24,10 +19,8 @@ test.describe("Homepage: Recent Posts", () => {
 
     await page.goto("/");
 
-    // Verify the "Recent Posts" section exists
-    await expect(
-      page.getByRole("heading", { name: "Recent Posts" }),
-    ).toBeVisible();
+    // Verify the "Writing" section exists
+    await expect(page.getByRole("heading", { name: "Writing" })).toBeVisible();
 
     // Verify both expected posts are rendered
     for (const post of expectedPosts) {
@@ -38,9 +31,36 @@ test.describe("Homepage: Recent Posts", () => {
     }
 
     // Verify the posts are ordered newest first
-    const postHeadings = page.locator("section.hero h3.font-medium");
-    const postTitles = await postHeadings.allTextContents();
+    const postLinks = page.locator('a[href^="/blog/"]');
+    const linkCount = await postLinks.count();
+    expect(linkCount).toBe(expectedPosts.length);
+  });
 
-    expect(postTitles).toEqual(getTitles(expectedPosts));
+  test("shows Featured Projects section linking to /projects", async ({
+    page,
+  }) => {
+    await page.goto("/");
+
+    // Verify the "Featured Projects" section exists
+    await expect(
+      page.getByRole("heading", { name: "Featured Projects" }),
+    ).toBeVisible();
+
+    // Verify link to /projects exists
+    await expect(
+      page.getByRole("link", { name: "View All Projects →" }),
+    ).toBeVisible();
+  });
+
+  test("shows hero section with name and social links", async ({ page }) => {
+    await page.goto("/");
+
+    // Verify name is shown
+    await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+
+    // Verify social links exist (use getByText to avoid navbar collision)
+    await expect(page.getByText("GitHub")).toBeVisible();
+    await expect(page.getByText("LinkedIn")).toBeVisible();
+    await expect(page.getByText("Email")).toBeVisible();
   });
 });
