@@ -2,6 +2,7 @@ import { UpdateLastSeen } from "app/components/update-last-seen";
 import { socialLinks } from "app/lib/config";
 import { formatDate } from "app/lib/date-utils";
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { getPostsMetadata } from "@/app/lib/blog";
 
@@ -36,28 +37,6 @@ export default async function Page() {
         </strong>
         .
       </p>
-
-      <div className="mt-4 flex gap-4">
-        <a
-          href={socialLinks.github}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-sm text-accent underline"
-        >
-          GitHub
-        </a>
-        <a
-          href={socialLinks.linkedin}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-sm text-accent underline"
-        >
-          LinkedIn
-        </a>
-        <a href={socialLinks.email} className="text-sm text-accent underline">
-          Email
-        </a>
-      </div>
 
       {/* Featured Projects */}
       <h2 className="section-heading mt-10">Featured Projects</h2>
