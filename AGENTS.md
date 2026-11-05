@@ -36,6 +36,13 @@ This is a Next.js application built with React Server Components, Tailwind CSS, 
 - `public/`: Static assets.
 - `styles/`: Global styles or Tailwind CSS configuration.
 
+## Repository Guardrails
+
+- **Pre-commit:** Husky + lint-staged runs `biome check` on staged files before every commit
+- **CI:** GitHub Actions (`ci.yml`) runs `pnpm lint` + `pnpm build` on every PR/merge, `pnpm test` on `main` pushes
+- **Scripts:** `pnpm lint` (Biome), `pnpm build` (Next.js type-check + static build), `pnpm test` (Playwright)
+- Agents must run `pnpm build` and `pnpm test` after changes to verify nothing is broken
+
 ## Common Workflows
 
 - **Creating a new page:** Create a new folder within `app/` and add a `page.tsx` file.
