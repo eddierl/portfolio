@@ -16,4 +16,4 @@ export default function (content: string) {
   };
 
   return `export default ${JSON.stringify(result)};`;
-};
+}
