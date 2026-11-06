@@ -1,4 +1,5 @@
 import { CustomMDX } from "app/components/mdx";
+import { NextPostLink } from "app/components/next-post-link";
 import { TagBadge } from "app/components/tag-badge";
 import { getPosts } from "app/lib/blog";
 import { metaData } from "app/lib/config";
@@ -104,7 +105,7 @@ export default async function Blog({
           }),
         }}
       />
-      <div className="card">
+      <div className="card md:max-w-3xl">
         <h1 className="title mb-3 font-medium text-2xl">
           {post.metadata.title}
         </h1>
@@ -130,6 +131,7 @@ export default async function Blog({
         <article className="prose prose-quoteless prose-neutral dark:prose-invert">
           <CustomMDX source={post.content} />
         </article>
+        <NextPostLink currentSlug={post.slug} />
       </div>
     </section>
   );
