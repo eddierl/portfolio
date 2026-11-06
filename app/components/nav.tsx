@@ -30,7 +30,7 @@ export async function Navbar() {
             {metaData.title}
           </Link>
         </div>
-        <div className="mt-6 flex flex-row items-center gap-4 md:mt-0 md:ml-auto">
+        <div className="mt-6 flex flex-wrap flex-row  items-center gap-4 md:mt-0 md:ml-auto">
           {authed ? (
             <Link
               href="/admin"
