@@ -1,8 +1,6 @@
 import { UpdateLastSeen } from "app/components/update-last-seen";
-import { socialLinks } from "app/lib/config";
 import { formatDate } from "app/lib/date-utils";
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { getPostsMetadata } from "@/app/lib/blog";
 
