@@ -69,10 +69,13 @@ function getMDXData(dir: string): BlogPost[] {
 const isDraft = ({ metadata }: { metadata: Metadata }) => metadata.isDraft;
 const isPublished = ({ metadata }: { metadata: Metadata }) =>
   new Date(metadata.publishedAt) <= new Date();
+const isTechnical = ({ metadata }: { metadata: Metadata }) =>
+  metadata.isTechnical ?? true; // default to true if not specified
 
 function getPostsFromDisk(): BlogPost[] {
   return getMDXData(join(process.cwd(), "content"))
     .filter(negate(isDraft))
+    .filter(isTechnical)
     .filter(isPublished);
 }
 
@@ -81,65 +84,107 @@ function getPostsFromDisk(): BlogPost[] {
 const CACHE_TTL_SECONDS = 60 * 60 * 24; // 24 hours
 
 export async function getPosts(): Promise<BlogPost[]> {
+  const posts = getPostsFromDisk();
+
+  if (!redis) return posts;
+
   try {
     const cached = await redis.get<BlogPost[]>("blog:posts");
     if (cached) return cached;
 
-    const posts = getPostsFromDisk();
-
-    // Fire-and-forget cache write; failure just means next request re-reads.
     await redis
       .set("blog:posts", posts, { ex: CACHE_TTL_SECONDS })
       .catch(() => {});
-
-    return posts;
   } catch {
-    // Redis error → fall back to disk
-    return getPostsFromDisk();
+    // Redis error → fall back to disk (already have posts)
   }
+
+  return posts;
+}
+
+// Lightweight version: only reads frontmatter, skips full content.
+// Used by layout and homepage where we only need metadata.
+function getMDXDataLightweight(dir: string): Omit<BlogPost, "content">[] {
+  const mdxFiles = getMDXFiles(dir);
+  return mdxFiles.map((file) => {
+    const rawContent = readFileSync(join(dir, file), "utf-8");
+    const { metadata } = parseFrontmatter(rawContent);
+    const slug = basename(file, extname(file));
+    const tags = parseTags(metadata.tags);
+    return { metadata, slug, tags };
+  });
+}
+
+const isDraftLight = ({ metadata }: { metadata: Metadata }) => metadata.isDraft;
+const isPublishedLight = ({ metadata }: { metadata: Metadata }) =>
+  new Date(metadata.publishedAt) <= new Date();
+const isTechnicalLight = ({ metadata }: { metadata: Metadata }) =>
+  metadata.isTechnical ?? true;
+
+export async function getPostsMetadata(): Promise<Omit<BlogPost, "content">[]> {
+  const posts = getMDXDataLightweight(join(process.cwd(), "content"))
+    .filter(negate(isDraftLight))
+    .filter(isTechnicalLight)
+    .filter(isPublishedLight);
+
+  if (!redis) return posts;
+
+  try {
+    const cached = await redis.get<Omit<BlogPost, "content">[]>(
+      "blog:posts:metadata",
+    );
+    if (cached) return cached;
+
+    await redis
+      .set("blog:posts:metadata", posts, { ex: CACHE_TTL_SECONDS })
+      .catch(() => {});
+  } catch {
+    // Redis error → fall back to disk (already have posts)
+  }
+
+  return posts;
 }
 
 export async function getTags(): Promise<string[]> {
+  const posts = await getPosts();
+  const allTags = posts.flatMap((post) => post.tags);
+  const tags = [...new Set(allTags)].sort();
+
+  if (!redis) return tags;
+
   try {
     const cached = await redis.get<string[]>("blog:tags");
     if (cached) return cached;
 
-    const posts = await getPosts();
-    const allTags = posts.flatMap((post) => post.tags);
-    const tags = [...new Set(allTags)].sort();
-
     await redis
       .set("blog:tags", tags, { ex: CACHE_TTL_SECONDS })
       .catch(() => {});
-
-    return tags;
   } catch {
-    const posts = await getPosts();
-    const allTags = posts.flatMap((post) => post.tags);
-    return [...new Set(allTags)].sort();
+    // Redis error → fall back to disk (already have tags)
   }
+
+  return tags;
 }
 
 export async function getPostsByTag(tag: string): Promise<BlogPost[]> {
+  const posts = await getPosts();
+  const byTag = posts.filter((post) =>
+    post.tags.some((t) => t.toLowerCase() === tag.toLowerCase()),
+  );
+
+  if (!redis) return byTag;
+
   try {
     const key = `blog:tag:${tag.toLowerCase()}`;
     const cached = await redis.get<BlogPost[]>(key);
     if (cached) return cached;
 
-    const posts = await getPosts();
-    const byTag = posts.filter((post) =>
-      post.tags.some((t) => t.toLowerCase() === tag.toLowerCase()),
-    );
-
     await redis.set(key, byTag, { ex: CACHE_TTL_SECONDS }).catch(() => {});
-
-    return byTag;
   } catch {
-    const posts = await getPosts();
-    return posts.filter((post) =>
-      post.tags.some((t) => t.toLowerCase() === tag.toLowerCase()),
-    );
+    // Redis error → fall back to disk (already have byTag)
   }
+
+  return byTag;
 }
 
 export async function getTagCount(tag: string): Promise<number> {

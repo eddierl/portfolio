@@ -2,7 +2,7 @@ import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Notifications } from "app/components/notifications";
-import { getPosts } from "app/lib/blog";
+import { getPostsMetadata } from "app/lib/blog";
 import dayjs from "dayjs";
 import type { Metadata } from "next";
 import { Nunito } from "next/font/google";
@@ -57,7 +57,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const allBlogs = await getPosts();
+  const allBlogs = await getPostsMetadata();
   const aWeekAgo = dayjs().subtract(1, "week");
   const isThereNewBlog = allBlogs.some((blog) =>
     dayjs(blog.metadata.publishedAt).isAfter(aWeekAgo),
@@ -98,7 +98,7 @@ export default async function RootLayout({
 
         <Providers>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            <main className="mt-2 flex w-full min-w-0 flex-auto flex-col px-6 content-max sm:px-4 md:mt-6 md:px-0">
+            <main className="mt-2 flex w-full min-w-0 flex-auto flex-col px-6 content-wide sm:px-4 md:mt-6 md:px-0">
               <Navbar />
               {children}
               <Notifications isThereNewBlog={isThereNewBlog} />

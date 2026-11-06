@@ -2,6 +2,7 @@ export type Metadata = {
   title: string;
   publishedAt: string;
   isDraft: boolean;
+  isTechnical?: boolean;
   summary: string;
   tags: string;
   image?: string;
