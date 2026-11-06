@@ -4,7 +4,7 @@ import Link from "next/link";
 import { MDXRemote, type MDXRemoteProps } from "next-mdx-remote/rsc";
 import React, { type ComponentProps, type PropsWithChildren } from "react";
 import remarkGfm from "remark-gfm";
-import { highlight } from "sugar-high";
+import { highlight, type LanguageName } from "sugar-high";
 import { getBlurBuffer, getSharpImage } from "@/app/lib/image";
 import { CaptionComponent } from "./caption";
 import { Figure } from "./figure";
@@ -79,14 +79,18 @@ function Code({
   children,
   className,
   ...props
-}: PropsWithChildren<Record<string, never>>) {
-  const codeHTML = highlight(children as string);
+}: React.ComponentProps<"code"> & { children: React.ReactNode }) {
+  const lang = className?.match(/^language-(.+)$/)?.[1] as
+    | LanguageName
+    | undefined;
+
+  const codeHTML = highlight(String(children), { lang: lang || "json" });
 
   return (
     <code
       // biome-ignore lint/security/noDangerouslySetInnerHtml: this component is for printing code on the screen
       dangerouslySetInnerHTML={{ __html: codeHTML }}
-      className={[className, "sh-theme"].join(" ")}
+      className={[className, "sh-theme"].filter(Boolean).join(" ")}
       {...props}
     />
   );
@@ -145,18 +149,18 @@ function createHeading(level: number) {
   // biome-ignore lint/correctness/noComponentHookFactories: MDX heading factory pattern
   const Heading = ({ children }: PropsWithChildren<Record<string, never>>) => {
     const slug = slugify(children as string);
-    return React.createElement(
-      `h${level}`,
-      { id: slug },
-      [
-        React.createElement("a", {
+    return React.createElement(`h${level}`, { id: slug }, [
+      children,
+      React.createElement(
+        "a",
+        {
           href: `#${slug}`,
           key: `link-${slug}`,
           className: "anchor",
-        }),
-      ],
-      children,
-    );
+        },
+        "#",
+      ),
+    ]);
   };
   Heading.displayName = `Heading${level}`;
   return Heading;

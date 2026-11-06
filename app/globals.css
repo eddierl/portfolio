@@ -360,17 +360,16 @@ html {
   @apply text-[#000000] dark:text-[#FFFFFF];
 }
 
-.prose .anchor {
-  @apply absolute invisible no-underline;
-  margin-left: -1em;
-  padding-right: 0.5em;
-  width: 80%;
-  max-width: 700px;
-  cursor: pointer;
+/* Blog posts: remove Tailwind Typography max-width so content fills the card */
+.prose.prose-quoteless {
+  max-width: none;
 }
 
-.anchor:hover {
-  @apply visible;
+/* Anchor: always visible but subtle, rendered as text (not pseudo-element) */
+.prose .anchor {
+  @apply no-underline ml-1 opacity-30 hover:opacity-100 transition-opacity;
+  cursor: pointer;
+  color: var(--color-muted);
 }
 
 .prose a {
@@ -381,19 +380,11 @@ html {
   @apply dark:decoration-neutral-400 decoration-neutral-600;
 }
 
-.prose .anchor:after {
-  @apply text-neutral-300 dark:text-neutral-700;
-  content: "#";
-}
-
-.prose *:hover > .anchor {
-  @apply visible;
-}
-
 .prose pre {
   @apply bg-[#F7F7F7] dark:bg-[#181818] rounded-lg overflow-x-auto;
 }
 
+/* Inline code: set color here (e.g. color: var(--color-accent);) to style backticks */
 .prose code {
   @apply px-1 py-0.5 rounded-lg;
 }
