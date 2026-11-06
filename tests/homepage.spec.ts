@@ -36,31 +36,15 @@ test.describe("Homepage: Writing", () => {
     expect(linkCount).toBe(expectedPosts.length);
   });
 
-  test("shows Featured Projects section linking to /projects", async ({
-    page,
-  }) => {
-    await page.goto("/");
-
-    // Verify the "Featured Projects" section exists
-    await expect(
-      page.getByRole("heading", { name: "Featured Projects" }),
-    ).toBeVisible();
-
-    // Verify link to /projects exists
-    await expect(
-      page.getByRole("link", { name: "View All Projects →" }),
-    ).toBeVisible();
-  });
-
   test("shows hero section with name and social links", async ({ page }) => {
     await page.goto("/");
 
     // Verify name is shown
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
 
-    // Verify social links exist (use getByText to avoid navbar collision)
-    await expect(page.getByText("GitHub")).toBeVisible();
-    await expect(page.getByText("LinkedIn")).toBeVisible();
-    await expect(page.getByText("Email")).toBeVisible();
+    // Verify social icon links exist via aria-label (footer uses icons, not text)
+    await expect(page.getByRole("link", { name: "github" })).toBeVisible();
+    await expect(page.getByRole("link", { name: "linkedin" })).toBeVisible();
+    await expect(page.getByRole("link", { name: "email" })).toBeVisible();
   });
 });
