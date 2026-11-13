@@ -31,7 +31,7 @@
     "dayjs": "^1.11.23",
     "dotenv": "^18.0.10",
     "drizzle-orm": "^0.45.4",
-    "es-toolkit": "^1.53.1",
+    "es-toolkit": "^1.53.2",
     "feed": "^6.0.0",
     "graphql": "^17.1.0",
     "graphql-yoga": "^6.0.1",
