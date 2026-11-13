@@ -67,7 +67,7 @@
     "lint-staged": "^17.6.0",
     "mini-svg-data-uri": "^1.4.4",
     "svgo": "^4.1.0",
-    "tailwindcss": "^4.3.4",
+    "tailwindcss": "^4.3.5",
     "type-fest": "^5.10.0",
     "typescript": "^6.0.3",
     "vitest": "^5.1.0"
