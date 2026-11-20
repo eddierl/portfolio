@@ -22,7 +22,7 @@
     "@apollo/client": "^4.3.5",
     "@neondatabase/serverless": "^1.2.0",
     "@react-pdf/renderer": "^4.9.0",
-    "@supabase/supabase-js": "^2.118.0",
+    "@supabase/supabase-js": "^2.119.0",
     "@tanstack/react-table": "^9.3.1",
     "@upstash/redis": "^1.41.0",
     "@vercel/analytics": "^2.0.1",
