@@ -19,7 +19,7 @@
   },
   "packageManager": "pnpm@12.8.1",
   "dependencies": {
-    "@apollo/client": "^4.3.5",
+    "@apollo/client": "^4.3.8",
     "@neondatabase/serverless": "^1.2.0",
     "@react-pdf/renderer": "^4.9.0",
     "@supabase/supabase-js": "^2.118.0",
