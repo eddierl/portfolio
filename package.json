@@ -64,7 +64,7 @@
     "autoprefixer": "^10.6.2",
     "drizzle-kit": "^0.31.11",
     "husky": "^9.1.7",
-    "lint-staged": "^17.6.1",
+    "lint-staged": "^17.6.2",
     "mini-svg-data-uri": "^1.4.4",
     "svgo": "^4.1.0",
     "tailwindcss": "^4.3.5",
